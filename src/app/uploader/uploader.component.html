@@ -1,0 +1,77 @@
+<div class="faq-container">
+  <div class="faq-details">
+    <mat-card class="upload-card">
+      <mat-card-header>
+        <mat-card-title>Upload Medical Network CSV File</mat-card-title>
+      </mat-card-header>
+      <form
+        [formGroup]="uploaderForm"
+        (ngSubmit)="submitForm()"
+        class="upload-form"
+      >
+        <mat-card-content>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter TPA</mat-label>
+            <input
+              matInput
+              placeholder="Enter TPA"
+              formControlName="tpaName"
+              type="text"
+              name="tpaName"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter Insurance Company</mat-label>
+            <input
+              matInput
+              placeholder="Enter Insurance Company"
+              formControlName="insuranceCompanyName"
+              type="text"
+              name="insuranceCompanyName"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Select Language</mat-label>
+            <mat-select
+              required
+              name="language"
+              formControlName="language"
+              (change)="changeSelectedLanguage($event)"
+            >
+              <mat-option [value]="'ENGLISH'">English</mat-option>
+              <mat-option [value]="'ARABIC'">Arabic</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-label>Upload CSV file</mat-label>
+          <br />
+          <input
+            type="file"
+            name="file"
+            required
+            (change)="uploadFile($event)"
+          />
+          <br />
+          <span class="green-span" *ngIf="success"
+            >File Uploaded Successfully</span
+          >
+          <br />
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            [disabled]="uploaderForm.invalid"
+            type="submit"
+            mat-raised-button
+            color="primary"
+          >
+            Save
+          </button>
+          <button type="button" mat-button (click)="uploaderForm.reset()">
+            Cancel
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+.upload-card {
+  width: 600px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.upload-form {
+  padding: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.mat-select {
+  width: 100%;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.mat-raised-button {
+  margin-right: 10px;
+}
+
+.mat-button {
+  background-color: #fff;
+  color: #1a237e;
+}
+.green-span {
+  color: green;
+}

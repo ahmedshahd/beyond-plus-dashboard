@@ -1,0 +1,87 @@
+<div class="faq-container">
+  <div class="faq-list">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Contact Us List </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let contact of contactUs">
+            <p matLine>
+              {{ contact.phoneNumber }}
+            </p>
+            <p matLine>
+              {{ contact.websiteUrl }}
+            </p>
+            <p matLine>
+              {{ contact.email }}
+            </p>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="
+                removeContactUs(contact.id); $event.stopImmediatePropagation()
+              "
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="faq-details">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Create Contact Us </mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="contactUsForm" (ngSubmit)="createContactUs()">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter Phone Number"
+              formControlName="phoneNumber"
+              type="text"
+              name="phoneNumber"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter email"
+              formControlName="email"
+              type="text"
+              name="email"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter Websit URL"
+              formControlName="websiteUrl"
+              type="text"
+              name="websiteUrl"
+              required
+            />
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            [disabled]="contactUsForm.invalid"
+            type="submit"
+            mat-button
+            color="primary"
+          >
+            Save
+          </button>
+          <button type="button" mat-button (click)="contactUsForm.reset()">
+            Cancel
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

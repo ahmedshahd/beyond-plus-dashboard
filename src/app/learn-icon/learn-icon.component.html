@@ -1,0 +1,101 @@
+<div class="faq-container">
+  <div class="faq-list">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Learn Icon List </mat-card-title>
+      </mat-card-header>
+      <div class="btns-container">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="getArabicLearnIcon()"
+        >
+          Learn Icon Arabic
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="getEnglishLearnIcon()"
+        >
+          Learn Icon English
+        </button>
+      </div>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let learnIcon of learnIcons">
+            <h3 matLine>{{ learnIcon.name }}</h3>
+            <p matLine>
+              {{ learnIcon.content }}
+            </p>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="
+                removeLearnIcon(learnIcon.id); $event.stopImmediatePropagation()
+              "
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="faq-details">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Create Learn Icon </mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="learnIconForm" (ngSubmit)="createLearnIcon()">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter name"
+              formControlName="name"
+              type="text"
+              name="name"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter content"
+              formControlName="content"
+              type="text"
+              name="content"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Select Language</mat-label>
+            <mat-select
+              required
+              name="language"
+              formControlName="language"
+              (change)="changeSelectedLanguage($event)"
+            >
+              <mat-option [value]="'ENGLISH'">English </mat-option>
+              <mat-option [value]="'ARABIC'">Arabic </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            [disabled]="learnIconForm.invalid"
+            type="submit"
+            mat-button
+            color="primary"
+          >
+            Save
+          </button>
+          <button type="button" mat-button (click)="learnIconForm.reset()">
+            Cancel
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

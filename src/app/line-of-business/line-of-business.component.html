@@ -1,0 +1,134 @@
+<div class="faq-container">
+  <div class="faq-list">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Line Of Business List </mat-card-title>
+      </mat-card-header>
+      <div class="btns-container">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="getArabicLineOfBusiness()"
+        >
+          Line Of Bisiness Arabic
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="getEnglishLineOfBusiness()"
+        >
+          Line Of Bisiness English
+        </button>
+      </div>
+      <mat-card-content *ngFor="let lineOfBusiness of lineOfBusinesses">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>{{ lineOfBusiness.name }}</mat-card-title>
+              <img mat-card-xl-image src="{{ lineOfBusiness.imageUrl }}" />
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            {{ lineOfBusiness.description }}
+          </mat-card-content>
+          <mat-card-content>
+            {{ lineOfBusiness.details }}
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="
+                removeLineOfBusiness(lineOfBusiness.id);
+                $event.stopImmediatePropagation()
+              "
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="faq-details">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Create Line Of Business </mat-card-title>
+      </mat-card-header>
+      <form
+        [formGroup]="lineOfBusinessForm"
+        (ngSubmit)="createLineOfBusiness()"
+      >
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter name"
+              formControlName="name"
+              type="text"
+              name="name"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter description"
+              formControlName="description"
+              type="text"
+              name="description"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter details"
+              formControlName="details"
+              type="text"
+              name="details"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter image URL"
+              formControlName="imageUrl"
+              type="text"
+              name="imageUrl"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Select Language</mat-label>
+            <mat-select
+              required
+              name="language"
+              formControlName="language"
+              (change)="changeSelectedLanguage($event)"
+            >
+              <mat-option [value]="'ENGLISH'">English </mat-option>
+              <mat-option [value]="'ARABIC'">Arabic </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            [disabled]="lineOfBusinessForm.invalid"
+            type="submit"
+            mat-button
+            color="primary"
+          >
+            Save
+          </button>
+          <button type="button" mat-button (click)="lineOfBusinessForm.reset()">
+            Cancel
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

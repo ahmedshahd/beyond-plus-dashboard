@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { shareReplay } from 'rxjs/operators';
-
-import { AuthService } from './shared/services/auth/auth.service';
+import { AuthService } from './services/auth-service.service';
 
 @Component({
   selector: 'app-root',
@@ -25,11 +24,9 @@ export class AppComponent {
     { path: '/contactUs', icon: 'view_list', title: 'Contact Us' },
   ];
 
-  isAuthenticated$ = this.authService.isAuthenticated$.pipe(shareReplay(1));
-
   constructor(private authService: AuthService) {}
 
-  logout() {
-    this.authService.logout();
-  }
+  // logout() {
+  //   this.authService.logout();
+  // }
 }

@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material.module';
-import { AuthService } from './shared/services/auth/auth.service';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { LearnIconComponent } from './learn-icon/learn-icon.component';
@@ -17,7 +16,9 @@ import { GraphQLModule } from './graphql.module';
 import { LabelComponent } from './label/label.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { UploaderComponent } from './uploader/uploader.component';
-
+import { AuthService } from './services/auth-service.service';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
 @NgModule({
   imports: [
     BrowserModule,
@@ -28,6 +29,7 @@ import { UploaderComponent } from './uploader/uploader.component';
     HttpClientModule,
     ReactiveFormsModule,
     GraphQLModule,
+    AngularFireModule.initializeApp(environment.FIREBASE),
   ],
   declarations: [
     AppComponent,

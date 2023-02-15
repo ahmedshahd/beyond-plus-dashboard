@@ -3,15 +3,22 @@
     <mat-card-header>
       <mat-card-title> Login </mat-card-title>
     </mat-card-header>
-    <form>
+    <form [formGroup]="loginForm" (submit)="onSubmit()">
       <mat-card-content>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Email" type="text" name="email" />
+          <input
+            matInput
+            placeholder="Email"
+            formControlName="email"
+            type="text"
+            name="email"
+          />
         </mat-form-field>
         <mat-form-field class="full-width">
           <input
             matInput
             placeholder="Password"
+            formControlName="password"
             type="password"
             name="password"
           />

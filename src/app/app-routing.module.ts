@@ -10,20 +10,53 @@ import { LearnIconComponent } from './learn-icon/learn-icon.component';
 import { LineOfBusinessComponent } from './line-of-business/line-of-business.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
+import { AuthenticationGuard } from './guards/authentication.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'faq', component: FaqComponent },
-  { path: 'label', component: LabelComponent },
-  { path: 'contactUs', component: ContactUsComponent },
-  { path: 'uploader', component: UploaderComponent },
+  { path: 'faq', component: FaqComponent, canActivate: [AuthenticationGuard] },
+  {
+    path: 'label',
+    component: LabelComponent,
+    canActivate: [AuthenticationGuard],
+  },
+  {
+    path: 'contactUs',
+    component: ContactUsComponent,
+    canActivate: [AuthenticationGuard],
+  },
+  {
+    path: 'uploader',
+    component: UploaderComponent,
+    canActivate: [AuthenticationGuard],
+  },
 
-  { path: 'learnIcon', component: LearnIconComponent },
-  { path: 'lineOfBusiness', component: LineOfBusinessComponent },
-  { path: 'termsAndConditions', component: TermsAndConditionsComponent },
-  { path: 'welcomeScreen', component: WelcomeScreenComponent },
-
-  { path: '**', redirectTo: '/uploader' },
+  {
+    path: 'learnIcon',
+    component: LearnIconComponent,
+    canActivate: [AuthenticationGuard],
+  },
+  {
+    path: 'lineOfBusiness',
+    component: LineOfBusinessComponent,
+    canActivate: [AuthenticationGuard],
+  },
+  {
+    path: 'termsAndConditions',
+    component: TermsAndConditionsComponent,
+    canActivate: [AuthenticationGuard],
+  },
+  {
+    path: 'welcomeScreen',
+    component: WelcomeScreenComponent,
+    canActivate: [AuthenticationGuard],
+  },
+  {
+    path: '',
+    component: UploaderComponent,
+    canActivate: [AuthenticationGuard],
+  },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({

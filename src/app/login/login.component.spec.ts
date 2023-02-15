@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuthService } from '../shared/services/auth/auth.service';
+import { AuthService } from '../services/auth-service.service';
 
 import { LoginComponent } from './login.component';
 
@@ -9,15 +9,14 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [LoginComponent],
       providers: [
         {
           provide: AuthService,
-          useValue: jasmine.createSpyObj('AuthService', ['login'])
-        }
-      ]
-    })
-    .compileComponents();
+          useValue: jasmine.createSpyObj('AuthService', ['login']),
+        },
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

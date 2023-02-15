@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { shareReplay } from 'rxjs/operators';
 import { AuthService } from './services/auth-service.service';
 
@@ -7,8 +7,9 @@ import { AuthService } from './services/auth-service.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Beyond Plus Admin Dashboard';
+  isUser: Boolean = false;
   links = [
     { path: '/uploader', icon: 'cloud_upload', title: 'Uploader' },
     { path: '/faq', icon: 'view_list', title: 'FAQ' },
@@ -25,8 +26,17 @@ export class AppComponent {
   ];
 
   constructor(private authService: AuthService) {}
+  logout() {
+    this.authService.SignOut();
+  }
+  ngOnInit(): void {
+    console.log('isuser', this.isUser);
 
-  // logout() {
-  //   this.authService.logout();
-  // }
+    this.authService.isAuthenticated$.subscribe((user) => {
+      if (user) {
+        return (this.isUser = true);
+      }
+      return (this.isUser = false);
+    });
+  }
 }

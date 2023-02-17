@@ -14,48 +14,53 @@ import { AuthenticationGuard } from './guards/authentication.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'faq', component: FaqComponent, canActivate: [AuthenticationGuard] },
+  {
+    path: 'faq',
+    component: FaqComponent,
+    //  canActivate: [AuthenticationGuard]
+  },
   {
     path: 'label',
     component: LabelComponent,
-    canActivate: [AuthenticationGuard],
+
+    // canActivate: [AuthenticationGuard],
   },
   {
     path: 'contactUs',
     component: ContactUsComponent,
-    canActivate: [AuthenticationGuard],
+    // canActivate: [AuthenticationGuard],
   },
   {
     path: 'uploader',
     component: UploaderComponent,
-    canActivate: [AuthenticationGuard],
+    // canActivate: [AuthenticationGuard],
   },
 
   {
     path: 'learnIcon',
     component: LearnIconComponent,
-    canActivate: [AuthenticationGuard],
+    // canActivate: [AuthenticationGuard],
   },
   {
     path: 'lineOfBusiness',
     component: LineOfBusinessComponent,
-    canActivate: [AuthenticationGuard],
+    // canActivate: [AuthenticationGuard],
   },
   {
     path: 'termsAndConditions',
     component: TermsAndConditionsComponent,
-    canActivate: [AuthenticationGuard],
+    // canActivate: [AuthenticationGuard],
   },
   {
     path: 'welcomeScreen',
     component: WelcomeScreenComponent,
-    canActivate: [AuthenticationGuard],
+    // canActivate: [AuthenticationGuard],
   },
-  {
-    path: '',
-    component: UploaderComponent,
-    canActivate: [AuthenticationGuard],
-  },
+  // {
+  //   path: '',
+  //   component: UploaderComponent,
+  //   canActivate: [AuthenticationGuard],
+  // },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 

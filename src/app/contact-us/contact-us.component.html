@@ -8,13 +8,17 @@
         <mat-list>
           <mat-list-item *ngFor="let contact of contactUs">
             <p matLine>
-              {{ contact.phoneNumber }}
+              <span> <strong>Email:</strong> </span> {{ contact.email }}
             </p>
+
             <p matLine>
+              <span> <strong> Phone Number:</strong> </span
+              >{{ contact.phoneNumber }}
+            </p>
+
+            <p matLine>
+              <span> <strong> Website URL:</strong> </span>
               {{ contact.websiteUrl }}
-            </p>
-            <p matLine>
-              {{ contact.email }}
             </p>
             <button
               mat-icon-button
@@ -40,16 +44,6 @@
           <mat-form-field class="full-width">
             <input
               matInput
-              placeholder="Enter Phone Number"
-              formControlName="phoneNumber"
-              type="text"
-              name="phoneNumber"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <input
-              matInput
               placeholder="Enter email"
               formControlName="email"
               type="text"
@@ -57,6 +51,17 @@
               required
             />
           </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter Phone Number"
+              formControlName="phoneNumber"
+              type="text"
+              name="phoneNumber"
+              required
+            />
+          </mat-form-field>
+
           <mat-form-field class="full-width">
             <input
               matInput

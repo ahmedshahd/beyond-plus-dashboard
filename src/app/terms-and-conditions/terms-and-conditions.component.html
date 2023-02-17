@@ -10,37 +10,37 @@
           color="primary"
           (click)="getArabicTermsAndConditions()"
         >
-          TermsAndConditions Arabic
+          Arabic
         </button>
         <button
           mat-raised-button
           color="accent"
           (click)="getEnglishTermsAndConditions()"
         >
-          TermsAndConditions English
+          English
         </button>
       </div>
       <mat-card-content>
-        <mat-list>
-          <mat-list-item *ngFor="let termsAndCondition of termsAndConditions">
-            <p matLine>
-              {{ termsAndCondition.text }}
-            </p>
-            <button
-              mat-icon-button
-              color="warn"
-              (click)="
-                removeTermsAndConditions(termsAndCondition.id);
-                $event.stopImmediatePropagation()
-              "
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-list-item>
-        </mat-list>
+        <div
+          class="terms-container"
+          *ngFor="let termsAndCondition of termsAndConditions"
+        >
+          <h3><strong>Text: </strong></h3>
+          <p matLine class="long-text">
+            {{ termsAndCondition.text }}
+          </p>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="removeTermsAndConditions(termsAndCondition.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
+
   <div class="faq-details">
     <mat-card>
       <mat-card-header>

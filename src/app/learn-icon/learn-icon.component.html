@@ -23,9 +23,11 @@
       <mat-card-content>
         <mat-list>
           <mat-list-item *ngFor="let learnIcon of learnIcons">
-            <h3 matLine>{{ learnIcon.name }}</h3>
+            <h3 matLine>
+              <span> <strong>Name </strong></span>{{ learnIcon.name }}
+            </h3>
             <p matLine>
-              {{ learnIcon.content }}
+              <span> <strong>Content </strong></span> {{ learnIcon.content }}
             </p>
             <button
               mat-icon-button

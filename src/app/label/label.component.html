@@ -6,17 +6,20 @@
       </mat-card-header>
       <div class="btns-container">
         <button mat-raised-button color="primary" (click)="getArabicLabel()">
-          Label Arabic
+          Arabic
         </button>
         <button mat-raised-button color="accent" (click)="getEnglishLabel()">
-          Label English
+          English
         </button>
       </div>
       <mat-card-content>
         <mat-list>
           <mat-list-item *ngFor="let label of labels">
-            <h3 matLine>{{ label.name }}</h3>
+            <h3 matLine>
+              <span><strong>Name:</strong></span> {{ label.name }}
+            </h3>
             <p matLine>
+              <span><strong>Content:</strong></span>
               {{ label.content }}
             </p>
             <button

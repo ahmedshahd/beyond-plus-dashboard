@@ -10,32 +10,28 @@
           color="primary"
           (click)="getArabicLineOfBusiness()"
         >
-          Line Of Bisiness Arabic
+          Arabic
         </button>
         <button
           mat-raised-button
           color="accent"
           (click)="getEnglishLineOfBusiness()"
         >
-          Line Of Bisiness English
+          English
         </button>
       </div>
-      <mat-card-content *ngFor="let lineOfBusiness of lineOfBusinesses">
-        <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-card-title>{{ lineOfBusiness.name }}</mat-card-title>
-              <img mat-card-xl-image src="{{ lineOfBusiness.imageUrl }}" />
-            </mat-card-title-group>
-          </mat-card-header>
-          <mat-card-content>
-            {{ lineOfBusiness.description }}
-          </mat-card-content>
-          <mat-card-content>
-            {{ lineOfBusiness.details }}
-          </mat-card-content>
 
-          <mat-card-actions>
+      <mat-card-content *ngFor="let lineOfBusiness of lineOfBusinesses">
+        <mat-card class="container">
+          <mat-card-header>
+            <mat-card-title>
+              <span><strong>Name: </strong></span>
+              {{ lineOfBusiness.name }}</mat-card-title
+            >
+          </mat-card-header>
+
+          <div class="image-delete-container">
+            <img mat-card-xl-image src="{{ lineOfBusiness.imageUrl }}" />
             <button
               mat-icon-button
               color="warn"
@@ -46,11 +42,21 @@
             >
               <mat-icon>delete</mat-icon>
             </button>
-          </mat-card-actions>
+          </div>
+
+          <mat-card-content class="margin-top-20">
+            <span><strong>Description: </strong></span
+            >{{ lineOfBusiness.description }}
+          </mat-card-content>
+          <mat-card-content>
+            <span><strong>Details: </strong></span>
+            {{ lineOfBusiness.details }}
+          </mat-card-content>
         </mat-card>
       </mat-card-content>
     </mat-card>
   </div>
+
   <div class="faq-details">
     <mat-card>
       <mat-card-header>

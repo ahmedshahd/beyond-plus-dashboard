@@ -1,18 +1,29 @@
-import { NgModule } from '@angular/core';
-import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
-import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
+import { Apollo, APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { ApolloLink, InMemoryCache } from '@apollo/client/core';
+import { setContext } from '@apollo/client/link/context';
 
-const uri = 'https://plus.beyond-solution.com/graphql'; // <-- add the URL of the GraphQL server here
-export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
+const uri = 'https://plus.beyond-solution.com/graphql';
+export function createApollo(httpLink: HttpLink) {
+  const apiKey = setContext((operation, context) => ({
+    headers: {
+      'api-key': '2ab9c3d4e5f91ab7c3d4e5f6',
+    },
+  }));
+
+  const link = ApolloLink.from([apiKey, httpLink.create({ uri })]);
+  const cache = new InMemoryCache();
+
   return {
-    link: httpLink.create({ uri }),
-    cache: new InMemoryCache(),
+    link,
+    cache,
   };
 }
 
 @NgModule({
-  exports: [ApolloModule],
+  exports: [HttpClientModule, ApolloModule],
   providers: [
     {
       provide: APOLLO_OPTIONS,

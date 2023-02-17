@@ -55,7 +55,7 @@ export class ContactUsComponent implements OnInit {
       .mutate({
         mutation: REMOVE_CONTACT_US,
         variables: {
-          removeContactUslId: id,
+          removeContactUsId: id,
         },
         refetchQueries: [
           {

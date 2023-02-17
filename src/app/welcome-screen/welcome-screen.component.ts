@@ -61,7 +61,7 @@ export class WelcomeScreenComponent implements OnInit {
       .mutate({
         mutation: REMOVE_WELCOME_SCREEN,
         variables: {
-          removewelcomeScreenId: id,
+          removeWelcomeScreenId: id,
         },
         refetchQueries: [
           {

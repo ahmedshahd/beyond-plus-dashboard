@@ -15,6 +15,7 @@ import {
 export class LabelComponent implements OnInit {
   labels: any[] = [];
   error: any;
+  refetchLanguage: string = 'ARABIC';
 
   labelForm = new FormGroup({
     language: new FormControl('Select Language', Validators.required),
@@ -37,7 +38,7 @@ export class LabelComponent implements OnInit {
           {
             query: GET_LABEL,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -64,7 +65,7 @@ export class LabelComponent implements OnInit {
           {
             query: GET_LABEL,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -91,16 +92,19 @@ export class LabelComponent implements OnInit {
   }
 
   changeSelectedLanguage(e: any) {
+    console.log(this.changeSelectedLanguage);
+
     this.selectedLanguage?.setValue(e.target.value, {
       onlySelf: true,
     });
   }
   getEnglishLabel() {
+    this.refetchLanguage = 'ENGLISH';
     this.apollo
       .watchQuery({
         query: GET_LABEL,
         variables: {
-          language: 'ENGLISH',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
@@ -109,11 +113,13 @@ export class LabelComponent implements OnInit {
       });
   }
   getArabicLabel() {
+    this.refetchLanguage = 'ARABIC';
+
     this.apollo
       .watchQuery({
         query: GET_LABEL,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {

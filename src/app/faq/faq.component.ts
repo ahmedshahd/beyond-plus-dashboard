@@ -37,7 +37,7 @@ export class FaqComponent implements OnInit {
           {
             query: GET_FAQ,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],

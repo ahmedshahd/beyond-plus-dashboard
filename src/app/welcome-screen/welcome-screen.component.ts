@@ -15,6 +15,7 @@ import {
 export class WelcomeScreenComponent implements OnInit {
   welcomeScreens: any[] = [];
   error: any;
+  refetchLanguage: string = 'ARABIC';
 
   welcomeScreenForm = new FormGroup({
     language: new FormControl('Select Language', Validators.required),
@@ -39,7 +40,7 @@ export class WelcomeScreenComponent implements OnInit {
           {
             query: GET_WELCOME_SCREEN,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -66,7 +67,7 @@ export class WelcomeScreenComponent implements OnInit {
           {
             query: GET_WELCOME_SCREEN,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -101,11 +102,13 @@ export class WelcomeScreenComponent implements OnInit {
     });
   }
   getEnglishWelcomeScreen() {
+    this.refetchLanguage = 'ENGLISH';
+
     this.apollo
       .watchQuery({
         query: GET_WELCOME_SCREEN,
         variables: {
-          language: 'ENGLISH',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
@@ -114,11 +117,13 @@ export class WelcomeScreenComponent implements OnInit {
       });
   }
   getArabicWelcomeScreen() {
+    this.refetchLanguage = 'ARABIC';
+
     this.apollo
       .watchQuery({
         query: GET_WELCOME_SCREEN,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
@@ -132,7 +137,7 @@ export class WelcomeScreenComponent implements OnInit {
       .watchQuery({
         query: GET_WELCOME_SCREEN,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {

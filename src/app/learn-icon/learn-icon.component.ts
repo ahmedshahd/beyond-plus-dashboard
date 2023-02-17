@@ -15,6 +15,7 @@ import {
 export class LearnIconComponent implements OnInit {
   learnIcons: any[] = [];
   error: any;
+  refetchLanguage: string = 'ARABIC';
 
   learnIconForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -37,7 +38,7 @@ export class LearnIconComponent implements OnInit {
           {
             query: GET_LEARN_ICON,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -64,7 +65,7 @@ export class LearnIconComponent implements OnInit {
           {
             query: GET_LEARN_ICON,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -93,11 +94,13 @@ export class LearnIconComponent implements OnInit {
     });
   }
   getEnglishLearnIcon() {
+    this.refetchLanguage = 'ENGLISH';
+
     this.apollo
       .watchQuery({
         query: GET_LEARN_ICON,
         variables: {
-          language: 'ENGLISH',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
@@ -106,11 +109,12 @@ export class LearnIconComponent implements OnInit {
       });
   }
   getArabicLearnIcon() {
+    this.refetchLanguage = 'ARABIC';
     this.apollo
       .watchQuery({
         query: GET_LEARN_ICON,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
@@ -124,7 +128,7 @@ export class LearnIconComponent implements OnInit {
       .watchQuery({
         query: GET_LEARN_ICON,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {

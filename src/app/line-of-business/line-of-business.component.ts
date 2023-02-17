@@ -15,6 +15,7 @@ import {
 export class LineOfBusinessComponent implements OnInit {
   lineOfBusinesses: any[] = [];
   error: any;
+  refetchLanguage: string = 'ARABIC';
 
   lineOfBusinessForm = new FormGroup({
     language: new FormControl('Select Language', Validators.required),
@@ -42,7 +43,7 @@ export class LineOfBusinessComponent implements OnInit {
           {
             query: GET_LINE_OF_BUSINESS,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -69,7 +70,7 @@ export class LineOfBusinessComponent implements OnInit {
           {
             query: GET_LINE_OF_BUSINESS,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -107,11 +108,13 @@ export class LineOfBusinessComponent implements OnInit {
     });
   }
   getEnglishLineOfBusiness() {
+    this.refetchLanguage = 'ENGLISH';
+
     this.apollo
       .watchQuery({
         query: GET_LINE_OF_BUSINESS,
         variables: {
-          language: 'ENGLISH',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
@@ -120,11 +123,12 @@ export class LineOfBusinessComponent implements OnInit {
       });
   }
   getArabicLineOfBusiness() {
+    this.refetchLanguage = 'ARABIC';
     this.apollo
       .watchQuery({
         query: GET_LINE_OF_BUSINESS,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
@@ -138,7 +142,7 @@ export class LineOfBusinessComponent implements OnInit {
       .watchQuery({
         query: GET_LINE_OF_BUSINESS,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {

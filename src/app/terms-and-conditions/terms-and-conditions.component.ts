@@ -15,6 +15,7 @@ import {
 export class TermsAndConditionsComponent implements OnInit {
   termsAndConditions: any[] = [];
   error: any;
+  refetchLanguage: string = 'ARABIC';
 
   termsAndConditionsForm = new FormGroup({
     language: new FormControl('Select Language', Validators.required),
@@ -35,7 +36,7 @@ export class TermsAndConditionsComponent implements OnInit {
           {
             query: GET_TERMS_AND_CONDITIONS,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -62,7 +63,7 @@ export class TermsAndConditionsComponent implements OnInit {
           {
             query: GET_TERMS_AND_CONDITIONS,
             variables: {
-              language: 'ARABIC',
+              language: this.refetchLanguage,
             },
           },
         ],
@@ -91,11 +92,13 @@ export class TermsAndConditionsComponent implements OnInit {
     });
   }
   getEnglishTermsAndConditions() {
+    this.refetchLanguage = 'ENGLISH';
+
     this.apollo
       .watchQuery({
         query: GET_TERMS_AND_CONDITIONS,
         variables: {
-          language: 'ENGLISH',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
@@ -104,11 +107,13 @@ export class TermsAndConditionsComponent implements OnInit {
       });
   }
   getArabicTermsAndConditions() {
+    this.refetchLanguage = 'ARABIC';
+
     this.apollo
       .watchQuery({
         query: GET_TERMS_AND_CONDITIONS,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
@@ -122,7 +127,7 @@ export class TermsAndConditionsComponent implements OnInit {
       .watchQuery({
         query: GET_TERMS_AND_CONDITIONS,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {

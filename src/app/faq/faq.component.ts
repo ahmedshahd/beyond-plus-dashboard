@@ -134,7 +134,7 @@ export class FaqComponent implements OnInit {
       .watchQuery({
         query: GET_FAQ,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {

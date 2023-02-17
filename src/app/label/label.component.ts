@@ -133,7 +133,7 @@ export class LabelComponent implements OnInit {
       .watchQuery({
         query: GET_LABEL,
         variables: {
-          language: 'ARABIC',
+          language: this.refetchLanguage,
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {

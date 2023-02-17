@@ -19,6 +19,7 @@ import { UploaderComponent } from './uploader/uploader.component';
 import { AuthService } from './services/auth-service.service';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -42,6 +43,7 @@ import { AngularFireModule } from '@angular/fire/compat';
     LineOfBusinessComponent,
     ContactUsComponent,
     UploaderComponent,
+    PrivacyPolicyComponent,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

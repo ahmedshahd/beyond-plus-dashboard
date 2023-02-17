@@ -19,6 +19,11 @@ export class AppComponent implements OnInit {
       icon: 'view_list',
       title: 'Terms And Conditions',
     },
+    {
+      path: '/privacyPolicy',
+      icon: 'view_list',
+      title: 'Privacy Policy',
+    },
     { path: '/learnIcon', icon: 'view_list', title: 'Learn Icon' },
     { path: '/lineOfBusiness', icon: 'view_list', title: 'Line Of Business' },
     { path: '/welcomeScreen', icon: 'view_list', title: 'Welcome Screen' },

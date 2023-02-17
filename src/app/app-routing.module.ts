@@ -1,3 +1,4 @@
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { UploaderComponent } from './uploader/uploader.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgModule } from '@angular/core';
@@ -49,6 +50,11 @@ const routes: Routes = [
   {
     path: 'termsAndConditions',
     component: TermsAndConditionsComponent,
+    // canActivate: [AuthenticationGuard],
+  },
+  {
+    path: 'privacyPolicy',
+    component: PrivacyPolicyComponent,
     // canActivate: [AuthenticationGuard],
   },
   {

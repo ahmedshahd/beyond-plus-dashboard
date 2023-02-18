@@ -11,62 +11,62 @@ import { LearnIconComponent } from './learn-icon/learn-icon.component';
 import { LineOfBusinessComponent } from './line-of-business/line-of-business.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
-import { AuthenticationGuard } from './guards/authentication.guard';
+import { AuthGuard } from './guards/authentication.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'faq',
     component: FaqComponent,
-    //  canActivate: [AuthenticationGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'label',
     component: LabelComponent,
 
-    // canActivate: [AuthenticationGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'contactUs',
     component: ContactUsComponent,
-    // canActivate: [AuthenticationGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'uploader',
     component: UploaderComponent,
-    // canActivate: [AuthenticationGuard],
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'learnIcon',
     component: LearnIconComponent,
-    // canActivate: [AuthenticationGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'lineOfBusiness',
     component: LineOfBusinessComponent,
-    // canActivate: [AuthenticationGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'termsAndConditions',
     component: TermsAndConditionsComponent,
-    // canActivate: [AuthenticationGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'privacyPolicy',
     component: PrivacyPolicyComponent,
-    // canActivate: [AuthenticationGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'welcomeScreen',
     component: WelcomeScreenComponent,
-    // canActivate: [AuthenticationGuard],
+    canActivate: [AuthGuard],
   },
-  // {
-  //   path: '',
-  //   component: UploaderComponent,
-  //   canActivate: [AuthenticationGuard],
-  // },
+  {
+    path: '',
+    component: UploaderComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 

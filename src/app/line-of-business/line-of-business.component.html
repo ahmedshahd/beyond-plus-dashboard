@@ -31,6 +31,8 @@
           </mat-card-header>
 
           <div class="image-delete-container">
+            <span><strong>Image: </strong></span>
+
             <img mat-card-xl-image src="{{ lineOfBusiness.imageUrl }}" />
             <button
               mat-icon-button
@@ -80,6 +82,16 @@
           <mat-form-field class="full-width">
             <input
               matInput
+              placeholder="Enter image URL"
+              formControlName="imageUrl"
+              type="text"
+              name="imageUrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
               placeholder="Enter description"
               formControlName="description"
               type="text"
@@ -94,16 +106,6 @@
               formControlName="details"
               type="text"
               name="details"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              placeholder="Enter image URL"
-              formControlName="imageUrl"
-              type="text"
-              name="imageUrl"
               required
             />
           </mat-form-field>

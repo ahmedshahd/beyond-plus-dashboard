@@ -24,10 +24,14 @@
       <mat-card-content *ngFor="let welcomeScreen of welcomeScreens">
         <mat-card class="container">
           <mat-card-header>
-            <mat-card-title>{{ welcomeScreen.title }}</mat-card-title>
+            <mat-card-title
+              ><span><strong>Title: </strong></span
+              >{{ welcomeScreen.title }}</mat-card-title
+            >
           </mat-card-header>
 
           <div class="image-delete-container">
+            <span><strong>Image: </strong></span>
             <img mat-card-xl-image src="{{ welcomeScreen.imageUrl }}" />
             <button
               mat-icon-button
@@ -41,9 +45,10 @@
             </button>
           </div>
 
-          <mat-card-content class="text">{{
-            welcomeScreen.text
-          }}</mat-card-content>
+          <mat-card-content class="text">
+            <span><strong>Text: </strong></span
+            >{{ welcomeScreen.text }}</mat-card-content
+          >
         </mat-card>
       </mat-card-content>
     </mat-card>
@@ -66,16 +71,6 @@
               required
             />
           </mat-form-field>
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              placeholder="Enter text"
-              formControlName="text"
-              type="text"
-              name="text"
-              required
-            />
-          </mat-form-field>
 
           <mat-form-field class="full-width">
             <input
@@ -84,6 +79,16 @@
               formControlName="imageUrl"
               type="text"
               name="imageUrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter text"
+              formControlName="text"
+              type="text"
+              name="text"
               required
             />
           </mat-form-field>

@@ -4,12 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
+import { environment } from 'src/environments/environment.prod';
 
 const uri = 'https://plus.beyond-solution.com/graphql';
 export function createApollo(httpLink: HttpLink) {
   const apiKey = setContext((operation, context) => ({
     headers: {
-      'api-key': '2ab9c3d4e5f91ab7c3d4e5f6',
+      'api-key': environment.API_KEY,
     },
   }));
 

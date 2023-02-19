@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-uploader',
@@ -59,12 +60,12 @@ export class UploaderComponent implements OnInit {
         this.uploaderForm.get('insuranceCompanyName').value
       );
     let headers = new HttpHeaders();
-    headers.append('api-key', '2ab9c3d4e5f91ab7c3d4e5f6');
+    headers.append('api-key', environment.API_KEY);
 
     this.rsponse$ = this.http.post(this.uploadUrl, formData, {
       params: params,
       headers: {
-        'api-key': '2ab9c3d4e5f91ab7c3d4e5f6',
+        'api-key': environment.API_KEY,
         accept: '*/*',
       },
     });

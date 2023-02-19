@@ -1,0 +1,37 @@
+.answer-container {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+.answers-delete-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-right: 14px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.faq-item {
+  border-bottom: 2px solid hsla(0, 0%, 96%, 0.705);
+}
+
+.faq-item:hover {
+  background-color: #f5f5f5;
+  font-weight: 500;
+  cursor: pointer;
+}
+.question-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 14px;
+  margin-top: 14px;
+
+  //   justify-content: center;
+}

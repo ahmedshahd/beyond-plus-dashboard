@@ -13,7 +13,7 @@ export class UploaderComponent implements OnInit {
   rsponse$: Observable<any>;
   success = false;
   fileName = '';
-  uploadUrl = 'https://plus.beyond-solution.com/uploader/upload';
+  uploadUrl = 'https://plus.beyond-solution.com/csv-uploader/upload';
 
   uploaderForm: FormGroup;
 
@@ -53,22 +53,42 @@ export class UploaderComponent implements OnInit {
     console.log('formData', formData);
 
     const params = new HttpParams()
-      .set('language', this.uploaderForm.get('language').value)
-      .set('tpaName', this.uploaderForm.get('tpaName').value)
-      .set(
+      .append('language', this.uploaderForm.get('language').value)
+      .append('tpaName', this.uploaderForm.get('tpaName').value)
+      .append(
         'insuranceCompanyName',
         this.uploaderForm.get('insuranceCompanyName').value
       );
+    console.log(
+      'insuranceCompanyName',
+      this.uploaderForm.get('insuranceCompanyName').value
+    );
+
+    console.log('params', params);
     let headers = new HttpHeaders();
     headers.append('api-key', environment.API_KEY);
+    console.log(this.rsponse$);
 
     this.rsponse$ = this.http.post(this.uploadUrl, formData, {
       params: params,
       headers: {
         'api-key': environment.API_KEY,
         accept: '*/*',
+        // 'Content-Type': 'multipart/form-data',
       },
     });
+
+    // this.rsponse$.subscribe(
+    //   (data) => {
+    //     console.log('Data received:', data);
+    //   },
+    //   (error) => {
+    //     console.error('Error:', error);
+    //   },
+    //   () => {
+    //     console.log('Observable completed');
+    //   }
+    // );
 
     this.rsponse$.subscribe((res) => {
       console.log(res);

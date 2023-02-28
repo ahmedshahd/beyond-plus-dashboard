@@ -20,6 +20,17 @@ import { AuthService } from './services/auth-service.service';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { InsuranceCompanyComponent } from './medical-network/insurance-company/insurance-company.component';
+import { TpaComponent } from './medical-network/tpa/tpa.component';
+import { ProviderComponent } from './medical-network/provider/provider.component';
+import { ProviderTypeComponent } from './medical-network/provider-type/provider-type.component';
+import { CityComponent } from './medical-network/city/city.component';
+import { AreaComponent } from './medical-network/area/area.component';
+import { CategoryComponent } from './medical-network/category/category.component';
+import { SpecialityComponent } from './medical-network/speciality/speciality.component';
+import { SubSpecialityComponent } from './medical-network/sub-speciality/sub-speciality.component';
+import { PrimengModule } from './primeng.module';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -29,6 +40,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
+    PrimengModule,
     GraphQLModule,
     AngularFireModule.initializeApp(environment.FIREBASE),
   ],
@@ -44,6 +56,15 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     ContactUsComponent,
     UploaderComponent,
     PrivacyPolicyComponent,
+    InsuranceCompanyComponent,
+    TpaComponent,
+    ProviderComponent,
+    ProviderTypeComponent,
+    CityComponent,
+    AreaComponent,
+    CategoryComponent,
+    SpecialityComponent,
+    SubSpecialityComponent,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

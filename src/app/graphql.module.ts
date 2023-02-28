@@ -6,7 +6,12 @@ import { ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { environment } from 'src/environments/environment.prod';
 
-const uri = 'https://plus.beyond-solution.com/graphql';
+// Production
+// const uri = 'https://plus.beyond-solution.com/graphql';
+
+// Local Machine
+const uri = 'http://localhost:8000/graphql';
+
 export function createApollo(httpLink: HttpLink) {
   const apiKey = setContext((operation, context) => ({
     headers: {

@@ -1,3 +1,4 @@
+import { TpaComponent } from './medical-network/tpa/tpa.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { UploaderComponent } from './uploader/uploader.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
@@ -60,6 +61,11 @@ const routes: Routes = [
   {
     path: 'welcomeScreen',
     component: WelcomeScreenComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tpa',
+    component: TpaComponent,
     canActivate: [AuthGuard],
   },
   {

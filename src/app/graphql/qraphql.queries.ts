@@ -10,8 +10,6 @@ const GET_FAQ = gql`
       question
       answers
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -26,8 +24,6 @@ const CREATE_FAQ = gql`
       question
       answers
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -39,8 +35,6 @@ const REMOVE_FAQ = gql`
       question
       answers
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -56,8 +50,6 @@ const GET_LABEL = gql`
       name
       content
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -72,8 +64,6 @@ const CREATE_LABEL = gql`
       name
       content
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -85,8 +75,6 @@ const REMOVE_LABEL = gql`
       name
       content
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -101,8 +89,6 @@ const GET_TERMS_AND_CONDITIONS = gql`
       id
       text
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -119,8 +105,6 @@ const CREATE_TERMS_AND_CONDITIONS = gql`
       id
       text
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -131,8 +115,6 @@ const REMOVE_TERMS_AND_CONDITIONS = gql`
       id
       text
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -148,8 +130,6 @@ const GET_LEARN_ICON = gql`
       name
       content
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -167,8 +147,6 @@ const CREATE_LEARN_ICON = gql`
       name
       content
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -180,8 +158,6 @@ const REMOVE_LEARN_ICON = gql`
       name
       content
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -198,8 +174,6 @@ const GET_WELCOME_SCREEN = gql`
       title
       imageUrl
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -218,8 +192,6 @@ const CREATE_WELCOME_SCREEN = gql`
       title
       imageUrl
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -232,8 +204,6 @@ const REMOVE_WELCOME_SCREEN = gql`
       title
       imageUrl
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -248,8 +218,6 @@ const GET_PRIVACY_POLICY = gql`
       id
       text
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -266,8 +234,6 @@ const CREATE_PRIVACY_POLICY = gql`
       id
       text
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -278,8 +244,6 @@ const REMOVE_PRIVACY_POLICY = gql`
       id
       text
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -297,8 +261,6 @@ const GET_LINE_OF_BUSINESS = gql`
       details
       imageUrl
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -318,8 +280,6 @@ const CREATE_LINE_OF_BUSINESS = gql`
       details
       imageUrl
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -333,8 +293,6 @@ const REMOVE_LINE_OF_BUSINESS = gql`
       details
       imageUrl
       language
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -350,8 +308,6 @@ const GET_CONTACT_US = gql`
       phoneNumber
       email
       websiteUrl
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -363,8 +319,6 @@ const CREATE_CONTACT_US = gql`
       phoneNumber
       email
       websiteUrl
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -376,8 +330,1258 @@ const REMOVE_CONTACT_US = gql`
       phoneNumber
       email
       websiteUrl
-      createdAt
-      updatedAt
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** TPA QUERIES AND MUTITION *********//////////////
+/////********                                     *******//////////////
+
+const GET_TPA = gql`
+  query ListAllTpas(
+    $language: LanguageEnum!
+    $page: Int
+    $search: String
+    $limit: Int
+  ) {
+    listAllTpas(
+      language: $language
+      page: $page
+      search: $search
+      limit: $limit
+    ) {
+      tpa {
+        id
+        name
+        insuranceCompanies {
+          id
+          name
+          language
+
+          tpaId
+        }
+        language
+      }
+      pagination {
+        totalItemsCount
+        pagesCount
+        page
+      }
+    }
+  }
+`;
+
+const CREATE_TPA = gql`
+  mutation Mutation(
+    $createTpaInput: CreateTpaInput!
+    $language: LanguageEnum!
+  ) {
+    createTpa(createTpaInput: $createTpaInput, language: $language) {
+      id
+      name
+      insuranceCompanies {
+        id
+        name
+        language
+
+        tpaId
+      }
+      language
+    }
+  }
+`;
+
+const UPDATE_TPA = gql`
+  mutation UpdateTpa($updateTpaInput: UpdateTpaInput!) {
+    updateTpa(updateTpaInput: $updateTpaInput) {
+      id
+      name
+      insuranceCompanies {
+        id
+        name
+        language
+
+        tpaId
+      }
+      language
+    }
+  }
+`;
+
+const REMOVE_TPA = gql`
+  mutation RemoveTpa($removeTpaId: Int!) {
+    removeTpa(id: $removeTpaId) {
+      id
+      name
+      language
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** INSURANCE COMPANY QUERIES AND MUTITION *********//////////////
+/////********                                             *******//////////////
+
+const GET_INSURANCE_COMPANY = gql`
+  query ListAllInsuranceCompaniesByTpaId(
+    $tpaId: Int!
+    $page: Int
+    $search: String
+    $limit: Int
+  ) {
+    listAllInsuranceCompaniesByTpaId(
+      tpaId: $tpaId
+      page: $page
+      search: $search
+      limit: $limit
+    ) {
+      insuranceCompany {
+        id
+        name
+        language
+
+        tpaId
+      }
+      pagination {
+        totalItemsCount
+        pagesCount
+        page
+      }
+    }
+  }
+`;
+
+const CREATE_INSURANCE_COMPANY = gql`
+  mutation CreateInsuranceCompany(
+    $createInsuranceCompanyInput: CreateInsuranceCompanyInput!
+    $language: LanguageEnum!
+  ) {
+    createInsuranceCompany(
+      createInsuranceCompanyInput: $createInsuranceCompanyInput
+      language: $language
+    ) {
+      id
+      name
+      language
+
+      tpaId
+    }
+  }
+`;
+
+const UPDATE_INSURANCE_COMPANY = gql`
+  mutation UpdateInsuranceCompany(
+    $updateInsuranceCompanyInput: UpdateInsuranceCompanyInput!
+  ) {
+    updateInsuranceCompany(
+      updateInsuranceCompanyInput: $updateInsuranceCompanyInput
+    ) {
+      id
+      name
+      language
+
+      tpaId
+    }
+  }
+`;
+
+const REMOVE_INSURANCE_COMPANY = gql`
+  mutation RemoveInsuranceCompany($removeInsuranceCompanyId: Int!) {
+    removeInsuranceCompany(id: $removeInsuranceCompanyId) {
+      id
+      name
+      language
+
+      tpaId
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** CATEGORY QUERIES AND MUTITION *********//////////////
+/////********                                          *******//////////////
+
+const GET_CATEGORY = gql`
+   query ListAllCateoriesByInsuranceCompanyId($insuranceCompanyId: Int!, $language: LanguageEnum, $search: String, $page: Int, $limit: Int) {
+  listAllCateoriesByInsuranceCompanyId(insuranceCompanyId: $insuranceCompanyId, language: $language, search: $search, page: $page, limit: $limit) {
+    category {
+      id
+      tier
+      tierRank
+      insuranceCompany {
+        id
+        name
+        language
+         
+          
+        tpaId
+      }
+      insuranceCompanyId
+      language
+       
+        
+    }
+    pagination {
+      totalItemsCount
+      pagesCount
+      page
+    }
+  }
+`;
+
+const CREATE_CATEGORY = gql`
+  mutation CreateCategory(
+    $createCategoryInput: CreateCategoryInput!
+    $language: LanguageEnum!
+  ) {
+    createCategory(
+      createCategoryInput: $createCategoryInput
+      language: $language
+    ) {
+      id
+      tier
+      tierRank
+      insuranceCompany {
+        id
+        name
+        language
+
+        tpaId
+      }
+      insuranceCompanyId
+      language
+    }
+  }
+`;
+
+const UPDATE_CATEGORY = gql`
+  mutation UpdateCategory($updateCategoryInput: UpdateCategoryInput!) {
+    updateCategory(updateCategoryInput: $updateCategoryInput) {
+      id
+      tier
+      tierRank
+      insuranceCompanyId
+      language
+    }
+  }
+`;
+
+const REMOVE_CATEGORY = gql`
+  mutation RemoveCategory($removeCategoryId: Int!) {
+    removeCategory(id: $removeCategoryId) {
+      id
+      tier
+      tierRank
+      insuranceCompany {
+        id
+        name
+        language
+
+        tpaId
+      }
+      insuranceCompanyId
+      language
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** CITY QUERIES AND MUTITION *********//////////////
+/////********                                          *******//////////////
+
+const GET_CITY = gql`
+  query ListAllCitiesByInsuranceCompanyId(
+    $insuranceCompanyId: Int!
+    $language: LanguageEnum!
+    $search: String
+    $page: Int
+    $limit: Int
+  ) {
+    listAllCitiesByInsuranceCompanyId(
+      insuranceCompanyId: $insuranceCompanyId
+      language: $language
+      search: $search
+      page: $page
+      limit: $limit
+    ) {
+      city {
+        id
+        name
+        insuranceCompanyId
+        area {
+          id
+          name
+          cityId
+          provider {
+            id
+            name
+            address
+            longitude
+            latitude
+            phoneNumber
+            email
+            isOnline
+            hasChronicMedication
+            websiteUrl
+            areaId
+            specialityId
+            subSpecialityId
+            language
+          }
+          language
+        }
+        country {
+          id
+          name
+          language
+        }
+        insuranceCompany {
+          id
+          name
+          language
+
+          tpaId
+        }
+        language
+      }
+      pagination {
+        totalItemsCount
+        pagesCount
+        page
+      }
+    }
+  }
+`;
+
+const CREATE_CITY = gql`
+  mutation CreateCity(
+    $createCityInput: CreateCityInput!
+    $language: LanguageEnum!
+  ) {
+    createCity(createCityInput: $createCityInput, language: $language) {
+      id
+      name
+      insuranceCompanyId
+      area {
+        id
+        name
+        cityId
+        city {
+          id
+          name
+          insuranceCompanyId
+          language
+        }
+        provider {
+          id
+          name
+          address
+          longitude
+          latitude
+          phoneNumber
+          email
+          isOnline
+          hasChronicMedication
+          websiteUrl
+          areaId
+          specialityId
+          subSpecialityId
+          language
+        }
+        language
+      }
+
+      insuranceCompany {
+        id
+        name
+        language
+
+        tpaId
+      }
+      language
+    }
+  }
+`;
+
+const UPDATE_CITY = gql`
+  mutation UpdateCity($updateCityInput: UpdateCityInput!) {
+    updateCity(updateCityInput: $updateCityInput) {
+      id
+      name
+      insuranceCompanyId
+      area {
+        id
+        name
+        cityId
+        city {
+          id
+          name
+          insuranceCompanyId
+          language
+        }
+        provider {
+          id
+          name
+          address
+          longitude
+          latitude
+          phoneNumber
+          email
+          isOnline
+          hasChronicMedication
+          websiteUrl
+          areaId
+          specialityId
+          subSpecialityId
+        }
+        language
+      }
+      country {
+        id
+        name
+        language
+      }
+      insuranceCompany {
+        id
+        name
+        language
+
+        tpaId
+      }
+      language
+    }
+  }
+`;
+
+const REMOVE_CITY = gql`
+  mutation RemoveCity($removeCityId: Int!) {
+    removeCity(id: $removeCityId) {
+      id
+      name
+      insuranceCompanyId
+      language
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** AREA QUERIES AND MUTITION *********//////////////
+/////********                                          *******//////////////
+
+const GET_AREA = gql`
+  query ListAllAreasByCityId(
+    $cityId: [Int!]!
+    $language: LanguageEnum!
+    $search: String
+    $page: Int
+    $limit: Int
+  ) {
+    listAllAreasByCityId(
+      cityId: $cityId
+      language: $language
+      search: $search
+      page: $page
+      limit: $limit
+    ) {
+      area {
+        id
+        name
+        cityId
+        city {
+          id
+          name
+          insuranceCompanyId
+          country {
+            id
+            name
+            language
+          }
+          insuranceCompany {
+            id
+            name
+            language
+
+            tpaId
+          }
+          language
+        }
+        provider {
+          id
+          name
+          address
+          longitude
+          latitude
+          phoneNumber
+          email
+          isOnline
+          hasChronicMedication
+          websiteUrl
+          areaId
+          specialityId
+          subSpecialityId
+          language
+        }
+        language
+      }
+      pagination {
+        totalItemsCount
+        pagesCount
+        page
+      }
+    }
+  }
+`;
+
+const CREATE_AREA = gql`
+  mutation CreateArea(
+    $createAreaInput: CreateAreaInput!
+    $language: LanguageEnum!
+  ) {
+    createArea(createAreaInput: $createAreaInput, language: $language) {
+      id
+      name
+      cityId
+      city {
+        id
+        name
+        insuranceCompanyId
+        area {
+          id
+          name
+          cityId
+          language
+        }
+        country {
+          id
+          name
+          language
+        }
+        insuranceCompany {
+          id
+          name
+          language
+
+          tpaId
+        }
+        language
+      }
+      provider {
+        id
+        name
+        address
+        longitude
+        latitude
+        phoneNumber
+        email
+        isOnline
+        hasChronicMedication
+        websiteUrl
+        areaId
+        specialityId
+        subSpecialityId
+        language
+      }
+      language
+    }
+  }
+`;
+
+const UPDATE_AREA = gql`
+  mutation UpdateArea($updateAreaInput: UpdateAreaInput!) {
+    updateArea(updateAreaInput: $updateAreaInput) {
+      id
+      name
+      cityId
+      city {
+        id
+        name
+        insuranceCompanyId
+        area {
+          id
+          name
+          cityId
+          language
+        }
+        country {
+          id
+          name
+          language
+        }
+        insuranceCompany {
+          id
+          name
+          language
+
+          tpaId
+        }
+        language
+      }
+      provider {
+        id
+        name
+        address
+        longitude
+        latitude
+        phoneNumber
+        email
+        isOnline
+        hasChronicMedication
+        websiteUrl
+        areaId
+        specialityId
+        subSpecialityId
+        language
+      }
+      language
+    }
+  }
+`;
+
+const REMOVE_AREA = gql`
+  mutation RemoveArea($removeAreaId: Int!) {
+    removeArea(id: $removeAreaId) {
+      id
+      name
+      cityId
+      city {
+        id
+        name
+        insuranceCompanyId
+        area {
+          id
+          name
+          cityId
+          language
+        }
+        country {
+          id
+          name
+          language
+        }
+        insuranceCompany {
+          id
+          name
+          language
+
+          tpaId
+        }
+        language
+      }
+      provider {
+        id
+        name
+        address
+        longitude
+        latitude
+        phoneNumber
+        email
+        isOnline
+        hasChronicMedication
+        websiteUrl
+        areaId
+        specialityId
+        subSpecialityId
+        language
+      }
+      language
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** Provider Type QUERIES AND MUTITION *********//////////////
+/////********                                          *******//////////////
+
+const GET_PROVIDER_TYPE = gql`
+  query ListAllProviderTypesByInsuranceCompanyId(
+    $insuranceCompanyId: Int!
+    $language: LanguageEnum!
+  ) {
+    listAllProviderTypesByInsuranceCompanyId(
+      insuranceCompanyId: $insuranceCompanyId
+      language: $language
+    ) {
+      providerType {
+        id
+        name
+        language
+        insuranceCompanyId
+        insuranceCompany {
+          id
+          name
+          language
+
+          tpaId
+        }
+        provider {
+          id
+          name
+          address
+          longitude
+          latitude
+          phoneNumber
+          email
+          isOnline
+          hasChronicMedication
+          websiteUrl
+          areaId
+          specialityId
+          subSpecialityId
+          language
+        }
+      }
+      pagination {
+        totalItemsCount
+        pagesCount
+        page
+      }
+    }
+  }
+`;
+
+const CREATE_PROVIDER_TYPE = gql`
+  mutation CreateProviderType(
+    $createProviderTypeInput: CreateProviderTypeInput!
+    $language: LanguageEnum!
+  ) {
+    createProviderType(
+      createProviderTypeInput: $createProviderTypeInput
+      language: $language
+    ) {
+      id
+      name
+      language
+      insuranceCompanyId
+      insuranceCompany {
+        id
+        name
+        language
+
+        tpaId
+      }
+      provider {
+        id
+        name
+        address
+        longitude
+        latitude
+        phoneNumber
+        email
+        isOnline
+        hasChronicMedication
+        websiteUrl
+        areaId
+        specialityId
+        subSpecialityId
+        language
+      }
+    }
+  }
+`;
+
+const UPDATE_PROVIDER_TYPE = gql`
+  mutation UpdateProviderType(
+    $updateProviderTypeInput: UpdateProviderTypeInput!
+  ) {
+    updateProviderType(updateProviderTypeInput: $updateProviderTypeInput) {
+      id
+      name
+      language
+      insuranceCompanyId
+      insuranceCompany {
+        id
+        name
+        language
+
+        tpaId
+      }
+      provider {
+        id
+        name
+        address
+        longitude
+        latitude
+        phoneNumber
+        email
+        isOnline
+        hasChronicMedication
+        websiteUrl
+        areaId
+        specialityId
+        subSpecialityId
+        language
+      }
+    }
+  }
+`;
+
+const REMOVE_PROVIDER_TYPE = gql`
+  mutation RemoveProviderType($removeProviderTypeId: Int!) {
+    removeProviderType(id: $removeProviderTypeId) {
+      id
+      name
+      insuranceCompanyId
+      language
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** SPEACIALITY QUERIES AND MUTITION *********//////////////
+/////********                                          *******//////////////
+
+const GET_SPEACIALITY = gql`
+  query ListAllTpas(
+    $language: LanguageEnum!
+    $page: Int
+    $search: String
+    $limit: Int
+  ) {
+    listAllTpas(
+      language: $language
+      page: $page
+      search: $search
+      limit: $limit
+    ) {
+      tpa {
+        id
+        name
+        insuranceCompanies {
+          id
+          name
+          language
+
+          tpaId
+        }
+        language
+      }
+      pagination {
+        totalItemsCount
+        pagesCount
+        page
+      }
+    }
+  }
+`;
+
+const CREATE_SPEACIALITY = gql`
+  mutation CreateSpeciality(
+    $createSpecialityInput: CreateSpecialityInput!
+    $language: LanguageEnum!
+  ) {
+    createSpeciality(
+      createSpecialityInput: $createSpecialityInput
+      language: $language
+    ) {
+      id
+      name
+      providerTypeId
+      providerType {
+        id
+        name
+        language
+        insuranceCompanyId
+        insuranceCompany {
+          id
+          name
+          language
+
+          tpaId
+        }
+        provider {
+          id
+          name
+          address
+          longitude
+          latitude
+          phoneNumber
+          email
+          isOnline
+          hasChronicMedication
+          websiteUrl
+          areaId
+          specialityId
+          subSpecialityId
+          language
+        }
+      }
+      subSpeciality {
+        id
+        name
+        language
+        specialityId
+        speciality {
+          id
+          name
+          providerTypeId
+          language
+        }
+      }
+      language
+    }
+  }
+`;
+
+const UPDATE_SPEACIALITY = gql`
+  mutation UpdateSpeciality($updateSpecialityInput: UpdateSpecialityInput!) {
+    updateSpeciality(updateSpecialityInput: $updateSpecialityInput) {
+      id
+      name
+      providerTypeId
+      providerType {
+        id
+        name
+        language
+        insuranceCompanyId
+        insuranceCompany {
+          id
+          name
+          language
+
+          tpaId
+        }
+        provider {
+          id
+          name
+          address
+          longitude
+          latitude
+          phoneNumber
+          email
+          isOnline
+          hasChronicMedication
+          websiteUrl
+          areaId
+          specialityId
+          subSpecialityId
+          language
+        }
+      }
+
+      language
+    }
+  }
+`;
+
+const REMOVE_SPEACIALITY = gql`
+  mutation RemoveSpeciality($removeSpecialityId: Int!) {
+    removeSpeciality(id: $removeSpecialityId) {
+      id
+      name
+      providerTypeId
+      language
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** SUB_SPECIALITY QUERIES AND MUTITION *********//////////////
+/////********                                          *******//////////////
+
+const GET_SUB_SPECIALITY = gql`
+  query ListAllSubSpecialityBySpecialityId(
+    $specialityId: [Int!]!
+    $language: LanguageEnum!
+    $search: String
+    $page: Int
+    $limit: Int
+  ) {
+    listAllSubSpecialityBySpecialityId(
+      specialityId: $specialityId
+      language: $language
+      search: $search
+      page: $page
+      limit: $limit
+    ) {
+      subSpeciality {
+        id
+        name
+        language
+        specialityId
+        speciality {
+          id
+          name
+          providerTypeId
+          providerType {
+            id
+            name
+            language
+            insuranceCompanyId
+            insuranceCompany {
+              id
+              name
+              language
+
+              tpaId
+            }
+            provider {
+              id
+              name
+              address
+              longitude
+              latitude
+              phoneNumber
+              email
+              isOnline
+              hasChronicMedication
+              websiteUrl
+              areaId
+              specialityId
+              subSpecialityId
+              language
+            }
+          }
+          language
+        }
+      }
+      pagination {
+        totalItemsCount
+        pagesCount
+        page
+      }
+    }
+  }
+`;
+
+const CREATE_SUB_SPECIALITY = gql`
+  mutation CreateSubSpeciality(
+    $createSubSpecialityInput: CreateSubSpecialityInput!
+    $language: LanguageEnum!
+  ) {
+    createSubSpeciality(
+      createSubSpecialityInput: $createSubSpecialityInput
+      language: $language
+    ) {
+      id
+      name
+      language
+      specialityId
+      speciality {
+        id
+        name
+        providerTypeId
+        providerType {
+          id
+          name
+          language
+          insuranceCompanyId
+          insuranceCompany {
+            id
+            name
+            language
+
+            tpaId
+          }
+          provider {
+            id
+            name
+            address
+            longitude
+            latitude
+            phoneNumber
+            email
+            isOnline
+            hasChronicMedication
+            websiteUrl
+            areaId
+            specialityId
+            subSpecialityId
+            language
+          }
+        }
+        subSpeciality {
+          id
+          name
+          language
+          specialityId
+        }
+        language
+      }
+    }
+  }
+`;
+
+const UPDATE_SUB_SPECIALITY = gql`
+  mutation UpdateSubSpeciality(
+    $updateSubSpecialityInput: UpdateSubSpecialityInput!
+  ) {
+    updateSubSpeciality(updateSubSpecialityInput: $updateSubSpecialityInput) {
+      id
+      name
+      language
+      specialityId
+      speciality {
+        id
+        name
+        providerTypeId
+        providerType {
+          id
+          name
+          language
+          insuranceCompanyId
+          insuranceCompany {
+            id
+            name
+            language
+
+            tpaId
+          }
+          provider {
+            id
+            name
+            address
+            longitude
+            latitude
+            phoneNumber
+            email
+            isOnline
+            hasChronicMedication
+            websiteUrl
+            areaId
+            specialityId
+            subSpecialityId
+            language
+          }
+        }
+        subSpeciality {
+          id
+          name
+          language
+          specialityId
+        }
+        language
+      }
+    }
+  }
+`;
+
+const REMOVE_SUB_SPECIALITY = gql`
+  mutation RemoveSubSpeciality($removeSubSpecialityId: Int!) {
+    removeSubSpeciality(id: $removeSubSpecialityId) {
+      id
+      name
+      language
+      specialityId
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** PROVIDER QUERIES AND MUTITION *********//////////////
+/////********                                          *******//////////////
+
+const GET_PROVIDER = gql`
+  query ListAllProvidersByProviderTypeIdAndAreaId(
+    $language: LanguageEnum!
+    $specialityId: [Int!]!
+    $subSpecialityId: [Int!]!
+    $areaId: [Int!]!
+    $categoryId: [Int!]!
+    $search: String
+    $page: Int
+    $limit: Int
+  ) {
+    listAllProvidersByProviderTypeIdAndAreaId(
+      language: $language
+      specialityId: $specialityId
+      subSpecialityId: $subSpecialityId
+      areaId: $areaId
+      categoryId: $categoryId
+      search: $search
+      page: $page
+      limit: $limit
+    ) {
+      provider {
+        id
+        name
+        address
+        longitude
+        latitude
+        phoneNumber
+        email
+        isOnline
+        hasChronicMedication
+        websiteUrl
+        areaId
+        specialityId
+        subSpecialityId
+        language
+      }
+      pagination {
+        totalItemsCount
+        pagesCount
+        page
+      }
+    }
+  }
+`;
+
+const CREATE_PROVIDER = gql`
+  mutation CreateProvider(
+    $createProviderInput: CreateProviderInput!
+    $language: LanguageEnum!
+  ) {
+    createProvider(
+      createProviderInput: $createProviderInput
+      language: $language
+    ) {
+      id
+      name
+      address
+      longitude
+      latitude
+      phoneNumber
+      email
+      isOnline
+      hasChronicMedication
+      websiteUrl
+      areaId
+      specialityId
+      subSpecialityId
+      language
+    }
+  }
+`;
+
+const UPDATE_PROVIDER = gql`
+  mutation UpdateProvider($updateProviderInput: UpdateProviderInput!) {
+    updateProvider(updateProviderInput: $updateProviderInput) {
+      id
+      name
+      address
+      longitude
+      latitude
+      phoneNumber
+      email
+      isOnline
+      hasChronicMedication
+      websiteUrl
+      areaId
+      specialityId
+      subSpecialityId
+      language
+    }
+  }
+`;
+
+const REMOVE_PROVIDER = gql`
+  mutation RemoveProvider($removeProviderId: Int!) {
+    removeProvider(id: $removeProviderId) {
+      id
+      name
+      address
+      longitude
+      latitude
+      phoneNumber
+      email
+      isOnline
+      hasChronicMedication
+      websiteUrl
+      areaId
+      specialityId
+      subSpecialityId
+      language
     }
   }
 `;
@@ -404,7 +1608,43 @@ export {
   GET_LINE_OF_BUSINESS,
   CREATE_LINE_OF_BUSINESS,
   REMOVE_LINE_OF_BUSINESS,
-  REMOVE_CONTACT_US,
   GET_CONTACT_US,
   CREATE_CONTACT_US,
+  REMOVE_CONTACT_US,
+  GET_TPA,
+  CREATE_TPA,
+  UPDATE_TPA,
+  REMOVE_TPA,
+  GET_INSURANCE_COMPANY,
+  CREATE_INSURANCE_COMPANY,
+  UPDATE_INSURANCE_COMPANY,
+  REMOVE_INSURANCE_COMPANY,
+  GET_CATEGORY,
+  CREATE_CATEGORY,
+  UPDATE_CATEGORY,
+  REMOVE_CATEGORY,
+  GET_CITY,
+  CREATE_CITY,
+  UPDATE_CITY,
+  REMOVE_CITY,
+  GET_AREA,
+  CREATE_AREA,
+  UPDATE_AREA,
+  REMOVE_AREA,
+  GET_PROVIDER_TYPE,
+  CREATE_PROVIDER_TYPE,
+  UPDATE_PROVIDER_TYPE,
+  REMOVE_PROVIDER_TYPE,
+  GET_SPEACIALITY,
+  CREATE_SPEACIALITY,
+  UPDATE_SPEACIALITY,
+  REMOVE_SPEACIALITY,
+  GET_SUB_SPECIALITY,
+  CREATE_SUB_SPECIALITY,
+  UPDATE_SUB_SPECIALITY,
+  REMOVE_SUB_SPECIALITY,
+  GET_PROVIDER,
+  CREATE_PROVIDER,
+  UPDATE_PROVIDER,
+  REMOVE_PROVIDER,
 };

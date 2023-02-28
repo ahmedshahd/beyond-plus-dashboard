@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
     { path: '/lineOfBusiness', icon: 'view_list', title: 'Line Of Business' },
     { path: '/welcomeScreen', icon: 'view_list', title: 'Welcome Screen' },
     { path: '/contactUs', icon: 'view_list', title: 'Contact Us' },
+    { path: '/tpa', icon: 'view_list', title: 'TPA' },
   ];
 
   constructor(private authService: AuthService) {}

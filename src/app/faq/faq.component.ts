@@ -54,8 +54,6 @@ export class FaqComponent implements OnInit {
   }
 
   removeFaq(id: number) {
-    console.log('this.refetchLanguage', this.refetchLanguage);
-
     this.apollo
       .mutate({
         mutation: REMOVE_FAQ,

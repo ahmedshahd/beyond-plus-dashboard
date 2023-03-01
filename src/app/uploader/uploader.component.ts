@@ -37,7 +37,6 @@ export class UploaderComponent implements OnInit {
   }
   uploadFile(event) {
     const file: File = (event.target as HTMLInputElement).files[0];
-    console.log('file', file);
     if (file) {
       this.uploaderForm.patchValue({
         file: file,
@@ -50,7 +49,6 @@ export class UploaderComponent implements OnInit {
     const formData = new FormData();
 
     formData.append('file', this.uploaderForm.get('file').value);
-    console.log('formData', formData);
 
     const params = new HttpParams()
       .append('language', this.uploaderForm.get('language').value)
@@ -59,15 +57,9 @@ export class UploaderComponent implements OnInit {
         'insuranceCompanyName',
         this.uploaderForm.get('insuranceCompanyName').value
       );
-    console.log(
-      'insuranceCompanyName',
-      this.uploaderForm.get('insuranceCompanyName').value
-    );
 
-    console.log('params', params);
     let headers = new HttpHeaders();
     headers.append('api-key', environment.API_KEY);
-    console.log(this.rsponse$);
 
     this.rsponse$ = this.http.post(this.uploadUrl, formData, {
       params: params,
@@ -78,20 +70,7 @@ export class UploaderComponent implements OnInit {
       },
     });
 
-    // this.rsponse$.subscribe(
-    //   (data) => {
-    //     console.log('Data received:', data);
-    //   },
-    //   (error) => {
-    //     console.error('Error:', error);
-    //   },
-    //   () => {
-    //     console.log('Observable completed');
-    //   }
-    // );
-
     this.rsponse$.subscribe((res) => {
-      console.log(res);
       if (res) {
         this.success = true;
         this.uploaderForm.reset();

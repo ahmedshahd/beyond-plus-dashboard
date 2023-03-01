@@ -88,8 +88,6 @@ export class PrivacyPolicyComponent {
   }
 
   changeSelectedLanguage(e: any) {
-    console.log(this.changeSelectedLanguage);
-
     this.selectedLanguage?.setValue(e.target.value, {
       onlySelf: true,
     });

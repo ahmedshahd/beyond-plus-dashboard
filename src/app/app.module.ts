@@ -1,3 +1,4 @@
+import { TpaService } from './medical-network/tpa/tpa.service';
 import { FaqComponent } from './faq/faq.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -30,6 +31,7 @@ import { CategoryComponent } from './medical-network/category/category.component
 import { SpecialityComponent } from './medical-network/speciality/speciality.component';
 import { SubSpecialityComponent } from './medical-network/sub-speciality/sub-speciality.component';
 import { PrimengModule } from './primeng.module';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   imports: [
@@ -66,7 +68,7 @@ import { PrimengModule } from './primeng.module';
     SpecialityComponent,
     SubSpecialityComponent,
   ],
-  providers: [AuthService],
+  providers: [AuthService, TpaService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -503,29 +503,38 @@ const REMOVE_INSURANCE_COMPANY = gql`
 /////********                                          *******//////////////
 
 const GET_CATEGORY = gql`
-   query ListAllCateoriesByInsuranceCompanyId($insuranceCompanyId: Int!, $language: LanguageEnum, $search: String, $page: Int, $limit: Int) {
-  listAllCateoriesByInsuranceCompanyId(insuranceCompanyId: $insuranceCompanyId, language: $language, search: $search, page: $page, limit: $limit) {
-    category {
-      id
-      tier
-      tierRank
-      insuranceCompany {
+  query ListAllCateoriesByInsuranceCompanyId(
+    $insuranceCompanyId: Int!
+    $language: LanguageEnum
+    $page: Int
+    $search: String
+    $limit: Int
+  ) {
+    listAllCateoriesByInsuranceCompanyId(
+      insuranceCompanyId: $insuranceCompanyId
+      language: $language
+      page: $page
+      search: $search
+      limit: $limit
+    ) {
+      category {
         id
-        name
+        tier
+        tierRank
+        insuranceCompany {
+          id
+          name
+          language
+          tpaId
+        }
+        insuranceCompanyId
         language
-         
-          
-        tpaId
       }
-      insuranceCompanyId
-      language
-       
-        
-    }
-    pagination {
-      totalItemsCount
-      pagesCount
-      page
+      pagination {
+        totalItemsCount
+        pagesCount
+        page
+      }
     }
   }
 `;

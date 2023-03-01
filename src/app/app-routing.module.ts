@@ -1,3 +1,4 @@
+import { InsuranceCompanyComponent } from './medical-network/insurance-company/insurance-company.component';
 import { TpaComponent } from './medical-network/tpa/tpa.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { UploaderComponent } from './uploader/uploader.component';
@@ -66,6 +67,11 @@ const routes: Routes = [
   {
     path: 'tpa',
     component: TpaComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'insuranceCompany',
+    component: InsuranceCompanyComponent,
     canActivate: [AuthGuard],
   },
   {

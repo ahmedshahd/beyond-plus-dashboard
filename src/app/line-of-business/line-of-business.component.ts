@@ -26,7 +26,6 @@ export class LineOfBusinessComponent implements OnInit {
   });
 
   createLineOfBusiness() {
-    console.log('object', this.lineOfBusinessForm.value);
     this.apollo
       .mutate({
         mutation: CREATE_LINE_OF_BUSINESS,

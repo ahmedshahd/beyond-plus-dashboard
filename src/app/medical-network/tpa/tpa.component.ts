@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { TpaService } from './tpa.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-tpa',
@@ -6,133 +9,201 @@ import { Component } from '@angular/core';
   styleUrls: ['./tpa.component.scss'],
 })
 export class TpaComponent {
-  productDialog: boolean;
+  createDialog: boolean;
+  editDialog: boolean;
+  tpas: any;
 
-  products: any;
+  tpa: any;
 
-  product: any;
+  editId: number;
 
-  selectedProducts: any;
+  selectedTpas: any;
 
   submitted: boolean;
 
-  statuses: any[];
+  languageOptions: SelectItem[] = [
+    { label: 'English', value: 'ENGLISH' },
+    { label: 'Arabic', value: 'ARABIC' },
+  ];
+  selectedLanguage: any = { label: 'English', value: 'ENGLISH' };
 
-  constructor() {}
+  onLanguageChange() {
+    if (this.selectedLanguage.value === 'ENGLISH') {
+      this.tpaService
+        .getTpas(this.selectedLanguage.value)
+        .subscribe(({ data, error }: any) => {
+          if (data) {
+            this.tpas = data.listAllTpas.tpa;
+            this.messageService.add({
+              severity: 'success',
+              summary: 'TPA data loaded successfully',
+            });
+          } else {
+            console.log(error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error loading TPA data',
+            });
+          }
+        });
+    } else if (this.selectedLanguage.value === 'ARABIC') {
+      this.tpaService
+        .getTpas(this.selectedLanguage.value)
+        .subscribe(({ data, error }: any) => {
+          if (data) {
+            this.tpas = data.listAllTpas.tpa;
+            this.messageService.add({
+              severity: 'success',
+              summary: 'TPA data loaded successfully',
+            });
+          } else {
+            console.log(error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error loading TPA data',
+            });
+          }
+        });
+    }
+  }
+
+  constructor(
+    private tpaService: TpaService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
+  ) {}
 
   ngOnInit() {
-    // this.productService.getProducts().then((data) => (this.products = data));
-
-    this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' },
-    ];
+    this.tpaService
+      .getTpas(this.selectedLanguage.value)
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          this.tpas = data.listAllTpas.tpa;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'TPA data loaded successfully',
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading TPA data',
+          });
+        }
+      });
   }
 
   openNew() {
-    this.product = {};
+    this.tpa = {};
     this.submitted = false;
-    this.productDialog = true;
+    this.createDialog = true;
   }
 
-  deleteSelectedProducts() {
+  deleteSelectedTpas() {
     // this.confirmationService.confirm({
-    //   message: 'Are you sure you want to delete the selected products?',
+    //   message: 'Are you sure you want to delete the selected tpas?',
     //   header: 'Confirm',
     //   icon: 'pi pi-exclamation-triangle',
     //   accept: () => {
-    //     this.products = this.products.filter(
-    //       (val) => !this.selectedProducts.includes(val)
+    //     this.tpas = this.tpas.filter(
+    //       (val) => !this.selectedTpas.includes(val)
     //     );
-    //     this.selectedProducts = null;
+    //     this.selectedTpas = null;
     //     this.messageService.add({
     //       severity: 'success',
     //       summary: 'Successful',
-    //       detail: 'Products Deleted',
+    //       detail: 'Tpas Deleted',
     //       life: 3000,
     //     });
     //   },
     // });
   }
 
-  editProduct(product: any) {
-    // this.product = { ...product };
-    // this.productDialog = true;
+  editTpa(tpa: any) {
+    this.editDialog = true;
+    this.editId = tpa.id;
   }
 
-  deleteProduct(product: any) {
-    // this.confirmationService.confirm({
-    //   message: 'Are you sure you want to delete ' + product.name + '?',
-    //   header: 'Confirm',
-    //   icon: 'pi pi-exclamation-triangle',
-    //   accept: () => {
-    //     this.products = this.products.filter((val) => val.id !== product.id);
-    //     this.product = {};
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'Successful',
-    //       detail: 'Product Deleted',
-    //       life: 3000,
-    //     });
-    //   },
-    // });
+  updateTpa(tpa) {
+    this.tpaService.updateTpa(this.editId, tpa.name, tpa.language).subscribe(
+      (data) => {
+        this.editDialog = false;
+        this.editId = undefined;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Tpa Updated',
+          life: 3000,
+        });
+      },
+      (error) => {
+        console.log(error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error Updating TPA ',
+          life: 3000,
+        });
+      }
+    );
+  }
+
+  deleteTpa(tpa: any) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + tpa.name + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        console.log(tpa);
+        this.tpaService.removeTpa(tpa.id, tpa.language).subscribe(
+          (data) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: 'Tpa Deleted',
+              life: 3000,
+            });
+          },
+          (error) => {
+            console.log(error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error Deleting TPA ',
+              life: 3000,
+            });
+          }
+        );
+      },
+    });
   }
 
   hideDialog() {
-    this.productDialog = false;
+    this.createDialog = false;
+    this.editDialog = false;
+
     this.submitted = false;
   }
 
-  saveProduct() {
+  addTpa() {
     this.submitted = true;
-
-    // if (this.product.name.trim()) {
-    //   if (this.product.id) {
-    //     this.products[this.findIndexById(this.product.id)] = this.product;
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'Successful',
-    //       detail: 'Product Updated',
-    //       life: 3000,
-    //     });
-    //   } else {
-    //     this.product.id = this.createId();
-    //     this.product.image = 'product-placeholder.svg';
-    //     this.products.push(this.product);
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'Successful',
-    //       detail: 'Product Created',
-    //       life: 3000,
-    //     });
-    //   }
-
-    //   this.products = [...this.products];
-    //   this.productDialog = false;
-    //   this.product = {};
-    // }
+    this.tpaService.createTpa(this.tpa.name, this.tpa.language).subscribe(
+      (data) => {
+        this.createDialog = false;
+        this.tpa = {};
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Tpa Created',
+          life: 3000,
+        });
+      },
+      (error) => {
+        console.log(error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error Creating TPA ',
+          life: 3000,
+        });
+      }
+    );
   }
-
-  // findIndexById(id: string):  {
-  //   // let index = -1;
-  //   // for (let i = 0; i < this.products.length; i++) {
-  //   //   if (this.products[i].id === id) {
-  //   //     index = i;
-  //   //     break;
-  //   //   }
-  //   // }
-
-  //   // return index;
-  // }
-
-  // createId() {
-  //   // let id = '';
-  //   // var chars =
-  //   //   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  //   // for (var i = 0; i < 5; i++) {
-  //   //   id += chars.charAt(Math.floor(Math.random() * chars.length));
-  //   // }
-  //   // return id;
-  // }
 }

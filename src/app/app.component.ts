@@ -29,6 +29,11 @@ export class AppComponent implements OnInit {
     { path: '/welcomeScreen', icon: 'view_list', title: 'Welcome Screen' },
     { path: '/contactUs', icon: 'view_list', title: 'Contact Us' },
     { path: '/tpa', icon: 'view_list', title: 'TPA' },
+    {
+      path: '/insuranceCompany',
+      icon: 'view_list',
+      title: 'Insurance Company',
+    },
   ];
 
   constructor(private authService: AuthService) {}
@@ -36,8 +41,6 @@ export class AppComponent implements OnInit {
     this.authService.SignOut();
   }
   ngOnInit(): void {
-    console.log('isuser', this.isUser);
-
     this.authService.user.subscribe((user) => {
       if (user) {
         return (this.isUser = true);

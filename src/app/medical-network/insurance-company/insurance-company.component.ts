@@ -200,6 +200,12 @@ export class InsuranceCompanyComponent {
 
   addInsuranceCompany() {
     this.submitted = true;
+    console.log('this.insuranceCompany.name', this.insuranceCompany.name);
+    console.log('this.insuranceCompany.t[ppa', this.insuranceCompany.tpaId);
+    console.log(
+      'this.insuranceCompany.language',
+      this.insuranceCompany.language
+    );
 
     this.insuranceCompanyService
       .createInsuranceCompany(

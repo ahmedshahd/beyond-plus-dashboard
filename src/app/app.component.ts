@@ -34,6 +34,11 @@ export class AppComponent implements OnInit {
       icon: 'view_list',
       title: 'Insurance Company',
     },
+    {
+      path: '/category',
+      icon: 'view_list',
+      title: 'Category',
+    },
   ];
 
   constructor(private authService: AuthService) {}

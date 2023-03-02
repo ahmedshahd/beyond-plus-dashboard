@@ -13,7 +13,10 @@ export class UploaderComponent implements OnInit {
   rsponse$: Observable<any>;
   success = false;
   fileName = '';
-  uploadUrl = 'https://plus.beyond-solution.com/csv-uploader/upload';
+
+  // uploadUrl = 'https://plus.beyond-solution.com/csv-uploader/upload';
+
+  uploadUrl = 'http://localhost:8000/csv-uploader/upload';
 
   uploaderForm: FormGroup;
 

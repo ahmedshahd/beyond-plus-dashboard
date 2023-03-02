@@ -501,19 +501,10 @@ const REMOVE_INSURANCE_COMPANY = gql`
 /////********                                          *******//////////////
 
 const GET_CATEGORY = gql`
-  query ListAllCateoriesByInsuranceCompanyId(
-    $insuranceCompanyId: Int!
-    $language: LanguageEnum
-    $page: Int
-    $search: String
-    $limit: Int
-  ) {
-    listAllCateoriesByInsuranceCompanyId(
+  query Query($insuranceCompanyId: Int!, $language: LanguageEnum!) {
+    listAllCategoriesByInsuranceCompanyId(
       insuranceCompanyId: $insuranceCompanyId
       language: $language
-      page: $page
-      search: $search
-      limit: $limit
     ) {
       category {
         id
@@ -523,15 +514,14 @@ const GET_CATEGORY = gql`
           id
           name
           language
+          createdAt
+          updatedAt
           tpaId
         }
         insuranceCompanyId
         language
-      }
-      pagination {
-        totalItemsCount
-        pagesCount
-        page
+        createdAt
+        updatedAt
       }
     }
   }
@@ -549,13 +539,6 @@ const CREATE_CATEGORY = gql`
       id
       tier
       tierRank
-      insuranceCompany {
-        id
-        name
-        language
-
-        tpaId
-      }
       insuranceCompanyId
       language
     }
@@ -563,12 +546,11 @@ const CREATE_CATEGORY = gql`
 `;
 
 const UPDATE_CATEGORY = gql`
-  mutation UpdateCategory($updateCategoryInput: UpdateCategoryInput!) {
+  mutation Mutation($updateCategoryInput: UpdateCategoryInput!) {
     updateCategory(updateCategoryInput: $updateCategoryInput) {
       id
       tier
       tierRank
-      insuranceCompanyId
       language
     }
   }

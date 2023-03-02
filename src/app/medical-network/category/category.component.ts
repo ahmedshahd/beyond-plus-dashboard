@@ -60,35 +60,23 @@ export class CategoryComponent {
           });
         }
       });
-
-    // this.categoryService
-    //   .getCategories(this.insuranceCompanyId,this.selectedLanguage.value)
-    //   .subscribe(({ data, error }: any) => {
-    //     if (data) {
-    //       this.categories = data.listAllCateoriesByInsuranceCompanyId.category;
-    //       this.messageService.add({
-    //         severity: 'success',
-    //         summary: 'Category data loaded successfully',
-    //         life: 3000,
-    //       });
-    //     } else {
-    //       console.log(error);
-    //       this.messageService.add({
-    //         severity: 'error',
-    //         summary: 'Error loading Category data',
-    //         life: 3000,
-    //       });
-    //     }
-    //   });
   }
 
   onSearchInputChange(event) {
     const name = event.target.value;
     this.categoryService
-      .getCategories(this.selectedLanguage.value, name)
+      .getCategories(
+        this.selectedInsuranceCompany.insuranceCompanyId,
+        this.selectedLanguage.value,
+        name
+      )
       .subscribe(({ data, error }: any) => {
+        console.log(
+          'data',
+          data.listAllCategoriesByInsuranceCompanyId.category
+        );
         if (data) {
-          this.categories = data.listAllCateoriesByInsuranceCompanyId.category;
+          this.categories = data.listAllCategoriesByInsuranceCompanyId.category;
         } else {
           console.log(error);
         }
@@ -201,27 +189,10 @@ export class CategoryComponent {
     this.createDialog = true;
   }
 
-  deleteSelectedCategories() {
-    // this.confirmationService.confirm({
-    //   message: 'Are you sure you want to delete the selected categories?',
-    //   header: 'Confirm',
-    //   icon: 'pi pi-exclamation-triangle',
-    //   accept: () => {
-    //     this.categories = this.categories.filter(
-    //       (val) => !this.selectedCategories.includes(val)
-    //     );
-    //     this.selectedCategories = null;
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'Successful',
-    //       detail: 'Categories Deleted',
-    //       life: 3000,
-    //     });
-    //   },
-    // });
-  }
+  deleteSelectedCategories() {}
 
   editCategory(category: any) {
+    this.category = {};
     this.editDialog = true;
     this.editId = category.id;
   }

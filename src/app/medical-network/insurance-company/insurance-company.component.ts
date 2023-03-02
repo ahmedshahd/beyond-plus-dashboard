@@ -123,6 +123,7 @@ export class InsuranceCompanyComponent {
   deleteSelectedInsuranceCompanies() {}
 
   editInsuranceCompany(insuranceCompany: any) {
+    this.insuranceCompany = {};
     this.editDialog = true;
     this.editId = insuranceCompany.id;
   }

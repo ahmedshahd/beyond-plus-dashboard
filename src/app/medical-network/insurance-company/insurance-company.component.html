@@ -139,6 +139,22 @@
         >Name is required.</small
       >
     </div>
+
+    <div class="field">
+      <label for="name">TpaId</label>
+      <input
+        type="text"
+        pInputText
+        id="tpaId"
+        [(ngModel)]="insuranceCompany.tpaId"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !insuranceCompany.tpaId"
+        >tpaId is required.</small
+      >
+    </div>
+
     <div class="field">
       <label for="Language">Language</label>
       <p-dropdown
@@ -156,20 +172,6 @@
           }}</span>
         </ng-template>
       </p-dropdown>
-    </div>
-    <div class="field">
-      <label for="name">TpaId</label>
-      <input
-        type="text"
-        pInputText
-        id="tpaId"
-        [(ngModel)]="insuranceCompany.tpaId"
-        required
-        autofocus
-      />
-      <small class="p-error" *ngIf="submitted && !insuranceCompany.tpaId"
-        >tpaId is required.</small
-      >
     </div>
   </ng-template>
 
@@ -208,7 +210,17 @@
         pInputText
         id="name"
         [(ngModel)]="insuranceCompany.name"
-        required
+        autofocus
+      />
+    </div>
+
+    <div class="field">
+      <label for="name">TpaId</label>
+      <input
+        type="text"
+        pInputText
+        id="tpaId"
+        [(ngModel)]="insuranceCompany.tpaId"
         autofocus
       />
     </div>
@@ -226,20 +238,6 @@
           }}</span>
         </ng-template>
       </p-dropdown>
-    </div>
-    <div class="field">
-      <label for="name">TpaId</label>
-      <input
-        type="text"
-        pInputText
-        id="tpaId"
-        [(ngModel)]="insuranceCompany.tpaId"
-        required
-        autofocus
-      />
-      <small class="p-error" *ngIf="submitted && !insuranceCompany.tpaId"
-        >tpaId is required.</small
-      >
     </div>
   </ng-template>
 

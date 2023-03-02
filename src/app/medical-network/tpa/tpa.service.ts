@@ -71,7 +71,7 @@ export class TpaService {
       .pipe(map((result: any) => result.data.removeTpa));
   }
 
-  updateTpa(id: number, name: string, language: string): Observable<any> {
+  updateTpa(id: number, language: string, name?: string): Observable<any> {
     return this.apollo
       .mutate({
         mutation: UPDATE_TPA,

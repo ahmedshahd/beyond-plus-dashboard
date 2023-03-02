@@ -140,7 +140,7 @@ export class TpaComponent {
   }
 
   updateTpa(tpa) {
-    this.tpaService.updateTpa(this.editId, tpa.name, tpa.language).subscribe(
+    this.tpaService.updateTpa(this.editId, tpa.language, tpa.name).subscribe(
       (data) => {
         this.editDialog = false;
         this.editId = undefined;

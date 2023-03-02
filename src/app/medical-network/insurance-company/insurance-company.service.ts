@@ -34,16 +34,17 @@ export class InsuranceCompanyService {
 
   createInsuranceCompany(
     name: string,
-    tpaId: number,
+    tpaId,
     language: string
   ): Observable<any> {
+    console.log(tpaId);
     return this.apollo
       .mutate({
         mutation: CREATE_INSURANCE_COMPANY,
         variables: {
           createInsuranceCompanyInput: {
             name,
-            tpaId,
+            tpaId: parseInt(tpaId),
           },
           language,
         },
@@ -51,7 +52,7 @@ export class InsuranceCompanyService {
           {
             query: GET_INSURANCE_COMPANY,
             variables: {
-              tpaId,
+              tpaId: parseInt(tpaId),
               language,
             },
           },
@@ -64,11 +65,7 @@ export class InsuranceCompanyService {
       );
   }
 
-  removeInsuranceCompany(
-    id: number,
-    tpaId: number,
-    language: string
-  ): Observable<any> {
+  removeInsuranceCompany(id: number, tpaId, language: string): Observable<any> {
     return this.apollo
       .mutate({
         mutation: REMOVE_INSURANCE_COMPANY,
@@ -80,7 +77,7 @@ export class InsuranceCompanyService {
             query: GET_INSURANCE_COMPANY,
             variables: {
               language,
-              tpaId,
+              tpaId: parseInt(tpaId),
             },
           },
         ],
@@ -90,7 +87,7 @@ export class InsuranceCompanyService {
 
   updateInsuranceCompany(
     id: number,
-    tpaId: number,
+    tpaId,
     name: string,
     language: string
   ): Observable<any> {
@@ -109,7 +106,7 @@ export class InsuranceCompanyService {
             query: GET_INSURANCE_COMPANY,
             variables: {
               language,
-              tpaId,
+              tpaId: parseInt(tpaId),
             },
           },
         ],

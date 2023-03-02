@@ -1046,44 +1046,35 @@ const REMOVE_PROVIDER_TYPE = gql`
 `;
 
 /////********                                     *********//////////////
-/////****************** SPEACIALITY QUERIES AND MUTITION *********//////////////
+/////****************** SPECIALITY QUERIES AND MUTITION *********//////////////
 /////********                                          *******//////////////
 
-const GET_SPEACIALITY = gql`
-  query ListAllTpas(
+const GET_SPECIALITY = gql`
+  query ListAllSpecialityByProviderTypeId(
+    $providerTypeId: [Int!]!
     $language: LanguageEnum!
-    $page: Int
     $search: String
+    $page: Int
     $limit: Int
   ) {
-    listAllTpas(
+    listAllSpecialityByProviderTypeId(
+      providerTypeId: $providerTypeId
       language: $language
-      page: $page
       search: $search
+      page: $page
       limit: $limit
     ) {
-      tpa {
+      speciality {
         id
         name
-        insuranceCompanies {
-          id
-          name
-          language
-
-          tpaId
-        }
+        providerTypeId
         language
-      }
-      pagination {
-        totalItemsCount
-        pagesCount
-        page
       }
     }
   }
 `;
 
-const CREATE_SPEACIALITY = gql`
+const CREATE_SPECIALITY = gql`
   mutation CreateSpeciality(
     $createSpecialityInput: CreateSpecialityInput!
     $language: LanguageEnum!
@@ -1141,7 +1132,7 @@ const CREATE_SPEACIALITY = gql`
   }
 `;
 
-const UPDATE_SPEACIALITY = gql`
+const UPDATE_SPECIALITY = gql`
   mutation UpdateSpeciality($updateSpecialityInput: UpdateSpecialityInput!) {
     updateSpeciality(updateSpecialityInput: $updateSpecialityInput) {
       id
@@ -1182,7 +1173,7 @@ const UPDATE_SPEACIALITY = gql`
   }
 `;
 
-const REMOVE_SPEACIALITY = gql`
+const REMOVE_SPECIALITY = gql`
   mutation RemoveSpeciality($removeSpecialityId: Int!) {
     removeSpeciality(id: $removeSpecialityId) {
       id
@@ -1553,10 +1544,10 @@ export {
   CREATE_PROVIDER_TYPE,
   UPDATE_PROVIDER_TYPE,
   REMOVE_PROVIDER_TYPE,
-  GET_SPEACIALITY,
-  CREATE_SPEACIALITY,
-  UPDATE_SPEACIALITY,
-  REMOVE_SPEACIALITY,
+  GET_SPECIALITY,
+  CREATE_SPECIALITY,
+  UPDATE_SPECIALITY,
+  REMOVE_SPECIALITY,
   GET_SUB_SPECIALITY,
   CREATE_SUB_SPECIALITY,
   UPDATE_SUB_SPECIALITY,

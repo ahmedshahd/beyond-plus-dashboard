@@ -1,3 +1,4 @@
+import { SpecialityComponent } from './medical-network/speciality/speciality.component';
 import { ProviderTypeComponent } from './medical-network/provider-type/provider-type.component';
 import { ProviderComponent } from './medical-network/provider/provider.component';
 import { AreaComponent } from './medical-network/area/area.component';
@@ -97,6 +98,11 @@ const routes: Routes = [
   {
     path: 'providerType',
     component: ProviderTypeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'speciality',
+    component: SpecialityComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -49,6 +49,11 @@ export class AppComponent implements OnInit {
       icon: 'view_list',
       title: 'Area',
     },
+    {
+      path: '/providerType',
+      icon: 'view_list',
+      title: 'Provider Type',
+    },
   ];
 
   constructor(private authService: AuthService) {}

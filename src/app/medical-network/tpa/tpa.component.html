@@ -29,12 +29,7 @@
     [value]="tpas"
     [rows]="10"
     [paginator]="true"
-    [globalFilterFields]="[
-      'name',
-      'country.name',
-      'representative.name',
-      'status'
-    ]"
+    [globalFilterFields]="['name', 'country.name', 'representative.name']"
     [tableStyle]="{ 'min-width': '75rem' }"
     [(selection)]="selectedTpas"
     [rowHover]="true"
@@ -47,7 +42,12 @@
         <h5 class="m-0">Manage TPA</h5>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" placeholder="Search..." />
+          <input
+            pInputText
+            (input)="onSearchInputChange($event)"
+            type="text"
+            placeholder="Search..."
+          />
         </span>
       </div>
       <p-dropdown
@@ -98,7 +98,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="flex align-items-center justify-content-between">
-        In total there are {{ tpas ? tpas.length : 0 }} tpas.
+        In total there are {{ tpas ? tpas.length : 0 }} Tpas.
       </div>
     </ng-template>
   </p-table>

@@ -15,16 +15,16 @@ export class TpaService {
   constructor(private apollo: Apollo) {}
   getTpas(
     language: string,
-    page?: number,
     search?: string,
+    page?: number,
     limit?: number
   ): Observable<any> {
     return this.apollo.watchQuery<any>({
       query: GET_TPA,
       variables: {
         language,
-        page,
         search,
+        page,
         limit,
       },
     }).valueChanges;
@@ -93,7 +93,6 @@ export class TpaService {
       })
       .pipe(
         map((result) => {
-          console.log('result.data', result.data);
           result.data;
         })
       );

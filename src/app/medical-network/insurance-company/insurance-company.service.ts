@@ -16,17 +16,17 @@ export class InsuranceCompanyService {
   getInsuranceCompanies(
     language: string,
     tpaId: number,
-    page?: number,
     search?: string,
+    page?: number,
     limit?: number
   ): Observable<any> {
     return this.apollo.watchQuery<any>({
       query: GET_INSURANCE_COMPANY,
       variables: {
-        tpaId,
         language,
-        page,
+        tpaId,
         search,
+        page,
         limit,
       },
     }).valueChanges;
@@ -51,15 +51,24 @@ export class InsuranceCompanyService {
           {
             query: GET_INSURANCE_COMPANY,
             variables: {
+              tpaId,
               language,
             },
           },
         ],
       })
-      .pipe(map((result) => result.data));
+      .pipe(
+        map((result) => {
+          result.data;
+        })
+      );
   }
 
-  removeInsuranceCompany(id: number, language): Observable<any> {
+  removeInsuranceCompany(
+    id: number,
+    tpaId: number,
+    language: string
+  ): Observable<any> {
     return this.apollo
       .mutate({
         mutation: REMOVE_INSURANCE_COMPANY,
@@ -71,6 +80,7 @@ export class InsuranceCompanyService {
             query: GET_INSURANCE_COMPANY,
             variables: {
               language,
+              tpaId,
             },
           },
         ],
@@ -99,13 +109,13 @@ export class InsuranceCompanyService {
             query: GET_INSURANCE_COMPANY,
             variables: {
               language,
+              tpaId,
             },
           },
         ],
       })
       .pipe(
         map((result: any) => {
-          console.log('result.data', result.data);
           result.data;
         })
       );

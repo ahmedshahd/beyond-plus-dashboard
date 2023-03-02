@@ -933,46 +933,6 @@ const REMOVE_AREA = gql`
       id
       name
       cityId
-      city {
-        id
-        name
-        insuranceCompanyId
-        area {
-          id
-          name
-          cityId
-          language
-        }
-        country {
-          id
-          name
-          language
-        }
-        insuranceCompany {
-          id
-          name
-          language
-
-          tpaId
-        }
-        language
-      }
-      provider {
-        id
-        name
-        address
-        longitude
-        latitude
-        phoneNumber
-        email
-        isOnline
-        hasChronicMedication
-        websiteUrl
-        areaId
-        specialityId
-        subSpecialityId
-        language
-      }
       language
     }
   }
@@ -986,10 +946,16 @@ const GET_PROVIDER_TYPE = gql`
   query ListAllProviderTypesByInsuranceCompanyId(
     $insuranceCompanyId: Int!
     $language: LanguageEnum!
+    $search: String
+    $page: Int
+    $limit: Int
   ) {
     listAllProviderTypesByInsuranceCompanyId(
       insuranceCompanyId: $insuranceCompanyId
       language: $language
+      search: $search
+      page: $page
+      limit: $limit
     ) {
       providerType {
         id
@@ -999,24 +965,10 @@ const GET_PROVIDER_TYPE = gql`
         insuranceCompany {
           id
           name
-          language
-
-          tpaId
         }
         provider {
           id
           name
-          address
-          longitude
-          latitude
-          phoneNumber
-          email
-          isOnline
-          hasChronicMedication
-          websiteUrl
-          areaId
-          specialityId
-          subSpecialityId
           language
         }
       }
@@ -1046,23 +998,12 @@ const CREATE_PROVIDER_TYPE = gql`
         id
         name
         language
-
         tpaId
       }
       provider {
         id
         name
-        address
-        longitude
-        latitude
-        phoneNumber
-        email
-        isOnline
-        hasChronicMedication
-        websiteUrl
-        areaId
-        specialityId
-        subSpecialityId
+
         language
       }
     }
@@ -1088,18 +1029,6 @@ const UPDATE_PROVIDER_TYPE = gql`
       provider {
         id
         name
-        address
-        longitude
-        latitude
-        phoneNumber
-        email
-        isOnline
-        hasChronicMedication
-        websiteUrl
-        areaId
-        specialityId
-        subSpecialityId
-        language
       }
     }
   }

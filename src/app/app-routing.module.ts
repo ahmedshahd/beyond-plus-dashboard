@@ -1,3 +1,5 @@
+import { ProviderTypeComponent } from './medical-network/provider-type/provider-type.component';
+import { ProviderComponent } from './medical-network/provider/provider.component';
 import { AreaComponent } from './medical-network/area/area.component';
 import { CityComponent } from './medical-network/city/city.component';
 import { CategoryComponent } from './medical-network/category/category.component';
@@ -90,6 +92,11 @@ const routes: Routes = [
   {
     path: 'area',
     component: AreaComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'providerType',
+    component: ProviderTypeComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -440,7 +440,6 @@ const GET_INSURANCE_COMPANY = gql`
         id
         name
         language
-
         tpaId
       }
       pagination {
@@ -453,7 +452,7 @@ const GET_INSURANCE_COMPANY = gql`
 `;
 
 const CREATE_INSURANCE_COMPANY = gql`
-  mutation CreateInsuranceCompany(
+  mutation Mutation(
     $createInsuranceCompanyInput: CreateInsuranceCompanyInput!
     $language: LanguageEnum!
   ) {
@@ -464,7 +463,6 @@ const CREATE_INSURANCE_COMPANY = gql`
       id
       name
       language
-
       tpaId
     }
   }

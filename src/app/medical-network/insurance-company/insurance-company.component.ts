@@ -1,3 +1,4 @@
+import { TpaService } from './../tpa/tpa.service';
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { InsuranceCompanyService } from './insurance-company.service';
@@ -20,72 +21,94 @@ export class InsuranceCompanyComponent {
     { label: 'Arabic', value: 'ARABIC' },
   ];
   selectedLanguage: any = { label: 'English', value: 'ENGLISH' };
-  tpaId: number;
+  tpaOptions: SelectItem[];
+  selectedTpa: any;
 
+  constructor(
+    private insuranceCompanyService: InsuranceCompanyService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private tpaService: TpaService
+  ) {}
+  onSearchInputChange(event) {
+    const name = event.target.value;
+    this.insuranceCompanyService
+      .getInsuranceCompanies(
+        this.selectedLanguage.value,
+        this.selectedTpa.tpaId,
+        name
+      )
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          this.insuranceCompanies =
+            data.listAllInsuranceCompaniesByTpaId.insuranceCompany;
+        } else {
+          console.log(error);
+        }
+      });
+  }
   onLanguageChange() {
     if (this.selectedLanguage.value === 'ENGLISH') {
-      this.insuranceCompanyService
-        .getInsuranceCompanies(this.selectedLanguage.value, this.tpaId)
+      this.tpaService
+        .getTpas(this.selectedLanguage.value)
         .subscribe(({ data, error }: any) => {
           if (data) {
-            this.insuranceCompanies =
-              data.listAllInsuranceCompanys.insuranceCompany;
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Insurance Company data loaded successfully',
+            const tpa = data.listAllTpas.tpa;
+            this.tpaOptions = tpa.map((tpa) => {
+              return {
+                tpaId: tpa.id,
+                name: tpa.name,
+              };
             });
           } else {
             console.log(error);
             this.messageService.add({
               severity: 'error',
-              summary: 'Error loading Insurance Company data',
+              summary: 'Error loading TPA Options',
             });
           }
         });
     } else if (this.selectedLanguage.value === 'ARABIC') {
-      this.insuranceCompanyService
-        .getInsuranceCompanies(this.selectedLanguage.value, this.tpaId)
+      this.tpaService
+        .getTpas(this.selectedLanguage.value)
         .subscribe(({ data, error }: any) => {
           if (data) {
-            this.insuranceCompanies =
-              data.listAllInsuranceCompanys.insuranceCompany;
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Insurance Company data loaded successfully',
+            const tpa = data.listAllTpas.tpa;
+            this.tpaOptions = tpa.map((tpa) => {
+              return {
+                tpaId: tpa.id,
+                name: tpa.name,
+              };
             });
           } else {
             console.log(error);
             this.messageService.add({
               severity: 'error',
-              summary: 'Error loading Insurance Company data',
+              summary: 'Error loading TPA Options',
             });
           }
         });
     }
   }
 
-  constructor(
-    private insuranceCompanyService: InsuranceCompanyService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService
-  ) {}
-
-  ngOnInit() {
-    this.insuranceCompanyService
-      .getInsuranceCompanies(this.selectedLanguage.value, this.tpaId)
+  onTpaChange() {
+    return this.insuranceCompanyService
+      .getInsuranceCompanies(this.selectedLanguage, this.selectedTpa.tpaId)
       .subscribe(({ data, error }: any) => {
         if (data) {
           this.insuranceCompanies =
-            data.listAllInsuranceCompanys.insuranceCompany;
+            data.listAllInsuranceCompaniesByTpaId.insuranceCompany;
           this.messageService.add({
             severity: 'success',
             summary: 'Insurance Company data loaded successfully',
+            life: 3000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Insurance Company data',
+            life: 3000,
           });
         }
       });
@@ -97,7 +120,7 @@ export class InsuranceCompanyComponent {
     this.createDialog = true;
   }
 
-  deleteSelectedInsuranceCompanys() {}
+  deleteSelectedInsuranceCompanies() {}
 
   editInsuranceCompany(insuranceCompany: any) {
     this.editDialog = true;
@@ -108,8 +131,8 @@ export class InsuranceCompanyComponent {
     this.insuranceCompanyService
       .updateInsuranceCompany(
         this.editId,
-        insuranceCompany.name,
         insuranceCompany.tpaId,
+        insuranceCompany.name,
         insuranceCompany.language
       )
       .subscribe(
@@ -140,10 +163,10 @@ export class InsuranceCompanyComponent {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        console.log(insuranceCompany);
         this.insuranceCompanyService
           .removeInsuranceCompany(
             insuranceCompany.id,
+            insuranceCompany.tpId,
             insuranceCompany.language
           )
           .subscribe(
@@ -177,6 +200,7 @@ export class InsuranceCompanyComponent {
 
   addInsuranceCompany() {
     this.submitted = true;
+
     this.insuranceCompanyService
       .createInsuranceCompany(
         this.insuranceCompany.name,
@@ -203,5 +227,27 @@ export class InsuranceCompanyComponent {
           });
         }
       );
+  }
+
+  ngOnInit() {
+    this.tpaService
+      .getTpas(this.selectedLanguage.value)
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          const tpa = data.listAllTpas.tpa;
+          this.tpaOptions = tpa.map((tpa) => {
+            return {
+              tpaId: tpa.id,
+              name: tpa.name,
+            };
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading TPA Options',
+          });
+        }
+      });
   }
 }

@@ -27,6 +27,47 @@ export class TpaComponent {
   ];
   selectedLanguage: any = { label: 'English', value: 'ENGLISH' };
 
+  constructor(
+    private tpaService: TpaService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
+  ) {}
+
+  ngOnInit() {
+    this.tpaService
+      .getTpas(this.selectedLanguage.value)
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          this.tpas = data.listAllTpas.tpa;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'TPA data loaded successfully',
+            life: 3000,
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading TPA data',
+            life: 3000,
+          });
+        }
+      });
+  }
+
+  onSearchInputChange(event) {
+    const name = event.target.value;
+    this.tpaService
+      .getTpas(this.selectedLanguage.value, name)
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          this.tpas = data.listAllTpas.tpa;
+        } else {
+          console.log(error);
+        }
+      });
+  }
+
   onLanguageChange() {
     if (this.selectedLanguage.value === 'ENGLISH') {
       this.tpaService
@@ -65,32 +106,6 @@ export class TpaComponent {
           }
         });
     }
-  }
-
-  constructor(
-    private tpaService: TpaService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService
-  ) {}
-
-  ngOnInit() {
-    this.tpaService
-      .getTpas(this.selectedLanguage.value)
-      .subscribe(({ data, error }: any) => {
-        if (data) {
-          this.tpas = data.listAllTpas.tpa;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'TPA data loaded successfully',
-          });
-        } else {
-          console.log(error);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error loading TPA data',
-          });
-        }
-      });
   }
 
   openNew() {
@@ -153,7 +168,6 @@ export class TpaComponent {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        console.log(tpa);
         this.tpaService.removeTpa(tpa.id, tpa.language).subscribe(
           (data) => {
             this.messageService.add({
@@ -179,7 +193,6 @@ export class TpaComponent {
   hideDialog() {
     this.createDialog = false;
     this.editDialog = false;
-
     this.submitted = false;
   }
 

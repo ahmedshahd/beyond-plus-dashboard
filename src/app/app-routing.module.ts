@@ -1,3 +1,4 @@
+import { AreaComponent } from './medical-network/area/area.component';
 import { CityComponent } from './medical-network/city/city.component';
 import { CategoryComponent } from './medical-network/category/category.component';
 import { InsuranceCompanyComponent } from './medical-network/insurance-company/insurance-company.component';
@@ -84,6 +85,11 @@ const routes: Routes = [
   {
     path: 'city',
     component: CityComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'area',
+    component: AreaComponent,
     canActivate: [AuthGuard],
   },
   {

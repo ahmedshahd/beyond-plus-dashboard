@@ -1,1 +1,262 @@
-<p>area works!</p>
+<p-toast position="top"></p-toast>
+
+<div class="card">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="openNew()"
+      ></button>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <button
+        pButton
+        pRipple
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedAreas()"
+        [disabled]="!selectedAreas || !selectedAreas.length"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="areas"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'country.name', 'representative.name']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedAreas"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Areas</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            (input)="onSearchInputChange($event)"
+            type="text"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+      <p-dropdown
+        [options]="languageOptions"
+        [(ngModel)]="selectedLanguage"
+        optionLabel="label"
+        (onChange)="onLanguageChange()"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="tpaOptions"
+        [(ngModel)]="selectedTpa"
+        optionLabel="name"
+        (onChange)="onTpaChange()"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="insuranceCompanyOptions"
+        [(ngModel)]="selectedInsuranceCompany"
+        optionLabel="name"
+        (onChange)="onInsuranceCompanyChange()"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="cityOptions"
+        [(ngModel)]="selectedCity"
+        optionLabel="name"
+        (onChange)="onCityChange()"
+      ></p-dropdown>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th>ID</th>
+        <th pSortableColumn="name" style="min-width: 15rem">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+
+        <th>Language</th>
+        <th>City</th>
+        <th>City Id</th>
+
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-area>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="area"></p-tableCheckbox>
+        </td>
+        <td>{{ area.id }}</td>
+        <td>{{ area.name }}</td>
+        <td>{{ area.language }}</td>
+        <td>{{ area.city.name }}</td>
+        <td>{{ area.city.id }}</td>
+
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2"
+            (click)="editArea(area)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button"
+            (click)="deleteArea(area)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ areas ? areas.length : 0 }} Areas.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="createDialog"
+  [style]="{ height: '600px', width: '450px' }"
+  header="Add TPA"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="area.name"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !area.tier"
+        >Name is required.</small
+      >
+    </div>
+
+    <div class="field">
+      <label for="cityId">City Id</label>
+      <input
+        type="text"
+        pInputText
+        id="cityId"
+        [(ngModel)]="area.cityId"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !area.cityId"
+        >City Id is required.</small
+      >
+    </div>
+
+    <div class="field">
+      <label for="Language">Language</label>
+      <p-dropdown
+        [(ngModel)]="area.language"
+        inputId="language"
+        [options]="languageOptions"
+        placeholder="Select"
+      >
+        <ng-template let-option pTemplate="item">
+          <span [class]="'area-badge status-' + option.value">{{
+            option.label
+          }}</span>
+        </ng-template>
+      </p-dropdown>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Add"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="addArea()"
+    ></button>
+  </ng-template>
+</p-dialog>
+<!-- Edit dialog -->
+<p-dialog
+  [(visible)]="editDialog"
+  [style]="{ height: '600px', width: '450px' }"
+  header="Update TPA"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="area.name"
+        autofocus
+      />
+    </div>
+
+    <div class="field">
+      <label for="cityId">City Id</label>
+      <input type="text" pInputText id="cityId" [(ngModel)]="area.cityId" />
+    </div>
+    <div class="field">
+      <label for="Language">Language</label>
+      <p-dropdown
+        [(ngModel)]="area.language"
+        inputId="language"
+        [options]="languageOptions"
+        placeholder="Select"
+      >
+      </p-dropdown>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Update"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="updateArea(area)"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

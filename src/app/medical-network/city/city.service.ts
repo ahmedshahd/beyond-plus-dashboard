@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 import { map, Observable } from 'rxjs';
 import {
-  CREATE_CATEGORY,
-  GET_CATEGORY,
-  REMOVE_CATEGORY,
-  UPDATE_CATEGORY,
+  CREATE_CITY,
+  GET_CITY,
+  REMOVE_CITY,
+  UPDATE_CITY,
 } from 'src/app/graphql/qraphql.queries';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CategoryService {
+export class CityService {
   constructor(private apollo: Apollo) {}
 
-  getCategories(
+  getCities(
     insuranceCompanyId: number,
     language: string,
     search?: string,
@@ -22,7 +22,7 @@ export class CategoryService {
     limit?: number
   ): Observable<any> {
     return this.apollo.watchQuery<any>({
-      query: GET_CATEGORY,
+      query: GET_CITY,
       variables: {
         insuranceCompanyId,
         language,
@@ -33,27 +33,26 @@ export class CategoryService {
     }).valueChanges;
   }
 
-  createCategory(
+  createCity(
     insuranceCompanyId,
-    tier: string,
-    tierRank: string,
+    countryId,
+    name: string,
     language: string
   ): Observable<any> {
-    console.log(insuranceCompanyId);
     return this.apollo
       .mutate({
-        mutation: CREATE_CATEGORY,
+        mutation: CREATE_CITY,
         variables: {
-          createCategoryInput: {
+          createCityInput: {
             insuranceCompanyId: parseInt(insuranceCompanyId),
-            tier: tier,
-            tierRank: tierRank,
+            countryId: parseInt(countryId),
+            name,
           },
           language: language,
         },
         refetchQueries: [
           {
-            query: GET_CATEGORY,
+            query: GET_CITY,
             variables: {
               insuranceCompanyId: parseInt(insuranceCompanyId),
               language,
@@ -61,23 +60,23 @@ export class CategoryService {
           },
         ],
       })
-      .pipe(map((result) => result.data));
+      .pipe(map((result: any) => result.data));
   }
 
-  removeCategory(
+  removeCity(
     id: number,
     insuranceCompanyId,
     language: string
   ): Observable<any> {
     return this.apollo
       .mutate({
-        mutation: REMOVE_CATEGORY,
+        mutation: REMOVE_CITY,
         variables: {
-          removeCategoryId: id,
+          removeCityId: id,
         },
         refetchQueries: [
           {
-            query: GET_CATEGORY,
+            query: GET_CITY,
             variables: {
               language,
               insuranceCompanyId: parseInt(insuranceCompanyId),
@@ -85,30 +84,28 @@ export class CategoryService {
           },
         ],
       })
-      .pipe(map((result: any) => result.data.removeCategory));
+      .pipe(map((result: any) => result.data.removeCity));
   }
 
-  updateCategory(
+  updateCity(
     id: number,
     insuranceCompanyId?,
-    tier?: string,
-    tierRank?: string,
+    name?: string,
     language?: string
   ): Observable<any> {
     return this.apollo
       .mutate({
-        mutation: UPDATE_CATEGORY,
+        mutation: UPDATE_CITY,
         variables: {
-          updateCategoryInput: {
+          updateCityInput: {
             id,
             insuranceCompanyId: parseInt(insuranceCompanyId),
-            tier,
-            tierRank,
+            name,
           },
         },
         refetchQueries: [
           {
-            query: GET_CATEGORY,
+            query: GET_CITY,
             variables: {
               insuranceCompanyId: parseInt(insuranceCompanyId),
               language,

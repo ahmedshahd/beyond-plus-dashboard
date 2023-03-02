@@ -135,6 +135,7 @@ export class TpaComponent {
   }
 
   editTpa(tpa: any) {
+    this.tpa = {};
     this.editDialog = true;
     this.editId = tpa.id;
   }

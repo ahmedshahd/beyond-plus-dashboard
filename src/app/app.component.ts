@@ -39,6 +39,11 @@ export class AppComponent implements OnInit {
       icon: 'view_list',
       title: 'Category',
     },
+    {
+      path: '/city',
+      icon: 'view_list',
+      title: 'City',
+    },
   ];
 
   constructor(private authService: AuthService) {}

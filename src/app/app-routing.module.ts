@@ -112,6 +112,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'provider',
+    component: ProviderComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: '',
     component: UploaderComponent,
     canActivate: [AuthGuard],

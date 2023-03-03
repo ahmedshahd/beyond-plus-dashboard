@@ -55,24 +55,32 @@
         [(ngModel)]="selectedLanguage"
         optionLabel="label"
         (onChange)="onLanguageChange()"
+        placeholder="Select Language"
+        [showClear]="true"
       ></p-dropdown>
       <p-dropdown
         [options]="tpaOptions"
         [(ngModel)]="selectedTpa"
         optionLabel="name"
         (onChange)="onTpaChange()"
+        placeholder="Select TPA"
+        [showClear]="true"
       ></p-dropdown>
       <p-dropdown
         [options]="insuranceCompanyOptions"
         [(ngModel)]="selectedInsuranceCompany"
         optionLabel="name"
         (onChange)="onInsuranceCompanyChange()"
+        placeholder="Select Insurance Company"
+        [showClear]="true"
       ></p-dropdown>
       <p-dropdown
         [options]="providerTypeOptions"
         [(ngModel)]="selectedProviderType"
         optionLabel="name"
         (onChange)="onProviderTypeChange()"
+        placeholder="Select Provider Type"
+        [showClear]="true"
       ></p-dropdown>
     </ng-template>
     <ng-template pTemplate="header">

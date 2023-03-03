@@ -57,12 +57,16 @@
         [(ngModel)]="selectedLanguage"
         optionLabel="label"
         (onChange)="onLanguageChange()"
+        placeholder="Select Language"
+        [showClear]="true"
       ></p-dropdown>
       <p-dropdown
         [options]="tpaOptions"
         [(ngModel)]="selectedTpa"
         optionLabel="name"
         (onChange)="onTpaChange()"
+        placeholder="Select TPA"
+        [showClear]="true"
       ></p-dropdown>
     </ng-template>
     <ng-template pTemplate="header">

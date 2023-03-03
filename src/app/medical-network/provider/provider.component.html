@@ -1,1 +1,562 @@
-<p>provider works!</p>
+<p-toast position="top"></p-toast>
+
+<div class="card">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="openNew()"
+      ></button>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <button
+        pButton
+        pRipple
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedProviders()"
+        [disabled]="!selectedProviders || !selectedProviders.length"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="providers"
+    [rows]="10"
+    [paginator]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedProviders"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Providers</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            (input)="onSearchInputChange($event)"
+            type="text"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+      <p-dropdown
+        [options]="languageOptions"
+        [(ngModel)]="selectedLanguage"
+        optionLabel="label"
+        (onChange)="onLanguageChange()"
+        placeholder="Select Language"
+        [showClear]="true"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="tpaOptions"
+        [(ngModel)]="selectedTpa"
+        optionLabel="name"
+        (onChange)="onTpaChange()"
+        placeholder="Select TPA"
+        [showClear]="true"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="insuranceCompanyOptions"
+        [(ngModel)]="selectedInsuranceCompany"
+        optionLabel="name"
+        (onChange)="onInsuranceCompanyChange()"
+        placeholder="Select Insurance Company"
+        [showClear]="true"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="cityOptions"
+        [(ngModel)]="selectedCity"
+        optionLabel="name"
+        (onChange)="onCityChange()"
+        placeholder="Select City"
+        [showClear]="true"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="areaOptions"
+        [(ngModel)]="selectedArea"
+        optionLabel="name"
+        (onChange)="onAreaChange()"
+        placeholder="Select Area"
+        [showClear]="true"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="providerTypeOptions"
+        [(ngModel)]="selectedProviderType"
+        optionLabel="name"
+        (onChange)="onProviderTypeChange()"
+        placeholder="Select Provider Type"
+        [showClear]="true"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="specialityOptions"
+        [(ngModel)]="selectedSpeciality"
+        optionLabel="name"
+        (onChange)="onSpecialityChange()"
+        placeholder="Select Speciality"
+        [showClear]="true"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="subSpecialityOptions"
+        [(ngModel)]="selectedSubSpeciality"
+        optionLabel="name"
+        (onChange)="onSubSpecialityChange()"
+        placeholder="Select SubSpeciality"
+        [showClear]="true"
+      ></p-dropdown>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <!-- <th>ID</th> -->
+        <th>Name</th>
+        <th>PhoneNumber</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>WebsiteUrl</th>
+        <th>hasChronicMedication</th>
+        <th>IsOnline</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Speciality ID</th>
+        <th>Category ID</th>
+        <th>Area ID</th>
+        <th>SubSpeciality ID</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-provider>
+      <tr>
+        <!-- <td>{{ provider.id }}</td> -->
+        <td>{{ provider.name }}</td>
+        <td>{{ provider.phoneNumber }}</td>
+        <td>{{ provider.address }}</td>
+        <td>{{ provider.email }}</td>
+        <td>{{ provider.websiteUrl }}</td>
+        <td>{{ provider.hasChronicMedication }}</td>
+        <td>{{ provider.isOnline }}</td>
+        <td>{{ provider.latitude }}</td>
+        <td>{{ provider.longitude }}</td>
+        <td>{{ provider.specialityId }}</td>
+        <td>{{ provider.categoryId }}</td>
+        <td>{{ provider.areaId }}</td>
+        <td>{{ provider.subSpecialityId }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2"
+            (click)="editProvider(provider)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button"
+            (click)="deleteProvider(provider)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ providers ? providers.length : 0 }} Providers.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="createDialog"
+  [style]="{ height: '900px', width: '450px' }"
+  header="Add Provider"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="provider.name"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !provider.name"
+        >Name is required.</small
+      >
+    </div>
+
+    <div class="field">
+      <label for="categoryId">category Id</label>
+      <p-inputNumber
+        id="categoryId"
+        [(ngModel)]="provider.categoryId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="p-error" *ngIf="submitted && !provider.categoryId"
+        >Category Id is required.</small
+      >
+    </div>
+    <div class="field">
+      <label for="areaId">Area Id</label>
+      <p-inputNumber
+        id="areaId"
+        [(ngModel)]="provider.areaId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="p-error" *ngIf="submitted && !provider.areaId"
+        >Area Id is required.</small
+      >
+    </div>
+    <div class="field">
+      <label for="specialityId">Speciality Id</label>
+      <p-inputNumber
+        id="specialityId"
+        [(ngModel)]="provider.specialityId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="p-error" *ngIf="submitted && !provider.specialityId"
+        >Speciality Id is required.</small
+      >
+    </div>
+    <div class="field">
+      <label for="areaId">Sub Speciality Id</label>
+      <p-inputNumber
+        id="subSpecialityId"
+        [(ngModel)]="provider.subSpecialityId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="p-error" *ngIf="submitted && !provider.subSpecialityId"
+        >Sub Speciality Id is required.</small
+      >
+    </div>
+    <div class="field">
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        type="text"
+        pInputText
+        id="phoneNumber"
+        [(ngModel)]="provider.phoneNumber"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !provider.phoneNumber"
+        >Phone Number is required.</small
+      >
+    </div>
+    <div class="field">
+      <label for="address">Address</label>
+      <input
+        type="text"
+        pInputText
+        id="address"
+        [(ngModel)]="provider.address"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !provider.address"
+        >Phone Number is address.</small
+      >
+    </div>
+    <div class="field">
+      <label for="Language">Language</label>
+      <p-dropdown
+        [(ngModel)]="provider.language"
+        inputId="language"
+        [options]="languageOptions"
+        placeholder="Select"
+      >
+        <ng-template let-option pTemplate="item">
+          <span [class]="'provider-badge status-' + option.value">{{
+            option.label
+          }}</span>
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+    <div class="field">
+      <label for="email">email</label>
+      <input
+        type="text"
+        pInputText
+        id="email"
+        [(ngModel)]="provider.email"
+        autofocus
+      />
+    </div>
+    <div class="field">
+      <label for="websiteUrl">websiteUrl</label>
+      <input
+        type="text"
+        pInputText
+        id="websiteUrl"
+        [(ngModel)]="provider.websiteUrl"
+        autofocus
+      />
+    </div>
+    <div class="field">
+      <label for="hasChronicMedication">hasChronicMedication</label>
+      <input
+        id="hasChronicMedication"
+        type="checkbox"
+        [(ngModel)]="provider.hasChronicMedication"
+      />
+    </div>
+    <div class="field">
+      <label for="hasChronicMedication">IsOnline</label>
+      <input type="checkbox" id="isOnline" [(ngModel)]="provider.isOnline" />
+    </div>
+    <div class="field">
+      <label for="latitude">Latitude</label>
+      <p-inputNumber
+        type="number"
+        id="latitude"
+        [(ngModel)]="provider.latitude"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+    <div class="field">
+      <label for="longitude">longitude</label>
+      <p-inputNumber
+        type="number"
+        id="longitude"
+        [(ngModel)]="provider.longitude"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Add"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="addProvider()"
+    ></button>
+  </ng-template>
+</p-dialog>
+<!-- Edit dialog -->
+<p-dialog
+  [(visible)]="editDialog"
+  [style]="{ height: '600px', width: '450px' }"
+  header="Update Provider"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="provider.name"
+        autofocus
+      />
+    </div>
+
+    <div class="field">
+      <label for="categoryId">category Id</label>
+      <p-inputNumber
+        id="categoryId"
+        [(ngModel)]="provider.categoryId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+    <div class="field">
+      <label for="areaId">Area Id</label>
+      <p-inputNumber
+        id="areaId"
+        [(ngModel)]="provider.areaId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+    <div class="field">
+      <label for="specialityId">Speciality Id</label>
+      <p-inputNumber
+        type="number"
+        id="specialityId"
+        [(ngModel)]="provider.specialityId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+    <div class="field">
+      <label for="areaId">Sub Speciality Id</label>
+      <p-inputNumber
+        type="number"
+        id="subSpecialityId"
+        [(ngModel)]="provider.subSpecialityId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+    <div class="field">
+      <label for="address">Address </label>
+      <input
+        type="text"
+        pInputText
+        id="address"
+        [(ngModel)]="provider.address"
+        autofocus
+      />
+    </div>
+    <div class="field">
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        type="text"
+        pInputText
+        id="phoneNumber"
+        [(ngModel)]="provider.phoneNumber"
+        autofocus
+      />
+    </div>
+    <div class="field">
+      <label for="Language">Language</label>
+      <p-dropdown
+        [(ngModel)]="provider.language"
+        inputId="language"
+        [options]="languageOptions"
+        placeholder="Select"
+      >
+        <ng-template let-option pTemplate="item">
+          <span [class]="'provider-badge status-' + option.value">{{
+            option.label
+          }}</span>
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+    <div class="field">
+      <label for="email">email</label>
+      <input
+        type="text"
+        pInputText
+        id="email"
+        [(ngModel)]="provider.email"
+        autofocus
+      />
+    </div>
+    <div class="field">
+      <label for="websiteUrl">websiteUrl</label>
+      <input
+        type="text"
+        pInputText
+        id="websiteUrl"
+        [(ngModel)]="provider.websiteUrl"
+        autofocus
+      />
+    </div>
+    <div class="field">
+      <label for="hasChronicMedication">hasChronicMedication</label>
+      <input
+        type="checkbox"
+        id="hasChronicMedication"
+        [(ngModel)]="provider.hasChronicMedication"
+        autofocus
+      />
+    </div>
+    <div class="field">
+      <label for="isOnline">IsOnline</label>
+      <input
+        type="checkbox"
+        id="isOnline"
+        [(ngModel)]="provider.isOnline"
+        autofocus
+      />
+    </div>
+    <div class="field">
+      <label for="latitude">Latitude</label>
+      <p-inputNumber
+        id="latitude"
+        [(ngModel)]="provider.latitude"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+    <div class="field">
+      <label for="longitude">longitude</label>
+      <p-inputNumber
+        id="longitude"
+        [(ngModel)]="provider.longitude"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Update"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="updateProvider(provider)"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

@@ -20,6 +20,7 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   exports: [
@@ -42,6 +43,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
+    CheckboxModule,
   ],
   providers: [MessageService, ConfirmationService],
 })

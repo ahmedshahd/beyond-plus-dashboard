@@ -59,6 +59,11 @@ export class AppComponent implements OnInit {
       icon: 'view_list',
       title: 'Speciality',
     },
+    {
+      path: '/subSpeciality',
+      icon: 'view_list',
+      title: 'Sub Speciality',
+    },
   ];
 
   constructor(private authService: AuthService) {}

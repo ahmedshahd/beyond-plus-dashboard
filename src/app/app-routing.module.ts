@@ -1,3 +1,4 @@
+import { SubSpecialityComponent } from './medical-network/sub-speciality/sub-speciality.component';
 import { SpecialityComponent } from './medical-network/speciality/speciality.component';
 import { ProviderTypeComponent } from './medical-network/provider-type/provider-type.component';
 import { ProviderComponent } from './medical-network/provider/provider.component';
@@ -103,6 +104,11 @@ const routes: Routes = [
   {
     path: 'speciality',
     component: SpecialityComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'subSpeciality',
+    component: SubSpecialityComponent,
     canActivate: [AuthGuard],
   },
   {

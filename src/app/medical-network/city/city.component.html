@@ -123,22 +123,22 @@
 <p-dialog
   [(visible)]="createDialog"
   [style]="{ height: '600px', width: '450px' }"
-  header="Add TPA"
+  header="Add City"
   [modal]="true"
   styleClass="p-fluid"
 >
   <ng-template pTemplate="content">
     <div class="field">
-      <label for="tier">Name</label>
+      <label for="name">Name</label>
       <input
         type="text"
         pInputText
-        id="tier"
+        id="name"
         [(ngModel)]="city.name"
         required
         autofocus
       />
-      <small class="p-error" *ngIf="submitted && !city.tier"
+      <small class="p-error" *ngIf="submitted && !city.name"
         >Name is required.</small
       >
     </div>
@@ -148,7 +148,7 @@
       <input
         type="text"
         pInputText
-        id="tierRank"
+        id="insuranceCompanyId"
         [(ngModel)]="city.insuranceCompanyId"
         required
         autofocus
@@ -198,7 +198,7 @@
 <p-dialog
   [(visible)]="editDialog"
   [style]="{ height: '600px', width: '450px' }"
-  header="Update TPA"
+  header="Update City"
   [modal]="true"
   styleClass="p-fluid"
 >
@@ -215,7 +215,7 @@
     </div>
 
     <div class="field">
-      <label for="tierRank">Insurance Company Id</label>
+      <label for="insuranceCompanyId">Insurance Company Id</label>
       <input
         type="text"
         pInputText

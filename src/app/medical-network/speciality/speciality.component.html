@@ -130,7 +130,7 @@
 <p-dialog
   [(visible)]="createDialog"
   [style]="{ height: '600px', width: '450px' }"
-  header="Add TPA"
+  header="Add Speciality"
   [modal]="true"
   styleClass="p-fluid"
 >
@@ -145,7 +145,7 @@
         required
         autofocus
       />
-      <small class="p-error" *ngIf="submitted && !speciality.tier"
+      <small class="p-error" *ngIf="submitted && !speciality.name"
         >Name is required.</small
       >
     </div>
@@ -205,7 +205,7 @@
 <p-dialog
   [(visible)]="editDialog"
   [style]="{ height: '600px', width: '450px' }"
-  header="Update TPA"
+  header="Update Speciality"
   [modal]="true"
   styleClass="p-fluid"
 >

@@ -132,7 +132,7 @@
 <p-dialog
   [(visible)]="createDialog"
   [style]="{ height: '600px', width: '450px' }"
-  header="Add TPA"
+  header="Add Area"
   [modal]="true"
   styleClass="p-fluid"
 >
@@ -147,7 +147,7 @@
         required
         autofocus
       />
-      <small class="p-error" *ngIf="submitted && !area.tier"
+      <small class="p-error" *ngIf="submitted && !area.name"
         >Name is required.</small
       >
     </div>
@@ -207,7 +207,7 @@
 <p-dialog
   [(visible)]="editDialog"
   [style]="{ height: '600px', width: '450px' }"
-  header="Update TPA"
+  header="Update Area"
   [modal]="true"
   styleClass="p-fluid"
 >

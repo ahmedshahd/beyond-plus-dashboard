@@ -124,22 +124,22 @@
 <p-dialog
   [(visible)]="createDialog"
   [style]="{ height: '600px', width: '450px' }"
-  header="Add TPA"
+  header="Add Provider Type"
   [modal]="true"
   styleClass="p-fluid"
 >
   <ng-template pTemplate="content">
     <div class="field">
-      <label for="tier">Name</label>
+      <label for="name">Name</label>
       <input
         type="text"
         pInputText
-        id="tier"
+        id="name"
         [(ngModel)]="providerType.name"
         required
         autofocus
       />
-      <small class="p-error" *ngIf="submitted && !providerType.tier"
+      <small class="p-error" *ngIf="submitted && !providerType.name"
         >Name is required.</small
       >
     </div>
@@ -149,7 +149,7 @@
       <input
         type="text"
         pInputText
-        id="tierRank"
+        id="insuranceCompanyId"
         [(ngModel)]="providerType.insuranceCompanyId"
         required
         autofocus
@@ -201,7 +201,7 @@
 <p-dialog
   [(visible)]="editDialog"
   [style]="{ height: '600px', width: '450px' }"
-  header="Update TPA"
+  header="Update Provider Type"
   [modal]="true"
   styleClass="p-fluid"
 >

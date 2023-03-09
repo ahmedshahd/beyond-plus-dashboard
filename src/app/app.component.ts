@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { shareReplay } from 'rxjs/operators';
 import { AuthService } from './services/auth-service.service';
+import { RouteSerializerService } from './services/router-serializer-service.service';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +30,9 @@ export class AppComponent implements OnInit {
     { path: '/lineOfBusiness', icon: 'view_list', title: 'Line Of Business' },
     { path: '/welcomeScreen', icon: 'view_list', title: 'Welcome Screen' },
     { path: '/contactUs', icon: 'view_list', title: 'Contact Us' },
+  ];
+
+  medicalNetworkLinks = [
     { path: '/tpa', icon: 'view_list', title: 'TPA' },
     {
       path: '/insuranceCompany',
@@ -71,7 +76,12 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private routeSerializer: RouteSerializerService
+  ) {}
+
   logout() {
     this.authService.SignOut();
   }
@@ -82,5 +92,10 @@ export class AppComponent implements OnInit {
       }
       return (this.isUser = false);
     });
+    // Restore the user's last route after a page refresh
+    const lastRoute = this.routeSerializer.getLastRoute();
+    console.log('lastRoute', lastRoute);
+
+    this.router.navigateByUrl(lastRoute);
   }
 }

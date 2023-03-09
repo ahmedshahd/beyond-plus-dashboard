@@ -128,7 +128,7 @@ export class ProviderComponent {
       .subscribe(({ data, error }: any) => {
         if (data) {
           this.providers =
-            data.listAllProvidersByProviderTypeIdAndAreaId.provider;
+            data.ListAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
         } else {
           console.log(error);
         }
@@ -233,7 +233,7 @@ export class ProviderComponent {
           });
         }
       });
-    return this.cityService
+    this.cityService
       .getCities(
         this.selectedInsuranceCompany.insuranceCompanyId,
         this.selectedLanguage.value
@@ -256,33 +256,33 @@ export class ProviderComponent {
           });
         }
       });
+    this.categoryService
+      .getCategories(
+        this.selectedInsuranceCompany.insuranceCompanyId,
+        this.selectedLanguage.value
+      )
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          const categories =
+            data.listAllCategoriesByInsuranceCompanyId.category;
+          this.categoryOptions = categories.map((category) => {
+            return {
+              categoryId: category.id,
+              name: category.tier,
+            };
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading Speciality data',
+            life: 3000,
+          });
+        }
+      });
   }
-
+  onCategoryChange() {}
   onCityChange() {
-    // return this.cityService
-    //   .getCities(
-    //     this.selectedInsuranceCompany.insuranceCompanyId,
-    //     this.selectedLanguage.value
-    //   )
-    //   .subscribe(({ data, error }: any) => {
-    //     if (data) {
-    //       const cities = data.listAllCitiesByInsuranceCompanyId.city;
-    //       this.cityOptions = cities.map((city) => {
-    //         return {
-    //           cityId: city.id,
-    //           name: city.name,
-    //         };
-    //       });
-    //     } else {
-    //       console.log(error);
-    //       this.messageService.add({
-    //         severity: 'error',
-    //         summary: 'Error loading Speciality data',
-    //         life: 3000,
-    //       });
-    //     }
-    //   });
-
     return this.areaService
       .getAreas(this.selectedCity.cityId, this.selectedLanguage.value)
       .subscribe(({ data, error }: any) => {
@@ -305,28 +305,7 @@ export class ProviderComponent {
       });
   }
 
-  onAreaChange() {
-    // return this.areaService
-    //   .getAreas(this.selectedCity.cityId, this.selectedLanguage.value)
-    //   .subscribe(({ data, error }: any) => {
-    //     if (data) {
-    //       const areas = data.listAllAreasByCityId.area;
-    //       this.areaOptions = areas.map((area) => {
-    //         return {
-    //           areaId: area.id,
-    //           name: area.name,
-    //         };
-    //       });
-    //     } else {
-    //       console.log(error);
-    //       this.messageService.add({
-    //         severity: 'error',
-    //         summary: 'Error loading Speciality data',
-    //         life: 3000,
-    //       });
-    //     }
-    //   });
-  }
+  onAreaChange() {}
 
   onProviderTypeChange() {
     return this.specialityService
@@ -365,7 +344,7 @@ export class ProviderComponent {
         if (data) {
           const subSpecialities =
             data.listAllSubSpecialityBySpecialityId.subSpeciality;
-          this.specialityOptions = subSpecialities.map((subSpeciality) => {
+          this.subSpecialityOptions = subSpecialities.map((subSpeciality) => {
             return {
               subSpecialityId: subSpeciality.id,
               name: subSpeciality.name,
@@ -391,10 +370,12 @@ export class ProviderComponent {
         this.selectedArea.areaId,
         this.selectedLanguage.value
       )
+
       .subscribe(({ data, error }: any) => {
         if (data) {
+          console.log('data from provider', data);
           this.providers =
-            data.listAllProvidersByProviderTypeIdAndAreaId.provider;
+            data.listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
           this.messageService.add({
             severity: 'success',
             summary: 'Provider data loaded successfully',
@@ -437,27 +418,29 @@ export class ProviderComponent {
 
   editProvider(provider: any) {
     this.provider = {
-      id: null,
-      address: '',
-      areaId: null,
-      categoryId: null,
-      email: '',
-      hasChronicMedication: false,
-      isOnline: false,
-      latitude: null,
-      longitude: null,
-      name: '',
-      phoneNumber: [],
-      specialityId: null,
-      subSpecialityId: null,
-      websiteUrl: '',
-      language: '',
+      id: provider.id,
+      address: provider.address,
+      areaId: provider.areaId,
+      categoryId: provider.categoryId,
+      email: provider.email,
+      hasChronicMedication: provider.hasChronicMedication,
+      isOnline: provider.isOnline,
+      latitude: provider.latitude,
+      longitude: provider.longitude,
+      name: provider.name,
+      phoneNumber: provider.phoneNumber,
+      specialityId: provider.specialityId,
+      subSpecialityId: provider.subSpecialityId,
+      websiteUrl: provider.websiteUrl,
+      language: provider.language,
     };
     this.editDialog = true;
     this.editId = provider.id;
   }
 
   updateProvider(provider) {
+    console.log('provider.phoneNumber', provider.phoneNumber);
+
     this.providerService
       .updateProvider(
         this.editId,
@@ -544,6 +527,11 @@ export class ProviderComponent {
   addProvider() {
     this.submitted = true;
     console.log('this.provider from add', this.provider);
+    console.log('this.provider.phoneNumber', this.provider.phoneNumber);
+
+    // const phoneNumber:string[]= [this.provider.phoneNumber];
+
+    // console.log('phoneNumber', phoneNumber);
 
     this.providerService
       .createProvider(

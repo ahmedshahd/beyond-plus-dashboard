@@ -24,13 +24,18 @@ export class ProviderService {
     page?: number,
     limit?: number
   ): Observable<any> {
+    console.log('categoryId', categoryId);
+    console.log('specialityId', specialityId);
+    console.log('subSpecialityId', subSpecialityId);
+    console.log('areaId', areaId);
+
     return this.apollo.watchQuery<any>({
       query: GET_PROVIDER,
       variables: {
-        categoryId,
-        specialityId,
-        subSpecialityId,
-        areaId,
+        categoryId: [categoryId],
+        specialityId: [specialityId],
+        subSpecialityId: [subSpecialityId],
+        areaId: [areaId],
         language,
         search,
         page,

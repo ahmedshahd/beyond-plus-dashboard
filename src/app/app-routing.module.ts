@@ -11,7 +11,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { UploaderComponent } from './uploader/uploader.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NavigationEnd, Router, RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { FaqComponent } from './faq/faq.component';
@@ -21,8 +21,14 @@ import { LineOfBusinessComponent } from './line-of-business/line-of-business.com
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { AuthGuard } from './guards/authentication.guard';
+import { RouteSerializerService } from './services/router-serializer-service.service';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: UploaderComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'login', component: LoginComponent },
   {
     path: 'faq',
@@ -116,16 +122,37 @@ const routes: Routes = [
     component: ProviderComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: '',
-    component: UploaderComponent,
-    canActivate: [AuthGuard],
-  },
-  { path: '**', redirectTo: '/login', pathMatch: 'full' },
+
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+  // constructor(
+  //   private router: Router,
+  //   private routeSerializer: RouteSerializerService
+  // ) {
+  //   // Listen for navigation events and save the current route to local storage
+  //   this.router.events.subscribe((event) => {
+  //     if (event instanceof NavigationEnd) {
+  //       const urlTree = this.router.createUrlTree(
+  //         this.router.parseUrl(this.router.url).root.children['primary']
+  //           .segments,
+  //         this.router.parseUrl(this.router.url).queryParams
+  //       );
+  //       this.routeSerializer.saveLastRoute(urlTree);
+  //     }
+  //   });
+  //   // Check if there is a last route stored in local storage
+  //   const lastRoute = this.routeSerializer.getLastRoute();
+  //   // Navigate to the last route or the default route
+  //   if (lastRoute) {
+  //     this.router.navigateByUrl(lastRoute);
+  //   } else {
+  //     this.router.navigate(['']);
+  //   }
+  // }
+}

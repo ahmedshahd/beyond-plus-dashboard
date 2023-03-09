@@ -192,18 +192,17 @@ export class CategoryComponent {
   deleteSelectedCategories() {}
 
   editCategory(category: any) {
-    this.category = {};
+    this.category = {
+      insuranceCompanyId: category.insuranceCompanyId,
+      tier: category.tier,
+      tierRank: category.tierRank,
+      language: category.language,
+    };
     this.editDialog = true;
     this.editId = category.id;
   }
 
   updateCategory(category) {
-    console.log('category', category);
-    console.log(
-      'this.category.insuranceCompanyId',
-      this.category.insuranceCompanyId
-    );
-
     this.categoryService
       .updateCategory(
         this.editId,

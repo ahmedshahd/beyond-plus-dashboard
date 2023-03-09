@@ -13,14 +13,15 @@
       ></button>
     </ng-template>
     <ng-template pTemplate="right">
-      <button
-        pButton
-        pRipple
-        icon="pi pi-trash"
-        class="p-button-danger"
-        (click)="deleteSelectedSubSpecialities()"
-        [disabled]="!selectedSubSpecialities || !selectedSubSpecialities.length"
-      ></button>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          (input)="onSearchInputChange($event)"
+          type="text"
+          placeholder="Search..."
+        />
+      </span>
     </ng-template>
   </p-toolbar>
 
@@ -39,16 +40,7 @@
   >
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
-        <h5 class="m-0">Manage Provider Types</h5>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            (input)="onSearchInputChange($event)"
-            type="text"
-            placeholder="Search..."
-          />
-        </span>
+        <h5 class="m-0">Manage SubSpeciality</h5>
       </div>
       <p-dropdown
         [options]="languageOptions"
@@ -93,9 +85,6 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 4rem">
-          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th>
         <th>ID</th>
         <th pSortableColumn="name" style="min-width: 15rem">
           Name <p-sortIcon field="name"></p-sortIcon>
@@ -108,9 +97,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-subSpeciality>
       <tr>
-        <td>
-          <p-tableCheckbox [value]="subSpeciality"></p-tableCheckbox>
-        </td>
         <td>{{ subSpeciality.id }}</td>
         <td>{{ subSpeciality.name }}</td>
         <td>{{ subSpeciality.language }}</td>

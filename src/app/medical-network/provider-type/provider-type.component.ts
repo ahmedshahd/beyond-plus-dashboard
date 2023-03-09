@@ -152,12 +152,6 @@ export class ProviderTypeComponent {
   }
 
   onInsuranceCompanyChange() {
-    console.log('this.selectedLanguage.value', this.selectedLanguage.value);
-    console.log(
-      'this.selectedInsuranceCompany.insuranceCompanyId',
-      this.selectedInsuranceCompany.insuranceCompanyId
-    );
-
     return this.providerTypeService
       .getProviderTypes(
         this.selectedInsuranceCompany.insuranceCompanyId,
@@ -168,10 +162,8 @@ export class ProviderTypeComponent {
       )
       .subscribe(({ data, error }: any) => {
         if (data) {
-          console.log('data', data);
           this.providerTypes =
             data.listAllProviderTypesByInsuranceCompanyId.providerType;
-          console.log(' this.providerTypes', this.providerTypes);
           this.messageService.add({
             severity: 'success',
             summary: 'ProviderType data loaded successfully',
@@ -197,7 +189,11 @@ export class ProviderTypeComponent {
   deleteSelectedProviderTypes() {}
 
   editProviderType(providerType: any) {
-    this.providerType = {};
+    this.providerType = {
+      insuranceCompanyId: providerType.insuranceCompanyId,
+      name: providerType.name,
+      language: providerType.language,
+    };
     this.editDialog = true;
     this.editId = providerType.id;
   }

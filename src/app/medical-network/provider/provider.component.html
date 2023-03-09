@@ -13,14 +13,15 @@
       ></button>
     </ng-template>
     <ng-template pTemplate="right">
-      <button
-        pButton
-        pRipple
-        icon="pi pi-trash"
-        class="p-button-danger"
-        (click)="deleteSelectedProviders()"
-        [disabled]="!selectedProviders || !selectedProviders.length"
-      ></button>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          (input)="onSearchInputChange($event)"
+          type="text"
+          placeholder="Search..."
+        />
+      </span>
     </ng-template>
   </p-toolbar>
 
@@ -39,15 +40,6 @@
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
         <h5 class="m-0">Manage Providers</h5>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            (input)="onSearchInputChange($event)"
-            type="text"
-            placeholder="Search..."
-          />
-        </span>
       </div>
       <p-dropdown
         [options]="languageOptions"
@@ -71,6 +63,14 @@
         optionLabel="name"
         (onChange)="onInsuranceCompanyChange()"
         placeholder="Select Insurance Company"
+        [showClear]="true"
+      ></p-dropdown>
+      <p-dropdown
+        [options]="categoryOptions"
+        [(ngModel)]="selectedCategory"
+        optionLabel="name"
+        (onChange)="onCategoryChange()"
+        placeholder="Select Category"
         [showClear]="true"
       ></p-dropdown>
       <p-dropdown

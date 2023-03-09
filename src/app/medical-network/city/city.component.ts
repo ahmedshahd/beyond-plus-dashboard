@@ -187,7 +187,11 @@ export class CityComponent {
   deleteSelectedCities() {}
 
   editCity(city: any) {
-    this.city = {};
+    this.city = {
+      insuranceCompanyId: city.insuranceCompanyId,
+      name: city.name,
+      language: city.language,
+    };
     this.editDialog = true;
     this.editId = city.id;
   }

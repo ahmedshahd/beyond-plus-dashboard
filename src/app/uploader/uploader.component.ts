@@ -14,9 +14,10 @@ export class UploaderComponent implements OnInit {
   success = false;
   fileName = '';
 
-  // uploadUrl = 'https://plus.beyond-solution.com/csv-uploader/upload';
+  uploadUrl = 'https://plus.beyond-solution.com/csv-uploader/upload';
+  // uploadUrl = 'https://beyond-plus.onrender.com/csv-uploader/upload';
 
-  uploadUrl = 'http://localhost:8000/csv-uploader/upload';
+  // uploadUrl = 'http://localhost:8000/csv-uploader/upload';
 
   uploaderForm: FormGroup;
 

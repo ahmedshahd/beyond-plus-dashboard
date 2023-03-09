@@ -217,7 +217,11 @@ export class SpecialityComponent {
   deleteSelectedSpecialities() {}
 
   editSpeciality(speciality: any) {
-    this.speciality = {};
+    this.speciality = {
+      name: speciality.name,
+      language: speciality.language,
+      providerTypeId: speciality.providerTypeId,
+    };
     this.editDialog = true;
     this.editId = speciality.id;
   }

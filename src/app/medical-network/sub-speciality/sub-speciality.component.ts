@@ -260,10 +260,14 @@ export class SubSpecialityComponent {
 
   deleteSelectedSubSpecialities() {}
 
-  editSubSpeciality(speciality: any) {
-    this.subSpeciality = {};
+  editSubSpeciality(subSpeciality: any) {
+    this.subSpeciality = {
+      name: subSpeciality.name,
+      specialityId: subSpeciality.specialityId,
+      language: subSpeciality.language,
+    };
     this.editDialog = true;
-    this.editId = speciality.id;
+    this.editId = subSpeciality.id;
   }
 
   updateSubSpeciality(subSpeciality) {

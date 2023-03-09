@@ -1381,7 +1381,7 @@ const REMOVE_SUB_SPECIALITY = gql`
 /////********                                          *******//////////////
 
 const GET_PROVIDER = gql`
-  query ListAllProvidersByProviderTypeIdAndAreaId(
+  query ListAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
     $language: LanguageEnum!
     $specialityId: [Int!]!
     $subSpecialityId: [Int!]!
@@ -1391,7 +1391,7 @@ const GET_PROVIDER = gql`
     $page: Int
     $limit: Int
   ) {
-    listAllProvidersByProviderTypeIdAndAreaId(
+    listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
       language: $language
       specialityId: $specialityId
       subSpecialityId: $subSpecialityId
@@ -1412,6 +1412,7 @@ const GET_PROVIDER = gql`
         isOnline
         hasChronicMedication
         websiteUrl
+        categoryId
         areaId
         specialityId
         subSpecialityId

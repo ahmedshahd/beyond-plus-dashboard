@@ -13,16 +13,15 @@
       ></button>
     </ng-template>
     <ng-template pTemplate="right">
-      <button
-        pButton
-        pRipple
-        icon="pi pi-trash"
-        class="p-button-danger"
-        (click)="deleteSelectedInsuranceCompanies()"
-        [disabled]="
-          !selectedInsuranceCompanies || !selectedInsuranceCompanies.length
-        "
-      ></button>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          (input)="onSearchInputChange($event)"
+          type="text"
+          placeholder="Search..."
+        />
+      </span>
     </ng-template>
   </p-toolbar>
 
@@ -42,15 +41,6 @@
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
         <h5 class="m-0">Manage InsuranceCompanies</h5>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            (input)="onSearchInputChange($event)"
-            type="text"
-            placeholder="Search..."
-          />
-        </span>
       </div>
       <p-dropdown
         [options]="languageOptions"
@@ -71,9 +61,6 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 4rem">
-          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th>
         <th>ID</th>
         <th pSortableColumn="name" style="min-width: 15rem">
           Name <p-sortIcon field="name"></p-sortIcon>
@@ -85,9 +72,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-insuranceCompany>
       <tr>
-        <td>
-          <p-tableCheckbox [value]="insuranceCompany"></p-tableCheckbox>
-        </td>
         <td>{{ insuranceCompany.id }}</td>
         <td>{{ insuranceCompany.name }}</td>
         <td>{{ insuranceCompany.language }}</td>

@@ -213,10 +213,12 @@ export class AreaComponent {
     this.createDialog = true;
   }
 
-  deleteSelectedAreas() {}
-
   editArea(area: any) {
-    this.area = {};
+    this.area = {
+      cityId: area.cityId,
+      name: area.name,
+      language: area.language,
+    };
     this.editDialog = true;
     this.editId = area.id;
   }

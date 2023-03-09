@@ -24,6 +24,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
+    MatInputModule,
     MatListModule,
     MatMenuModule,
     MatSelectModule,
@@ -33,7 +34,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTableModule,
     MatToolbarModule,
     MatButtonToggleModule,
-    MatInputModule,
   ],
 })
 export class MaterialModule {}

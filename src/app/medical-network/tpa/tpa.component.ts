@@ -114,28 +114,11 @@ export class TpaComponent {
     this.createDialog = true;
   }
 
-  deleteSelectedTpas() {
-    // this.confirmationService.confirm({
-    //   message: 'Are you sure you want to delete the selected tpas?',
-    //   header: 'Confirm',
-    //   icon: 'pi pi-exclamation-triangle',
-    //   accept: () => {
-    //     this.tpas = this.tpas.filter(
-    //       (val) => !this.selectedTpas.includes(val)
-    //     );
-    //     this.selectedTpas = null;
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'Successful',
-    //       detail: 'Tpas Deleted',
-    //       life: 3000,
-    //     });
-    //   },
-    // });
-  }
-
   editTpa(tpa: any) {
-    this.tpa = {};
+    this.tpa = {
+      language: tpa.language,
+      name: tpa.name,
+    };
     this.editDialog = true;
     this.editId = tpa.id;
   }

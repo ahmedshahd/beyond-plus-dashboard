@@ -208,7 +208,10 @@ export class AreaComponent {
   }
 
   openNew() {
-    this.area = {};
+    this.area = {
+      cityId: this.selectedCity?.cityId ?? null,
+      language: this.selectedLanguage?.value ?? '',
+    };
     this.submitted = false;
     this.createDialog = true;
   }

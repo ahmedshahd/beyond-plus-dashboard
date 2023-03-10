@@ -115,7 +115,11 @@ export class InsuranceCompanyComponent {
   }
 
   openNew() {
-    this.insuranceCompany = {};
+    console.log('this.selectedTpa?.tpaId', this.selectedTpa?.tpaId);
+    this.insuranceCompany = {
+      tpaId: this.selectedTpa?.tpaId ?? null,
+      language: this.selectedLanguage?.value ?? '',
+    };
     this.submitted = false;
     this.createDialog = true;
   }

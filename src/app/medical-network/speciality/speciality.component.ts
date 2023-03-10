@@ -209,7 +209,10 @@ export class SpecialityComponent {
   }
 
   openNew() {
-    this.speciality = {};
+    this.speciality = {
+      providerTypeId: this.selectedProviderType?.providerTypeId ?? null,
+      language: this.selectedLanguage?.value ?? '',
+    };
     this.submitted = false;
     this.createDialog = true;
   }

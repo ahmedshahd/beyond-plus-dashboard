@@ -268,6 +268,25 @@
         >Phone Number is required.</small
       >
     </div>
+
+    <!-- <div
+      class="field"
+      *ngFor="let phoneNumber of provider.phoneNumber; let i = index"
+    >
+      <label for="phoneNumber{{ i }}">Phone Number {{ i + 1 }}</label>
+      <input
+        type="text"
+        pInputText
+        id="phoneNumber{{ i }}"
+        [(ngModel)]="provider.phoneNumber[i]"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !provider.phoneNumber[i]"
+        >Phone Number {{ i + 1 }} is required.</small
+      >
+    </div> -->
+
     <div class="field">
       <label for="address">Address</label>
       <input
@@ -279,7 +298,7 @@
         autofocus
       />
       <small class="p-error" *ngIf="submitted && !provider.address"
-        >Phone Number is address.</small
+        >Address is required.</small
       >
     </div>
     <div class="field">
@@ -451,7 +470,7 @@
         autofocus
       />
     </div>
-    <div class="field">
+    <!-- <div class="field">
       <label for="phoneNumber">Phone Number</label>
       <input
         type="text"
@@ -460,7 +479,22 @@
         [(ngModel)]="provider.phoneNumber"
         autofocus
       />
+    </div> -->
+
+    <div
+      class="field"
+      *ngFor="let phoneNumber of provider.phoneNumber; let i = index"
+    >
+      <label for="phoneNumber{{ i }}">Phone Number {{ i + 1 }}</label>
+      <input
+        type="text"
+        pInputText
+        id="phoneNumber{{ i }}"
+        [(ngModel)]="provider.phoneNumber[i]"
+        autofocus
+      />
     </div>
+
     <div class="field">
       <label for="Language">Language</label>
       <p-dropdown

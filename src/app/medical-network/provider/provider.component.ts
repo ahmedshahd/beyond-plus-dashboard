@@ -128,7 +128,7 @@ export class ProviderComponent {
       .subscribe(({ data, error }: any) => {
         if (data) {
           this.providers =
-            data.ListAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
+            data.listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
         } else {
           console.log(error);
         }
@@ -396,8 +396,8 @@ export class ProviderComponent {
     this.provider = {
       id: null,
       address: '',
-      areaId: null,
-      categoryId: null,
+      areaId: this.selectedArea?.areaId ?? null,
+      categoryId: this.selectedCategory?.categoryId ?? null,
       email: '',
       hasChronicMedication: false,
       isOnline: false,
@@ -405,10 +405,10 @@ export class ProviderComponent {
       longitude: null,
       name: '',
       phoneNumber: [],
-      specialityId: null,
-      subSpecialityId: null,
+      specialityId: this.selectedSpeciality?.specialityId ?? null,
+      subSpecialityId: this.selectedSubSpeciality?.subSpecialityId ?? null,
       websiteUrl: '',
-      language: '',
+      language: this.selectedLanguage?.value ?? null,
     };
     this.submitted = false;
     this.createDialog = true;
@@ -417,6 +417,7 @@ export class ProviderComponent {
   deleteSelectedProviders() {}
 
   editProvider(provider: any) {
+    console.log('edit provider', provider);
     this.provider = {
       id: provider.id,
       address: provider.address,

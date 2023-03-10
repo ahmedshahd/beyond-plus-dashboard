@@ -181,7 +181,11 @@ export class ProviderTypeComponent {
   }
 
   openNew() {
-    this.providerType = {};
+    this.providerType = {
+      insuranceCompanyId:
+        this.selectedInsuranceCompany?.insuranceCompanyId ?? null,
+      language: this.selectedLanguage?.value ?? '',
+    };
     this.submitted = false;
     this.createDialog = true;
   }

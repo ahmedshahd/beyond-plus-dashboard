@@ -184,7 +184,11 @@ export class CategoryComponent {
   }
 
   openNew() {
-    this.category = {};
+    this.category = {
+      insuranceCompanyId:
+        this.selectedInsuranceCompany?.insuranceCompanyId ?? null,
+      language: this.selectedLanguage?.value ?? '',
+    };
     this.submitted = false;
     this.createDialog = true;
   }

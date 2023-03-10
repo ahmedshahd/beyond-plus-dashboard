@@ -179,7 +179,11 @@ export class CityComponent {
   }
 
   openNew() {
-    this.city = {};
+    this.city = {
+      insuranceCompanyId:
+        this.selectedInsuranceCompany?.insuranceCompanyId ?? null,
+      language: this.selectedLanguage?.value ?? '',
+    };
     this.submitted = false;
     this.createDialog = true;
   }

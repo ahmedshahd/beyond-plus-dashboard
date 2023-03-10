@@ -253,7 +253,10 @@ export class SubSpecialityComponent {
   }
 
   openNew() {
-    this.subSpeciality = {};
+    this.subSpeciality = {
+      specialityId: this.selectedSpeciality?.specialityId ?? null,
+      language: this.selectedLanguage?.value ?? '',
+    };
     this.submitted = false;
     this.createDialog = true;
   }

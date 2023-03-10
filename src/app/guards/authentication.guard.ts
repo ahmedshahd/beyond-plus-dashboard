@@ -29,6 +29,8 @@ export class AuthGuard implements CanActivate {
           if (user) {
             resolve(true);
           } else {
+            console.log('user', user);
+            console.log('logged out');
             this.router.navigate(['/login']);
             resolve(false);
           }
@@ -67,15 +69,13 @@ export class AuthGuard implements CanActivate {
 //     | boolean
 //     | UrlTree {
 //     const isAuthenticated = this.authService.getCurrentUser();
-//     console.log('isAuthenticated', isAuthenticated);
+//     console.log('isAuthenticated current', isAuthenticated);
 //     if (isAuthenticated) {
 //       return true;
 //     } else {
+//       console.log('logout');
 //       // Redirect to login page with current route as query parameter
-//       const returnUrl = state.url;
-//       return this.router.createUrlTree(['/login'], {
-//         queryParams: { returnUrl },
-//       });
+//       return this.router.navigate(['/login']);
 //     }
 //   }
 // }

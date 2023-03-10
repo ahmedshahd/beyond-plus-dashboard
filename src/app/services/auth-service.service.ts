@@ -3,6 +3,7 @@ import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from 'firebase/auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -35,10 +36,18 @@ export class AuthService {
       throw error;
     }
   }
+  //
+
   getCurrentUser(): Promise<any> {
     return this.afAuth.currentUser;
   }
 }
+
+//   getCurrentUser(): Observable<User> {
+//     return this.afAuth.authState;
+//   }
+// }
+
 // }
 // export class AuthService {
 //   private isAuthenticated = new BehaviorSubject(this.afAuth.authState || false);

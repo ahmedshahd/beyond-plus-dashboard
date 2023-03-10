@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user.subscribe((isAuthenticated) => {
       if (isAuthenticated) {
-        this.router.navigateByUrl('/uploader');
+        // this.router.navigateByUrl('/uploader');
       } else {
         this.router.navigateByUrl('/login');
       }

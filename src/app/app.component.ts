@@ -88,6 +88,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user.subscribe((user) => {
       if (user) {
+        this.router.navigateByUrl(lastRoute);
         return (this.isUser = true);
       }
       return (this.isUser = false);
@@ -95,7 +96,5 @@ export class AppComponent implements OnInit {
     // Restore the user's last route after a page refresh
     const lastRoute = this.routeSerializer.getLastRoute();
     console.log('lastRoute', lastRoute);
-
-    this.router.navigateByUrl(lastRoute);
   }
 }

@@ -404,7 +404,7 @@ export class ProviderComponent {
       latitude: null,
       longitude: null,
       name: '',
-      phoneNumber: [],
+      phoneNumber: [''],
       specialityId: this.selectedSpeciality?.specialityId ?? null,
       subSpecialityId: this.selectedSubSpeciality?.subSpecialityId ?? null,
       websiteUrl: '',
@@ -416,8 +416,17 @@ export class ProviderComponent {
 
   deleteSelectedProviders() {}
 
+  addPhoneNumber() {
+    this.provider.phoneNumber.push('');
+  }
+  deletePhoneNumber(index) {
+    this.provider.phoneNumber.splice(index, 1);
+  }
+
   editProvider(provider: any) {
     console.log('edit provider', provider);
+    console.log('edit provider phoneNumber', provider.phoneNumber);
+
     this.provider = {
       id: provider.id,
       address: provider.address,
@@ -429,7 +438,7 @@ export class ProviderComponent {
       latitude: provider.latitude,
       longitude: provider.longitude,
       name: provider.name,
-      phoneNumber: provider.phoneNumber,
+      phoneNumber: [...provider.phoneNumber],
       specialityId: provider.specialityId,
       subSpecialityId: provider.subSpecialityId,
       websiteUrl: provider.websiteUrl,

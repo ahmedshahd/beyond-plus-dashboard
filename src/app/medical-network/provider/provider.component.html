@@ -254,38 +254,41 @@
         >Sub Speciality Id is required.</small
       >
     </div>
-    <div class="field">
-      <label for="phoneNumber">Phone Number</label>
-      <input
-        type="text"
-        pInputText
-        id="phoneNumber"
-        [(ngModel)]="provider.phoneNumber"
-        required
-        autofocus
-      />
-      <small class="p-error" *ngIf="submitted && !provider.phoneNumber"
-        >Phone Number is required.</small
-      >
-    </div>
-
-    <!-- <div
+    <div
+      class="col-12 md:col-4"
       class="field"
       *ngFor="let phoneNumber of provider.phoneNumber; let i = index"
     >
       <label for="phoneNumber{{ i }}">Phone Number {{ i + 1 }}</label>
-      <input
-        type="text"
-        pInputText
-        id="phoneNumber{{ i }}"
-        [(ngModel)]="provider.phoneNumber[i]"
-        required
-        autofocus
-      />
-      <small class="p-error" *ngIf="submitted && !provider.phoneNumber[i]"
-        >Phone Number {{ i + 1 }} is required.</small
-      >
-    </div> -->
+      <div class="p-inputgroup">
+        <input
+          type="text"
+          pInputText
+          id="phoneNumber{{ i }}"
+          [(ngModel)]="provider.phoneNumber[i]"
+          placeholder="Add Phone Number"
+        />
+        <button
+          type="button"
+          pButton
+          pRipple
+          icon="pi pi-times"
+          styleClass="p-button-danger"
+          (click)="deletePhoneNumber(i)"
+        ></button>
+        <small class="p-error" *ngIf="submitted && !provider.phoneNumber"
+          >Phone Number is required.</small
+        >
+      </div>
+    </div>
+    <button
+      type="button"
+      incrementButtonClass="p-button-success"
+      incrementButtonIcon="pi pi-plus"
+      (click)="addPhoneNumber()"
+    >
+      Add Phone Number
+    </button>
 
     <div class="field">
       <label for="address">Address</label>
@@ -327,16 +330,23 @@
         autofocus
       />
     </div>
-    <div class="field">
+
+    <div class="col-12 md:col-4" class="field">
       <label for="websiteUrl">websiteUrl</label>
-      <input
-        type="text"
-        pInputText
-        id="websiteUrl"
-        [(ngModel)]="provider.websiteUrl"
-        autofocus
-      />
+
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">www</span>
+        <input
+          type="text"
+          pInputText
+          placeholder="Website"
+          id="websiteUrl"
+          [(ngModel)]="provider.websiteUrl"
+          autofocus
+        />
+      </div>
     </div>
+
     <div class="field">
       <label for="hasChronicMedication">hasChronicMedication</label>
       <input
@@ -470,30 +480,39 @@
         autofocus
       />
     </div>
-    <!-- <div class="field">
-      <label for="phoneNumber">Phone Number</label>
-      <input
-        type="text"
-        pInputText
-        id="phoneNumber"
-        [(ngModel)]="provider.phoneNumber"
-        autofocus
-      />
-    </div> -->
 
     <div
+      class="col-12 md:col-4"
       class="field"
       *ngFor="let phoneNumber of provider.phoneNumber; let i = index"
     >
       <label for="phoneNumber{{ i }}">Phone Number {{ i + 1 }}</label>
-      <input
-        type="text"
-        pInputText
-        id="phoneNumber{{ i }}"
-        [(ngModel)]="provider.phoneNumber[i]"
-        autofocus
-      />
+      <div class="p-inputgroup">
+        <input
+          type="text"
+          pInputText
+          id="phoneNumber{{ i }}"
+          [(ngModel)]="provider.phoneNumber[i]"
+          placeholder="Add Phone Number"
+        />
+        <button
+          type="button"
+          pButton
+          pRipple
+          icon="pi pi-times"
+          styleClass="p-button-danger"
+          (click)="deletePhoneNumber(i)"
+        ></button>
+      </div>
     </div>
+    <button
+      type="button"
+      incrementButtonClass="p-button-success"
+      incrementButtonIcon="pi pi-plus"
+      (click)="addPhoneNumber()"
+    >
+      Add Phone Number
+    </button>
 
     <div class="field">
       <label for="Language">Language</label>

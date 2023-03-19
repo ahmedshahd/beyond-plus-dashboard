@@ -130,14 +130,12 @@
 
     <div class="field">
       <label for="name">TpaId</label>
-      <input
-        type="text"
+      <p-inputNumber
         pInputText
         id="tpaId"
         [(ngModel)]="insuranceCompany.tpaId"
-        required
         autofocus
-      />
+      ></p-inputNumber>
       <small class="p-error" *ngIf="submitted && !insuranceCompany.tpaId"
         >tpaId is required.</small
       >
@@ -204,13 +202,11 @@
 
     <div class="field">
       <label for="name">TpaId</label>
-      <input
-        type="text"
-        pInputText
+      <p-inputNumber
         id="tpaId"
         [(ngModel)]="insuranceCompany.tpaId"
         autofocus
-      />
+      ></p-inputNumber>
     </div>
     <div class="field">
       <label for="Language">Language</label>

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular13-fundamentals-workshop": {
+    "beyond-plus-admin-dashboard": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular13-fundamentals-workshop",
+            "outputPath": "dist/beyond-plus-admin-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular13-fundamentals-workshop:build:production"
+              "browserTarget": "beyond-plus-admin-dashboard:build:production"
             },
             "development": {
-              "browserTarget": "angular13-fundamentals-workshop:build:development"
+              "browserTarget": "beyond-plus-admin-dashboard:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular13-fundamentals-workshop:build"
+            "browserTarget": "beyond-plus-admin-dashboard:build"
           }
         },
         "test": {
@@ -110,5 +110,8 @@
       }
     }
   },
-  "defaultProject": "angular13-fundamentals-workshop"
+  "defaultProject": "beyond-plus-admin-dashboard",
+  "cli": {
+    "analytics": false
+  }
 }

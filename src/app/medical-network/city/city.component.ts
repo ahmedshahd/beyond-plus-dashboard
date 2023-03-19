@@ -201,7 +201,7 @@ export class CityComponent {
   }
 
   updateCity(city) {
-    const countryId = city.language === 'ENGLISH' ? 4 : 5;
+    const countryId = city.language === 'ENGLISH' ? 1 : 2;
 
     this.cityService
       .updateCity(
@@ -270,7 +270,7 @@ export class CityComponent {
   }
 
   addCity() {
-    const countryId = this.city.language === 'ENGLISH' ? 4 : 5;
+    const countryId = this.city.language === 'ENGLISH' ? 1 : 2;
 
     this.submitted = true;
     this.cityService

@@ -1,8 +1,10 @@
+import { InsuranceCompanyService } from './../medical-network/insurance-company/insurance-company.service';
+import { TpaService } from './../medical-network/tpa/tpa.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
+import { MessageService, SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-uploader',
@@ -10,57 +12,107 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./uploader.component.scss'],
 })
 export class UploaderComponent implements OnInit {
+  languageOptions: SelectItem[] = [
+    { label: 'English', value: 'ENGLISH' },
+    { label: 'Arabic', value: 'ARABIC' },
+  ];
+  selectedLanguage: any = { label: 'English', value: 'ENGLISH' };
+  tpaOptions: SelectItem[];
+  selectedTpa: any;
+  insuranceCompanyOptions: SelectItem[];
+  selectedInsuranceCompany: any;
+  fileToUpload: File = null;
+
   rsponse$: Observable<any>;
   success = false;
   fileName = '';
 
   uploadUrl = 'https://plus.beyond-solution.com/csv-uploader/upload';
-  // uploadUrl = 'https://beyond-plus.onrender.com/csv-uploader/upload';
 
-  // uploadUrl = 'http://localhost:8000/csv-uploader/upload';
+  constructor(
+    private http: HttpClient,
+    private tpaService: TpaService,
+    private insuranceCompanyService: InsuranceCompanyService,
+    private messageService: MessageService
+  ) {}
 
-  uploaderForm: FormGroup;
-
-  constructor(private http: HttpClient, private fb: FormBuilder) {
-    this.uploaderForm = this.fb.group({
-      tpaName: ['', Validators.required],
-      insuranceCompanyName: ['', Validators.required],
-      language: ['', Validators.required],
-      file: [null, Validators.required],
-    });
-  }
-
-  get selectedLanguage() {
-    return this.uploaderForm.get('language');
-  }
-
-  changeSelectedLanguage(e: any) {
-    this.selectedLanguage?.setValue(e.target.value, {
-      onlySelf: true,
-    });
-  }
-  uploadFile(event) {
-    const file: File = (event.target as HTMLInputElement).files[0];
-    if (file) {
-      this.uploaderForm.patchValue({
-        file: file,
+  onLanguageChange() {
+    console.log('language changed to', this.selectedLanguage);
+    return this.tpaService
+      .getTpas(this.selectedLanguage)
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          const tpa = data.listAllTpas.tpa;
+          this.tpaOptions = tpa.map((tpa) => {
+            return {
+              tpaId: tpa.id,
+              name: tpa.name,
+            };
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading TPA Options',
+          });
+        }
       });
-      this.uploaderForm.get('file').updateValueAndValidity();
+  }
+
+  onTpaChange() {
+    if (this.selectedTpa.name) {
+      return this.insuranceCompanyService
+        .getInsuranceCompanies(this.selectedLanguage, this.selectedTpa.tpaId)
+        .subscribe(({ data, error }: any) => {
+          if (data) {
+            const insuranceCompany =
+              data.listAllInsuranceCompaniesByTpaId.insuranceCompany;
+            this.insuranceCompanyOptions = insuranceCompany.map((company) => {
+              return {
+                insuranceCompanyId: company.id,
+                name: company.name,
+              };
+            });
+          } else {
+            console.log(error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error loading Insurance Company Options',
+              life: 3000,
+            });
+          }
+        });
+    }
+    return null;
+  }
+
+  onFileSelect(event) {
+    console.log('heree', event.files[0]);
+    const file: File = event.files[0];
+    console.log('file', file);
+    if (file) {
+      this.fileToUpload = file;
+      console.log('this.fileToUpload', this.fileToUpload);
     }
   }
 
   submitForm() {
+    const tpaName =
+      typeof this.selectedTpa === 'object'
+        ? this.selectedTpa.name
+        : this.selectedTpa;
+    const InsuranceCompanyName =
+      typeof this.selectedInsuranceCompany === 'object'
+        ? this.selectedInsuranceCompany.name
+        : this.selectedInsuranceCompany;
     const formData = new FormData();
 
-    formData.append('file', this.uploaderForm.get('file').value);
+    formData.append('file', this.fileToUpload);
 
     const params = new HttpParams()
-      .append('language', this.uploaderForm.get('language').value)
-      .append('tpaName', this.uploaderForm.get('tpaName').value)
-      .append(
-        'insuranceCompanyName',
-        this.uploaderForm.get('insuranceCompanyName').value
-      );
+      .append('language', this.selectedLanguage)
+      .append('tpaName', tpaName)
+      .append('insuranceCompanyName', InsuranceCompanyName);
 
     let headers = new HttpHeaders();
     headers.append('api-key', environment.API_KEY);
@@ -77,10 +129,36 @@ export class UploaderComponent implements OnInit {
     this.rsponse$.subscribe((res) => {
       if (res) {
         this.success = true;
-        this.uploaderForm.reset();
+        this.resetForm();
       }
     });
   }
 
-  ngOnInit(): void {}
+  resetForm() {
+    this.selectedInsuranceCompany = null;
+    this.selectedTpa = null;
+    this.fileToUpload = null;
+  }
+
+  ngOnInit(): void {
+    this.tpaService
+      .getTpas(this.selectedLanguage.value)
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          const tpa = data.listAllTpas.tpa;
+          this.tpaOptions = tpa.map((tpa) => {
+            return {
+              tpaId: tpa.id,
+              name: tpa.name,
+            };
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading TPA Options',
+          });
+        }
+      });
+  }
 }

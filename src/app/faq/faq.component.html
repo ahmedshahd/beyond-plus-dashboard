@@ -96,6 +96,10 @@
                 formControlName="{{ i }}"
                 required
               />
+              <button *ngIf="faqForm.get('answers')['controls'].length > 1" matSuffix mat-icon-button aria-label="Clear" (click)="deletefaq(i)">
+                <mat-icon>close</mat-icon>
+              </button>
+
             </mat-form-field>
           </div>
           <section>

@@ -1,77 +1,87 @@
 <div class="faq-container">
   <div class="faq-details">
-    <mat-card class="upload-card">
-      <mat-card-header>
-        <mat-card-title>Upload Medical Network CSV File</mat-card-title>
-      </mat-card-header>
-      <form
-        [formGroup]="uploaderForm"
-        (ngSubmit)="submitForm()"
-        class="upload-form"
-      >
-        <mat-card-content>
-          <mat-form-field appearance="fill">
-            <mat-label>Enter TPA</mat-label>
-            <input
-              matInput
+    <div class="upload-form">
+      <p-card class="upload-card">
+        <ng-template pTemplate="header">
+          <div class="uploader-header">
+            <h2>Upload Medical Network CSV File</h2>
+          </div>
+        </ng-template>
+
+        <div>
+          <div class="p-field">
+            <p-dropdown
+              id="language"
+              [options]="languageOptions"
+              [required]="true"
+              [(ngModel)]="selectedLanguage"
+              (onChange)="onLanguageChange()"
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+          </div>
+
+          <div class="p-field">
+            <p-dropdown
               placeholder="Enter TPA"
-              formControlName="tpaName"
-              type="text"
+              [(ngModel)]="selectedTpa"
+              (onChange)="onTpaChange()"
               name="tpaName"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Enter Insurance Company</mat-label>
-            <input
-              matInput
+              [options]="tpaOptions"
+              optionLabel="name"
+              [required]="true"
+              [editable]="true"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+          </div>
+          <div class="p-field">
+            <p-dropdown
+              [(ngModel)]="selectedInsuranceCompany"
               placeholder="Enter Insurance Company"
-              formControlName="insuranceCompanyName"
-              type="text"
               name="insuranceCompanyName"
+              [options]="insuranceCompanyOptions"
+              optionLabel="name"
+              [required]="true"
+              [editable]="true"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+          </div>
+
+          <div class="p-field">
+            <p-fileUpload
+              id="fileToUpload"
+              name="fileToUpload"
+              (onSelect)="onFileSelect($event)"
+              accept=".csv"
               required
-            />
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Select Language</mat-label>
-            <mat-select
-              required
-              name="language"
-              formControlName="language"
-              (change)="changeSelectedLanguage($event)"
-            >
-              <mat-option [value]="'ENGLISH'">English</mat-option>
-              <mat-option [value]="'ARABIC'">Arabic</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-label>Upload CSV file</mat-label>
-          <br />
-          <input
-            type="file"
-            name="file"
-            required
-            (change)="uploadFile($event)"
-          />
-          <br />
+              chooseLabel="Select CSV File"
+              [showUploadButton]="false"
+              [showCancelButton]="false"
+            ></p-fileUpload>
+          </div>
           <span class="green-span" *ngIf="success"
             >File Uploaded Successfully</span
           >
-          <br />
-        </mat-card-content>
-        <mat-card-actions>
-          <button
-            [disabled]="uploaderForm.invalid"
-            type="submit"
-            mat-raised-button
-            color="primary"
-          >
-            Save
-          </button>
-          <button type="button" mat-button (click)="uploaderForm.reset()">
-            Cancel
-          </button>
-        </mat-card-actions>
-      </form>
-    </mat-card>
+        </div>
+        <ng-template pTemplate="footer">
+          <div class="footer-container">
+            <p-button
+              label="Save"
+              type="button"
+              (onClick)="submitForm()"
+              class="p-button-primary"
+              icon="pi pi-check"
+            ></p-button>
+            <p-button
+              label="Cancel"
+              icon="pi pi-times"
+              styleClass="p-button-secondary"
+              (click)="resetForm()"
+            ></p-button>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
 </div>

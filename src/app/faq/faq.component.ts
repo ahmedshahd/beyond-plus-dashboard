@@ -9,6 +9,11 @@ import { GET_FAQ, CREATE_FAQ, REMOVE_FAQ } from '../graphql/qraphql.queries';
   styleUrls: ['./faq.component.scss'],
 })
 export class FaqComponent implements OnInit {
+  deletefaq(index) {
+    console.log(index, this.faqForm.get('answers'));
+    this.faqForm.get('answers')['controls'].splice(index, 1);
+    this.faqForm.get('answers').value.splice(index, 1);
+  }
   faqs: any[] = [];
   error: any;
   refetchLanguage: string = 'ARABIC';

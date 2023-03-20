@@ -419,6 +419,7 @@ export class ProviderComponent {
   addPhoneNumber() {
     this.provider.phoneNumber.push('');
   }
+
   deletePhoneNumber(index) {
     this.provider.phoneNumber.splice(index, 1);
   }

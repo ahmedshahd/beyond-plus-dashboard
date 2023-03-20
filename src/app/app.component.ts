@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
   title = 'Beyond Plus Admin Dashboard';
   isUser: Boolean = false;
   links = [
-    { path: '/uploader', icon: 'cloud_upload', title: 'Uploader' },
     { path: '/faq', icon: 'view_list', title: 'FAQ' },
     { path: '/label', icon: 'view_list', title: 'Label' },
     {
@@ -33,6 +32,7 @@ export class AppComponent implements OnInit {
   ];
 
   medicalNetworkLinks = [
+    { path: '/uploader', icon: 'cloud_upload', title: 'Uploader' },
     { path: '/tpa', icon: 'view_list', title: 'TPA' },
     {
       path: '/insuranceCompany',

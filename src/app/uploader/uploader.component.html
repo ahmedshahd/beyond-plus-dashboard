@@ -50,6 +50,7 @@
 
           <div class="p-field">
             <p-fileUpload
+              #fileInput
               id="fileToUpload"
               name="fileToUpload"
               (onSelect)="onFileSelect($event)"
@@ -72,6 +73,12 @@
               (onClick)="submitForm()"
               class="p-button-primary"
               icon="pi pi-check"
+              [disabled]="
+                !selectedTpa ||
+                !selectedInsuranceCompany ||
+                !selectedLanguage ||
+                !fileToUpload
+              "
             ></p-button>
             <p-button
               label="Cancel"

@@ -115,7 +115,6 @@ export class InsuranceCompanyComponent {
   }
 
   openNew() {
-    console.log('this.selectedTpa?.tpaId', this.selectedTpa?.tpaId);
     this.insuranceCompany = {
       tpaId: this.selectedTpa?.tpaId ?? null,
       language: this.selectedLanguage?.value ?? '',
@@ -209,12 +208,6 @@ export class InsuranceCompanyComponent {
 
   addInsuranceCompany() {
     this.submitted = true;
-    console.log('this.insuranceCompany.name', this.insuranceCompany.name);
-    console.log('this.insuranceCompany.t[ppa', this.insuranceCompany.tpaId);
-    console.log(
-      'this.insuranceCompany.language',
-      this.insuranceCompany.language
-    );
 
     this.insuranceCompanyService
       .createInsuranceCompany(

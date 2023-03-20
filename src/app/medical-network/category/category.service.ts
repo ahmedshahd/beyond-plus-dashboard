@@ -39,7 +39,6 @@ export class CategoryService {
     tierRank: string,
     language: string
   ): Observable<any> {
-    console.log(insuranceCompanyId);
     return this.apollo
       .mutate({
         mutation: CREATE_CATEGORY,

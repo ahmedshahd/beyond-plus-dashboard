@@ -373,7 +373,6 @@ export class ProviderComponent {
 
       .subscribe(({ data, error }: any) => {
         if (data) {
-          console.log('data from provider', data);
           this.providers =
             data.listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
           this.messageService.add({
@@ -425,9 +424,6 @@ export class ProviderComponent {
   }
 
   editProvider(provider: any) {
-    console.log('edit provider', provider);
-    console.log('edit provider phoneNumber', provider.phoneNumber);
-
     this.provider = {
       id: provider.id,
       address: provider.address,
@@ -450,8 +446,6 @@ export class ProviderComponent {
   }
 
   updateProvider(provider) {
-    console.log('provider.phoneNumber', provider.phoneNumber);
-
     this.providerService
       .updateProvider(
         this.editId,
@@ -537,12 +531,6 @@ export class ProviderComponent {
 
   addProvider() {
     this.submitted = true;
-    console.log('this.provider from add', this.provider);
-    console.log('this.provider.phoneNumber', this.provider.phoneNumber);
-
-    // const phoneNumber:string[]= [this.provider.phoneNumber];
-
-    // console.log('phoneNumber', phoneNumber);
 
     this.providerService
       .createProvider(

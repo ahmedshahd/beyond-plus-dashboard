@@ -1,10 +1,11 @@
 import { InsuranceCompanyService } from './../medical-network/insurance-company/insurance-company.service';
 import { TpaService } from './../medical-network/tpa/tpa.service';
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { MessageService, SelectItem } from 'primeng/api';
+import { FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-uploader',
@@ -12,6 +13,7 @@ import { MessageService, SelectItem } from 'primeng/api';
   styleUrls: ['./uploader.component.scss'],
 })
 export class UploaderComponent implements OnInit {
+  @ViewChild('fileInput') fileInput: FileUpload;
   languageOptions: SelectItem[] = [
     { label: 'English', value: 'ENGLISH' },
     { label: 'Arabic', value: 'ARABIC' },
@@ -25,6 +27,7 @@ export class UploaderComponent implements OnInit {
 
   rsponse$: Observable<any>;
   success = false;
+
   fileName = '';
 
   uploadUrl = 'https://plus.beyond-solution.com/csv-uploader/upload';
@@ -37,7 +40,6 @@ export class UploaderComponent implements OnInit {
   ) {}
 
   onLanguageChange() {
-    console.log('language changed to', this.selectedLanguage);
     return this.tpaService
       .getTpas(this.selectedLanguage)
       .subscribe(({ data, error }: any) => {
@@ -87,12 +89,10 @@ export class UploaderComponent implements OnInit {
   }
 
   onFileSelect(event) {
-    console.log('heree', event.files[0]);
     const file: File = event.files[0];
-    console.log('file', file);
     if (file) {
       this.fileToUpload = file;
-      console.log('this.fileToUpload', this.fileToUpload);
+      console.log(this.fileToUpload);
     }
   }
 
@@ -135,9 +135,12 @@ export class UploaderComponent implements OnInit {
   }
 
   resetForm() {
+    this.fileInput.clear(); // clears the file input field
     this.selectedInsuranceCompany = null;
     this.selectedTpa = null;
     this.fileToUpload = null;
+    this.selectedLanguage = null;
+    this.success = false;
   }
 
   ngOnInit(): void {

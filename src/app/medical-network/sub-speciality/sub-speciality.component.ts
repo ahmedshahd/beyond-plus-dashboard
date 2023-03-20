@@ -345,14 +345,6 @@ export class SubSpecialityComponent {
 
   addSubSpeciality() {
     this.submitted = true;
-    console.log('add sub');
-    console.log(
-      'this.subSpeciality.specialityId,',
-      this.subSpeciality.specialityId
-    );
-    console.log('this.subSpeciality.name,', this.subSpeciality.name);
-    console.log('this.subSpeciality.language,', this.subSpeciality.language);
-
     this.subSpecialityService
       .createSubSpeciality(
         this.subSpeciality.specialityId,

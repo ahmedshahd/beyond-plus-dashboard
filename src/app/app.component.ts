@@ -95,6 +95,5 @@ export class AppComponent implements OnInit {
     });
     // Restore the user's last route after a page refresh
     const lastRoute = this.routeSerializer.getLastRoute();
-    console.log('lastRoute', lastRoute);
   }
 }

@@ -21,8 +21,6 @@ import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { CheckboxModule } from 'primeng/checkbox';
-import {CardModule} from 'primeng/card';
-
 
 @NgModule({
   exports: [
@@ -46,7 +44,6 @@ import {CardModule} from 'primeng/card';
     ConfirmDialogModule,
     InputTextareaModule,
     CheckboxModule,
-    CardModule
   ],
   providers: [MessageService, ConfirmationService],
 })

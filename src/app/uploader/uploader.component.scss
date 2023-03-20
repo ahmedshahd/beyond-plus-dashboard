@@ -10,25 +10,29 @@
   padding: 20px;
 }
 
-.p-field {
+.mat-form-field {
   width: 100%;
   margin-bottom: 20px;
 }
 
-.uploader-header{
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.mat-select {
+  width: 100%;
 }
-h2{
-  margin: 28px 0 -8px;
 
-}
-.footer-container{
+.mat-card-actions {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
+}
+
+.mat-raised-button {
+  margin-right: 10px;
+}
+
+.mat-button {
+  background-color: #fff;
+  color: #1a237e;
 }
 .green-span {
   color: green;

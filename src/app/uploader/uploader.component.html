@@ -54,6 +54,7 @@
               id="fileToUpload"
               name="fileToUpload"
               (onSelect)="onFileSelect($event)"
+              (onRemove)="removeFile()"
               accept=".csv"
               required
               chooseLabel="Select CSV File"

@@ -142,6 +142,11 @@ export class UploaderComponent implements OnInit {
     this.selectedLanguage = null;
     this.success = false;
   }
+  removeFile() {
+    console.log('here');
+    this.fileInput.clear();
+    this.fileToUpload = null;
+  }
 
   ngOnInit(): void {
     this.tpaService

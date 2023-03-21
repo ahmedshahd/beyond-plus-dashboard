@@ -148,7 +148,7 @@ export class SpecialityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Insurance Company Options',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -178,7 +178,7 @@ export class SpecialityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Speciality data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -195,14 +195,14 @@ export class SpecialityComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Speciality data loaded successfully',
-            life: 3000,
+            life: 1000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Speciality data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -245,7 +245,7 @@ export class SpecialityComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Speciality Updated',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -253,7 +253,7 @@ export class SpecialityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Updating Speciality ',
-            life: 3000,
+            life: 1000,
           });
         }
       );
@@ -277,7 +277,7 @@ export class SpecialityComponent {
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'Speciality Deleted',
-                life: 3000,
+                life: 1000,
               });
             },
             (error) => {
@@ -285,7 +285,7 @@ export class SpecialityComponent {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error Deleting Speciality ',
-                life: 3000,
+                life: 1000,
               });
             }
           );
@@ -315,7 +315,7 @@ export class SpecialityComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Speciality Created',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -323,7 +323,7 @@ export class SpecialityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Creating Speciality ',
-            life: 3000,
+            life: 1000,
           });
         }
       );

@@ -101,14 +101,14 @@ export class InsuranceCompanyComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Insurance Company data loaded successfully',
-            life: 3000,
+            life: 1000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Insurance Company data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -151,7 +151,7 @@ export class InsuranceCompanyComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'InsuranceCompany Updated',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -159,7 +159,7 @@ export class InsuranceCompanyComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Updating Insurance Company ',
-            life: 3000,
+            life: 1000,
           });
         }
       );
@@ -183,7 +183,7 @@ export class InsuranceCompanyComponent {
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'InsuranceCompany Deleted',
-                life: 3000,
+                life: 1000,
               });
             },
             (error) => {
@@ -191,7 +191,7 @@ export class InsuranceCompanyComponent {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error Deleting Insurance Company ',
-                life: 3000,
+                life: 1000,
               });
             }
           );
@@ -223,7 +223,7 @@ export class InsuranceCompanyComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'InsuranceCompany Created',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -231,7 +231,7 @@ export class InsuranceCompanyComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Creating Insurance Company ',
-            life: 3000,
+            life: 1000,
           });
         }
       );

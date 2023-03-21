@@ -80,7 +80,7 @@ export class UploaderComponent implements OnInit {
             this.messageService.add({
               severity: 'error',
               summary: 'Error loading Insurance Company Options',
-              life: 3000,
+              life: 1000,
             });
           }
         });

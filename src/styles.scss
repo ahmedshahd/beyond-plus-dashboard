@@ -470,3 +470,27 @@ body {
   align-items: center;
   margin-bottom: 20px;
 }
+
+.header-and-selection-container{
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+}
+
+.header-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.selection-container{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+flex-wrap: wrap;
+}
+
+.selection-container p-dropdown{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}

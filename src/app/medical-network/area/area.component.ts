@@ -144,7 +144,7 @@ export class AreaComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Insurance Company Options',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -173,7 +173,7 @@ export class AreaComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Area data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -194,14 +194,14 @@ export class AreaComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Areas data loaded successfully',
-            life: 3000,
+            life: 1000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Areas data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -238,7 +238,7 @@ export class AreaComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Area Updated',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -246,7 +246,7 @@ export class AreaComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Updating Area ',
-            life: 3000,
+            life: 1000,
           });
         }
       );
@@ -266,7 +266,7 @@ export class AreaComponent {
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'Area Deleted',
-                life: 3000,
+                life: 1000,
               });
             },
             (error) => {
@@ -274,7 +274,7 @@ export class AreaComponent {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error Deleting Area ',
-                life: 3000,
+                life: 1000,
               });
             }
           );
@@ -300,7 +300,7 @@ export class AreaComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Area Created',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -308,7 +308,7 @@ export class AreaComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Creating Area ',
-            life: 3000,
+            life: 1000,
           });
         }
       );

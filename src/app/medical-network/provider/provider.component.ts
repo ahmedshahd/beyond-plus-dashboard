@@ -199,7 +199,7 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Insurance Company Options',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -229,7 +229,7 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Speciality data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -252,7 +252,7 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Speciality data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -276,7 +276,7 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Speciality data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -299,7 +299,7 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Areas data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -328,7 +328,7 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading ProviderType data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -355,7 +355,7 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Sub Peciality data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -378,14 +378,14 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Provider data loaded successfully',
-            life: 3000,
+            life: 1000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Provider data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -472,7 +472,7 @@ export class ProviderComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Provider Updated',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -480,7 +480,7 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Updating Provider ',
-            life: 3000,
+            life: 1000,
           });
         }
       );
@@ -507,7 +507,7 @@ export class ProviderComponent {
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'Provider Deleted',
-                life: 3000,
+                life: 1000,
               });
             },
             (error) => {
@@ -515,7 +515,7 @@ export class ProviderComponent {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error Deleting Provider ',
-                life: 3000,
+                life: 1000,
               });
             }
           );
@@ -573,7 +573,7 @@ export class ProviderComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Provider Created',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -581,7 +581,7 @@ export class ProviderComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Creating Provider ',
-            life: 3000,
+            life: 1000,
           });
         }
       );

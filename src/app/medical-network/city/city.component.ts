@@ -144,7 +144,7 @@ export class CityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Insurance Company Options',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -165,14 +165,14 @@ export class CityComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'City data loaded successfully',
-            life: 3000,
+            life: 1000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading City data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -219,7 +219,7 @@ export class CityComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'City Updated',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -227,7 +227,7 @@ export class CityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Updating City ',
-            life: 3000,
+            life: 1000,
           });
         }
       );
@@ -247,7 +247,7 @@ export class CityComponent {
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'City Deleted',
-                life: 3000,
+                life: 1000,
               });
             },
             (error) => {
@@ -255,7 +255,7 @@ export class CityComponent {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error Deleting City ',
-                life: 3000,
+                life: 1000,
               });
             }
           );
@@ -288,7 +288,7 @@ export class CityComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'City Created',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -296,7 +296,7 @@ export class CityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Creating City ',
-            life: 3000,
+            life: 1000,
           });
         }
       );

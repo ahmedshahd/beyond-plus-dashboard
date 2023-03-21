@@ -145,7 +145,7 @@ export class ProviderTypeComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Insurance Company Options',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -167,14 +167,14 @@ export class ProviderTypeComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'ProviderType data loaded successfully',
-            life: 3000,
+            life: 1000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading ProviderType data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -221,7 +221,7 @@ export class ProviderTypeComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'ProviderType Updated',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -229,7 +229,7 @@ export class ProviderTypeComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Updating ProviderType ',
-            life: 3000,
+            life: 1000,
           });
         }
       );
@@ -253,7 +253,7 @@ export class ProviderTypeComponent {
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'ProviderType Deleted',
-                life: 3000,
+                life: 1000,
               });
             },
             (error) => {
@@ -261,7 +261,7 @@ export class ProviderTypeComponent {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error Deleting ProviderType ',
-                life: 3000,
+                life: 1000,
               });
             }
           );
@@ -291,7 +291,7 @@ export class ProviderTypeComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'ProviderType Created',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -299,7 +299,7 @@ export class ProviderTypeComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Creating ProviderType ',
-            life: 3000,
+            life: 1000,
           });
         }
       );

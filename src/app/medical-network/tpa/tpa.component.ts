@@ -42,14 +42,14 @@ export class TpaComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'TPA data loaded successfully',
-            life: 3000,
+            life: 1000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading TPA data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -132,7 +132,7 @@ export class TpaComponent {
           severity: 'success',
           summary: 'Successful',
           detail: 'Tpa Updated',
-          life: 3000,
+          life: 1000,
         });
       },
       (error) => {
@@ -140,7 +140,7 @@ export class TpaComponent {
         this.messageService.add({
           severity: 'error',
           summary: 'Error Updating TPA ',
-          life: 3000,
+          life: 1000,
         });
       }
     );
@@ -158,7 +158,7 @@ export class TpaComponent {
               severity: 'success',
               summary: 'Successful',
               detail: 'Tpa Deleted',
-              life: 3000,
+              life: 1000,
             });
           },
           (error) => {
@@ -166,7 +166,7 @@ export class TpaComponent {
             this.messageService.add({
               severity: 'error',
               summary: 'Error Deleting TPA ',
-              life: 3000,
+              life: 1000,
             });
           }
         );
@@ -190,7 +190,7 @@ export class TpaComponent {
           severity: 'success',
           summary: 'Successful',
           detail: 'Tpa Created',
-          life: 3000,
+          life: 1000,
         });
       },
       (error) => {
@@ -198,7 +198,7 @@ export class TpaComponent {
         this.messageService.add({
           severity: 'error',
           summary: 'Error Creating TPA ',
-          life: 3000,
+          life: 1000,
         });
       }
     );

@@ -164,7 +164,7 @@ export class SubSpecialityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Insurance Company Options',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -194,7 +194,7 @@ export class SubSpecialityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Speciality data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -220,7 +220,7 @@ export class SubSpecialityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading ProviderType data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -239,14 +239,14 @@ export class SubSpecialityComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Sub Speciality data loaded successfully',
-            life: 3000,
+            life: 1000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Sub Speciality data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -289,7 +289,7 @@ export class SubSpecialityComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Sub Speciality Updated',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -297,7 +297,7 @@ export class SubSpecialityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Updating Sub Speciality ',
-            life: 3000,
+            life: 1000,
           });
         }
       );
@@ -321,7 +321,7 @@ export class SubSpecialityComponent {
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'Sub Speciality Deleted',
-                life: 3000,
+                life: 1000,
               });
             },
             (error) => {
@@ -329,7 +329,7 @@ export class SubSpecialityComponent {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error Deleting Sub Speciality ',
-                life: 3000,
+                life: 1000,
               });
             }
           );
@@ -359,7 +359,7 @@ export class SubSpecialityComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Sub Speciality Created',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -367,7 +367,7 @@ export class SubSpecialityComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Creating Sub Speciality ',
-            life: 3000,
+            life: 1000,
           });
         }
       );

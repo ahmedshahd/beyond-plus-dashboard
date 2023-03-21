@@ -147,7 +147,7 @@ export class CategoryComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Insurance Company Options',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -170,14 +170,14 @@ export class CategoryComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Category data loaded successfully',
-            life: 3000,
+            life: 1000,
           });
         } else {
           console.log(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error loading Category data',
-            life: 3000,
+            life: 1000,
           });
         }
       });
@@ -224,7 +224,7 @@ export class CategoryComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Category Updated',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -232,7 +232,7 @@ export class CategoryComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Updating Category ',
-            life: 3000,
+            life: 1000,
           });
         }
       );
@@ -256,7 +256,7 @@ export class CategoryComponent {
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'Category Deleted',
-                life: 3000,
+                life: 1000,
               });
             },
             (error) => {
@@ -264,7 +264,7 @@ export class CategoryComponent {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error Deleting Category ',
-                life: 3000,
+                life: 1000,
               });
             }
           );
@@ -295,7 +295,7 @@ export class CategoryComponent {
             severity: 'success',
             summary: 'Successful',
             detail: 'Category Created',
-            life: 3000,
+            life: 1000,
           });
         },
         (error) => {
@@ -303,7 +303,7 @@ export class CategoryComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error Creating Category ',
-            life: 3000,
+            life: 1000,
           });
         }
       );

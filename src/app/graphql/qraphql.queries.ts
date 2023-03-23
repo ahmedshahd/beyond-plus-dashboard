@@ -1496,6 +1496,148 @@ const REMOVE_PROVIDER = gql`
   }
 `;
 
+/////********                                     *********//////////////
+/////****************** CLIENT CITY QUERIES AND MUTITION *********//////////////
+/////********                                          *******//////////////
+
+const GET_CLIENT_CITY = gql`
+  query ListAllClientCities($language: LanguageEnum!) {
+    listAllClientCities(language: $language) {
+      clientCity {
+        id
+        language
+        name
+        clientArea {
+          id
+          name
+          language
+        }
+      }
+    }
+  }
+`;
+
+const CREATE_CLIENT_CITY = gql`
+  mutation Mutation(
+    $createClientCityInput: CreateClientCityInput!
+    $language: LanguageEnum!
+  ) {
+    createClientCity(
+      createClientCityInput: $createClientCityInput
+      language: $language
+    ) {
+      id
+      name
+      clientArea {
+        id
+        name
+        clientCityId
+        language
+      }
+      language
+    }
+  }
+`;
+
+const UPDATE_CLIENT_CITY = gql`
+  mutation UpdateClientCity($updateClientCityInput: UpdateClientCityInput!) {
+    updateClientCity(updateClientCityInput: $updateClientCityInput) {
+      id
+      name
+      clientArea {
+        id
+        name
+        language
+      }
+      language
+    }
+  }
+`;
+
+const REMOVE_CLIENT_CITY = gql`
+  mutation RemoveClientCity($removeClientCityId: Int!) {
+    removeClientCity(id: $removeClientCityId) {
+      id
+      name
+      language
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** CLIENT AREA QUERIES AND MUTITION *********//////////////
+/////********                                          *******//////////////
+const GET_CLIENT_AREA = gql`
+  query ListAllClientAreasByClientCityId($clientCityId: [Int!]!) {
+    listAllClientAreasByClientCityId(clientCityId: $clientCityId) {
+      clientArea {
+        id
+        name
+        clientCityId
+        clientCity {
+          id
+          name
+          language
+        }
+        language
+      }
+    }
+  }
+`;
+
+const CREATE_CLIENT_AREA = gql`
+  mutation Mutation(
+    $createClientAreaInput: CreateClientAreaInput!
+    $language: LanguageEnum!
+  ) {
+    createClientArea(
+      createClientAreaInput: $createClientAreaInput
+      language: $language
+    ) {
+      id
+      name
+      clientCityId
+      clientCity {
+        id
+        name
+        language
+      }
+      language
+    }
+  }
+`;
+
+const UPDATE_CLIENT_AREA = gql`
+  mutation UpdateClientArea($updateClientAreaInput: UpdateClientAreaInput!) {
+    updateClientArea(updateClientAreaInput: $updateClientAreaInput) {
+      id
+      name
+      clientCityId
+      clientCity {
+        id
+        name
+        clientArea {
+          id
+          name
+          clientCityId
+          language
+        }
+        language
+      }
+      language
+    }
+  }
+`;
+
+const REMOVE_CLIENT_AREA = gql`
+  mutation RemoveClientArea($removeClientAreaId: Int!) {
+    removeClientArea(id: $removeClientAreaId) {
+      id
+      name
+    }
+  }
+`;
+
 export {
   GET_FAQ,
   CREATE_FAQ,
@@ -1557,4 +1699,12 @@ export {
   CREATE_PROVIDER,
   UPDATE_PROVIDER,
   REMOVE_PROVIDER,
+  GET_CLIENT_CITY,
+  CREATE_CLIENT_CITY,
+  UPDATE_CLIENT_CITY,
+  REMOVE_CLIENT_CITY,
+  GET_CLIENT_AREA,
+  CREATE_CLIENT_AREA,
+  UPDATE_CLIENT_AREA,
+  REMOVE_CLIENT_AREA,
 };

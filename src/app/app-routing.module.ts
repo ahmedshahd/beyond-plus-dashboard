@@ -22,6 +22,8 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { AuthGuard } from './guards/authentication.guard';
 import { RouteSerializerService } from './services/router-serializer-service.service';
+import { CityClientComponent } from './client/city.client/city.client.component';
+import { AreaClientComponent } from './client/area.client/area.client.component';
 
 const routes: Routes = [
   {
@@ -120,6 +122,16 @@ const routes: Routes = [
   {
     path: 'provider',
     component: ProviderComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'clientCity',
+    component: CityClientComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'clientArea',
+    component: AreaClientComponent,
     canActivate: [AuthGuard],
   },
 

@@ -32,6 +32,8 @@ import { SpecialityComponent } from './medical-network/speciality/speciality.com
 import { SubSpecialityComponent } from './medical-network/sub-speciality/sub-speciality.component';
 import { PrimengModule } from './primeng.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { CityClientComponent } from './client/city.client/city.client.component';
+import { AreaClientComponent } from './client/area.client/area.client.component';
 
 @NgModule({
   imports: [
@@ -67,6 +69,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     CategoryComponent,
     SpecialityComponent,
     SubSpecialityComponent,
+    CityClientComponent,
+    AreaClientComponent,
   ],
   providers: [AuthService, TpaService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],

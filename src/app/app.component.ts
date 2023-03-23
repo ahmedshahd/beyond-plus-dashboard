@@ -76,6 +76,11 @@ export class AppComponent implements OnInit {
     },
   ];
 
+  clientLinks = [
+    { path: '/clientCity', icon: 'view_list', title: 'City' },
+    { path: '/clientArea', icon: 'view_list', title: 'Area' },
+  ];
+
   constructor(
     private authService: AuthService,
     private router: Router,

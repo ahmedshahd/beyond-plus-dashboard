@@ -22,8 +22,8 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { AuthGuard } from './guards/authentication.guard';
 import { RouteSerializerService } from './services/router-serializer-service.service';
-import { CityClientComponent } from './client/city.client/city.client.component';
-import { AreaClientComponent } from './client/area.client/area.client.component';
+import { CityClientComponent } from './client/city/city.client.component';
+import { AreaClientComponent } from './client/area/area.client.component';
 
 const routes: Routes = [
   {

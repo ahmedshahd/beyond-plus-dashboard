@@ -32,8 +32,8 @@ import { SpecialityComponent } from './medical-network/speciality/speciality.com
 import { SubSpecialityComponent } from './medical-network/sub-speciality/sub-speciality.component';
 import { PrimengModule } from './primeng.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { CityClientComponent } from './client/city.client/city.client.component';
-import { AreaClientComponent } from './client/area.client/area.client.component';
+import { CityClientComponent } from './client/city/city.client.component';
+import { AreaClientComponent } from './client/area/area.client.component';
 
 @NgModule({
   imports: [

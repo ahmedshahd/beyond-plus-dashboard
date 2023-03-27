@@ -6,7 +6,6 @@ import { CityService } from '../city/city.service';
 import { InsuranceCompanyService } from '../insurance-company/insurance-company.service';
 import { ProviderTypeService } from '../provider-type/provider-type.service';
 import { SpecialityService } from '../speciality/speciality.service';
-import { SubSpecialityService } from '../sub-speciality/sub-speciality.service';
 import { TpaService } from '../tpa/tpa.service';
 import { ProviderService } from './provider.service';
 
@@ -35,7 +34,6 @@ export class ProviderComponent {
     name: '',
     phoneNumber: [],
     specialityId: null,
-    subSpecialityId: null,
     websiteUrl: '',
     language: '',
   };
@@ -74,8 +72,6 @@ export class ProviderComponent {
   specialityOptions: SelectItem[];
   selectedSpeciality: any;
   //// for Sub Speciality drop down ///
-  subSpecialityOptions: SelectItem[];
-  selectedSubSpeciality: any;
 
   constructor(
     private tpaService: TpaService,
@@ -85,7 +81,6 @@ export class ProviderComponent {
     private areaService: AreaService,
     private providerTypeService: ProviderTypeService,
     private specialityService: SpecialityService,
-    private subSpecialityService: SubSpecialityService,
     private providerService: ProviderService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
@@ -120,7 +115,6 @@ export class ProviderComponent {
       .getProviders(
         this.selectedCategory.categoryId,
         this.selectedSpeciality.specialityId,
-        this.selectedSubSpeciality.subSpecialityId,
         this.selectedArea.areaId,
         this.selectedLanguage.value,
         name
@@ -335,38 +329,10 @@ export class ProviderComponent {
   }
 
   onSpecialityChange() {
-    return this.subSpecialityService
-      .getSubSpecialities(
-        this.selectedSpeciality.specialityId,
-        this.selectedLanguage.value
-      )
-      .subscribe(({ data, error }: any) => {
-        if (data) {
-          const subSpecialities =
-            data.listAllSubSpecialityBySpecialityId.subSpeciality;
-          this.subSpecialityOptions = subSpecialities.map((subSpeciality) => {
-            return {
-              subSpecialityId: subSpeciality.id,
-              name: subSpeciality.name,
-            };
-          });
-        } else {
-          console.log(error);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error loading Sub Peciality data',
-            life: 1000,
-          });
-        }
-      });
-  }
-
-  onSubSpecialityChange() {
     return this.providerService
       .getProviders(
         this.selectedCategory.categoryId,
         this.selectedSpeciality.specialityId,
-        this.selectedSubSpeciality.subSpecialityId,
         this.selectedArea.areaId,
         this.selectedLanguage.value
       )
@@ -391,6 +357,8 @@ export class ProviderComponent {
       });
   }
 
+  onSubSpecialityChange() {}
+
   openNew() {
     this.provider = {
       id: null,
@@ -405,7 +373,6 @@ export class ProviderComponent {
       name: '',
       phoneNumber: [''],
       specialityId: this.selectedSpeciality?.specialityId ?? null,
-      subSpecialityId: this.selectedSubSpeciality?.subSpecialityId ?? null,
       websiteUrl: '',
       language: this.selectedLanguage?.value ?? null,
     };
@@ -437,7 +404,6 @@ export class ProviderComponent {
       name: provider.name,
       phoneNumber: [...provider.phoneNumber],
       specialityId: provider.specialityId,
-      subSpecialityId: provider.subSpecialityId,
       websiteUrl: provider.websiteUrl,
       language: provider.language,
     };
@@ -451,7 +417,6 @@ export class ProviderComponent {
         this.editId,
         provider.categoryId,
         provider.specialityId,
-        provider.subSpecialityId,
         provider.areaId,
         provider.address,
         provider.websiteUrl,
@@ -497,7 +462,6 @@ export class ProviderComponent {
             provider.id,
             provider.categoryId,
             provider.specialityId,
-            provider.subSpecialityId,
             provider.areaId,
             provider.language
           )
@@ -536,7 +500,6 @@ export class ProviderComponent {
       .createProvider(
         this.provider.categoryId,
         this.provider.specialityId,
-        this.provider.subSpecialityId,
         this.provider.areaId,
         this.provider.address,
         this.provider.name,
@@ -565,7 +528,6 @@ export class ProviderComponent {
             name: '',
             phoneNumber: [],
             specialityId: null,
-            subSpecialityId: null,
             websiteUrl: '',
             language: '',
           };

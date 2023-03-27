@@ -17,7 +17,6 @@ export class ProviderService {
   getProviders(
     categoryId: number,
     specialityId: number,
-    subSpecialityId: number,
     areaId: number,
     language: string,
     search?: string,
@@ -29,7 +28,6 @@ export class ProviderService {
       variables: {
         categoryId: [categoryId],
         specialityId: [specialityId],
-        subSpecialityId: [subSpecialityId],
         areaId: [areaId],
         language,
         search,
@@ -42,7 +40,6 @@ export class ProviderService {
   createProvider(
     categoryId: number,
     specialityId: number,
-    subSpecialityId: number,
     areaId: number,
     address: string,
     name: string,
@@ -62,7 +59,6 @@ export class ProviderService {
           createProviderInput: {
             categoryId,
             specialityId,
-            subSpecialityId,
             areaId,
             address,
             name,
@@ -82,7 +78,6 @@ export class ProviderService {
             variables: {
               categoryId: [categoryId],
               specialityId: [specialityId],
-              subSpecialityId: [subSpecialityId],
               areaId: [areaId],
               language,
             },
@@ -96,7 +91,6 @@ export class ProviderService {
     id: number,
     categoryId: number,
     specialityId: number,
-    subSpecialityId: number,
     areaId: number,
     language: string
   ): Observable<any> {
@@ -112,7 +106,6 @@ export class ProviderService {
             variables: {
               categoryId: [categoryId],
               specialityId: [specialityId],
-              subSpecialityId: [subSpecialityId],
               areaId: [areaId],
               language,
             },
@@ -126,7 +119,6 @@ export class ProviderService {
     id: number,
     categoryId?: number,
     specialityId?: number,
-    subSpecialityId?: number,
     areaId?: number,
     address?: string,
     websiteUrl?: string,
@@ -147,7 +139,6 @@ export class ProviderService {
             id,
             categoryId,
             specialityId,
-            subSpecialityId,
             areaId,
             address,
             websiteUrl,
@@ -166,7 +157,6 @@ export class ProviderService {
             variables: {
               categoryId: [categoryId],
               specialityId: [specialityId],
-              subSpecialityId: [subSpecialityId],
               areaId: [areaId],
               language,
             },

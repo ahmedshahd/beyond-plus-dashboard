@@ -71,14 +71,6 @@
         placeholder="Select Speciality"
         [showClear]="true"
       ></p-dropdown>
-      <p-dropdown
-        [options]="subSpecialityOptions"
-        [(ngModel)]="selectedSubSpeciality"
-        optionLabel="name"
-        (onChange)="onSubSpecialityChange()"
-        placeholder="Select SubSpeciality"
-        [showClear]="true"
-      ></p-dropdown>
     </div>
   </div>
 
@@ -152,7 +144,6 @@
         <td>{{ provider.specialityId }}</td>
         <td>{{ provider.categoryId }}</td>
         <td>{{ provider.areaId }}</td>
-        <td>{{ provider.subSpecialityId }}</td>
         <td>
           <button
             pButton
@@ -242,20 +233,6 @@
       ></p-inputNumber>
       <small class="p-error" *ngIf="submitted && !provider.specialityId"
         >Speciality Id is required.</small
-      >
-    </div>
-    <div class="field">
-      <label for="areaId">Sub Speciality Id</label>
-      <p-inputNumber
-        id="subSpecialityId"
-        [(ngModel)]="provider.subSpecialityId"
-        autofocus
-        mode="decimal"
-        inputId="withoutgrouping"
-        [useGrouping]="false"
-      ></p-inputNumber>
-      <small class="p-error" *ngIf="submitted && !provider.subSpecialityId"
-        >Sub Speciality Id is required.</small
       >
     </div>
     <div
@@ -462,18 +439,7 @@
         [useGrouping]="false"
       ></p-inputNumber>
     </div>
-    <div class="field">
-      <label for="areaId">Sub Speciality Id</label>
-      <p-inputNumber
-        type="number"
-        id="subSpecialityId"
-        [(ngModel)]="provider.subSpecialityId"
-        autofocus
-        mode="decimal"
-        inputId="withoutgrouping"
-        [useGrouping]="false"
-      ></p-inputNumber>
-    </div>
+
     <div class="field">
       <label for="address">Address </label>
       <input

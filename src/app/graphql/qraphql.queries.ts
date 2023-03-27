@@ -615,7 +615,6 @@ const GET_CITY = gql`
             websiteUrl
             areaId
             specialityId
-            subSpecialityId
             language
           }
           language
@@ -675,7 +674,7 @@ const CREATE_CITY = gql`
           websiteUrl
           areaId
           specialityId
-          subSpecialityId
+
           language
         }
         language
@@ -722,7 +721,6 @@ const UPDATE_CITY = gql`
           websiteUrl
           areaId
           specialityId
-          subSpecialityId
         }
         language
       }
@@ -808,7 +806,6 @@ const GET_AREA = gql`
           websiteUrl
           areaId
           specialityId
-          subSpecialityId
           language
         }
         language
@@ -868,7 +865,6 @@ const CREATE_AREA = gql`
         websiteUrl
         areaId
         specialityId
-        subSpecialityId
         language
       }
       language
@@ -919,7 +915,6 @@ const UPDATE_AREA = gql`
         websiteUrl
         areaId
         specialityId
-        subSpecialityId
         language
       }
       language
@@ -1111,7 +1106,6 @@ const CREATE_SPECIALITY = gql`
           websiteUrl
           areaId
           specialityId
-          subSpecialityId
           language
         }
       }
@@ -1163,7 +1157,6 @@ const UPDATE_SPECIALITY = gql`
           websiteUrl
           areaId
           specialityId
-          subSpecialityId
           language
         }
       }
@@ -1237,7 +1230,6 @@ const GET_SUB_SPECIALITY = gql`
               websiteUrl
               areaId
               specialityId
-              subSpecialityId
               language
             }
           }
@@ -1295,7 +1287,6 @@ const CREATE_SUB_SPECIALITY = gql`
             websiteUrl
             areaId
             specialityId
-            subSpecialityId
             language
           }
         }
@@ -1349,7 +1340,6 @@ const UPDATE_SUB_SPECIALITY = gql`
             websiteUrl
             areaId
             specialityId
-            subSpecialityId
             language
           }
         }
@@ -1384,7 +1374,6 @@ const GET_PROVIDER = gql`
   query ListAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
     $language: LanguageEnum!
     $specialityId: [Int!]!
-    $subSpecialityId: [Int!]!
     $areaId: [Int!]!
     $categoryId: [Int!]!
     $search: String
@@ -1394,7 +1383,6 @@ const GET_PROVIDER = gql`
     listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
       language: $language
       specialityId: $specialityId
-      subSpecialityId: $subSpecialityId
       areaId: $areaId
       categoryId: $categoryId
       search: $search
@@ -1415,7 +1403,6 @@ const GET_PROVIDER = gql`
         categoryId
         areaId
         specialityId
-        subSpecialityId
         language
       }
       pagination {
@@ -1448,7 +1435,6 @@ const CREATE_PROVIDER = gql`
       websiteUrl
       areaId
       specialityId
-      subSpecialityId
       language
     }
   }
@@ -1469,7 +1455,6 @@ const UPDATE_PROVIDER = gql`
       websiteUrl
       areaId
       specialityId
-      subSpecialityId
       language
     }
   }
@@ -1490,7 +1475,6 @@ const REMOVE_PROVIDER = gql`
       websiteUrl
       areaId
       specialityId
-      subSpecialityId
       language
     }
   }

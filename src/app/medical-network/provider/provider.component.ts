@@ -29,8 +29,8 @@ export class ProviderComponent {
     email: '',
     hasChronicMedication: false,
     isOnline: false,
-    latitude: null,
-    longitude: null,
+    latitude: 0.0,
+    longitude: 0.0,
     name: '',
     phoneNumber: [],
     specialityId: null,
@@ -368,8 +368,8 @@ export class ProviderComponent {
       email: '',
       hasChronicMedication: false,
       isOnline: false,
-      latitude: null,
-      longitude: null,
+      latitude: 0.0,
+      longitude: 0.0,
       name: '',
       phoneNumber: [''],
       specialityId: this.selectedSpeciality?.specialityId ?? null,
@@ -495,7 +495,6 @@ export class ProviderComponent {
 
   addProvider() {
     this.submitted = true;
-
     this.providerService
       .createProvider(
         this.provider.categoryId,
@@ -523,8 +522,8 @@ export class ProviderComponent {
             email: '',
             hasChronicMedication: false,
             isOnline: false,
-            latitude: null,
-            longitude: null,
+            latitude: 0.0,
+            longitude: 0.0,
             name: '',
             phoneNumber: [],
             specialityId: null,

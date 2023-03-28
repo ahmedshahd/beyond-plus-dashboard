@@ -125,7 +125,6 @@
         <th>Speciality ID</th>
         <th>Category ID</th>
         <th>Area ID</th>
-        <th>SubSpeciality ID</th>
         <th></th>
       </tr>
     </ng-template>
@@ -342,25 +341,28 @@
     </div>
     <div class="field">
       <label for="latitude">Latitude</label>
+
       <p-inputNumber
-        type="number"
         id="latitude"
         [(ngModel)]="provider.latitude"
         autofocus
         mode="decimal"
-        inputId="withoutgrouping"
+        [step]="0.01"
+        [min]="0.0"
         [useGrouping]="false"
+        [showButtons]="true"
       ></p-inputNumber>
     </div>
     <div class="field">
       <label for="longitude">longitude</label>
       <p-inputNumber
-        type="number"
         id="longitude"
         [(ngModel)]="provider.longitude"
+        [step]="0.01"
+        [min]="0.0"
+        [showButtons]="true"
         autofocus
         mode="decimal"
-        inputId="withoutgrouping"
         [useGrouping]="false"
       ></p-inputNumber>
     </div>
@@ -545,8 +547,10 @@
         [(ngModel)]="provider.latitude"
         autofocus
         mode="decimal"
-        inputId="withoutgrouping"
+        [step]="0.01"
+        [min]="0.0"
         [useGrouping]="false"
+        [showButtons]="true"
       ></p-inputNumber>
     </div>
     <div class="field">
@@ -556,8 +560,10 @@
         [(ngModel)]="provider.longitude"
         autofocus
         mode="decimal"
-        inputId="withoutgrouping"
+        [step]="0.01"
+        [min]="0.0"
         [useGrouping]="false"
+        [showButtons]="true"
       ></p-inputNumber>
     </div>
   </ng-template>

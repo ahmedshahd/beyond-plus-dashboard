@@ -7,13 +7,9 @@ import { setContext } from '@apollo/client/link/context';
 import { environment } from 'src/environments/environment.prod';
 
 // Production Aws
-const uri = 'https://plus.beyond-solution.com/graphql';
-
+const uri = `${environment.API_URI}/graphql`;
 // // Local Machine
 // const uri = 'http://localhost:8000/graphql';
-
-// // Local Render
-// const uri = 'https://beyond-plus.onrender.com/graphql';
 
 export function createApollo(httpLink: HttpLink) {
   const apiKey = setContext((operation, context) => ({

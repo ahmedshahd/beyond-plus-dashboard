@@ -1372,16 +1372,14 @@ const REMOVE_SUB_SPECIALITY = gql`
 
 const GET_PROVIDER = gql`
   query ListAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
-    $language: LanguageEnum!
-    $specialityId: [Int!]!
-    $areaId: [Int!]!
-    $categoryId: [Int!]!
+    $specialityId: [Int]
+    $areaId: [Int]
+    $categoryId: [Int]
     $search: String
     $page: Int
     $limit: Int
   ) {
     listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
-      language: $language
       specialityId: $specialityId
       areaId: $areaId
       categoryId: $categoryId

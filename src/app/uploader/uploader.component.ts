@@ -30,7 +30,8 @@ export class UploaderComponent implements OnInit {
 
   fileName = '';
 
-  uploadUrl = 'https://plus.beyond-solution.com/csv-uploader/upload';
+  isLoading: boolean = false;
+  uploadUrl = `${environment.API_URI}/csv-uploader/upload`;
 
   constructor(
     private http: HttpClient,
@@ -97,6 +98,7 @@ export class UploaderComponent implements OnInit {
   }
 
   submitForm() {
+    this.isLoading = true;
     const tpaName =
       typeof this.selectedTpa === 'object'
         ? this.selectedTpa.name
@@ -127,9 +129,12 @@ export class UploaderComponent implements OnInit {
     });
 
     this.rsponse$.subscribe((res) => {
+      this.isLoading = false;
+
       if (res) {
         this.success = true;
         this.resetForm();
+        this.isLoading = false;
       }
     });
   }

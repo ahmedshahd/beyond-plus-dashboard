@@ -116,7 +116,6 @@ export class ProviderComponent {
         this.selectedCategory.categoryId,
         this.selectedSpeciality.specialityId,
         this.selectedArea.areaId,
-        this.selectedLanguage.value,
         name
       )
       .subscribe(({ data, error }: any) => {
@@ -333,8 +332,7 @@ export class ProviderComponent {
       .getProviders(
         this.selectedCategory.categoryId,
         this.selectedSpeciality.specialityId,
-        this.selectedArea.areaId,
-        this.selectedLanguage.value
+        this.selectedArea.areaId
       )
 
       .subscribe(({ data, error }: any) => {
@@ -357,7 +355,7 @@ export class ProviderComponent {
       });
   }
 
-  onSubSpecialityChange() {}
+  // onSubSpecialityChange() {}
 
   openNew() {
     this.provider = {

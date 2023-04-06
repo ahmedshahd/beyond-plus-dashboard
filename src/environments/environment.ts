@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   API_KEY: '2ab9c3d4e5f91ab7c3d4e5f6',
+  API_URI: 'https://plus.beyond-solution.com',
   FIREBASE: {
     apiKey: 'AIzaSyCahXoNVbQz7oXFK-b4kfx3Qlox5h82S3k',
     authDomain: 'rc-waba.firebaseapp.com',

@@ -74,6 +74,7 @@
               (onClick)="submitForm()"
               class="p-button-primary"
               icon="pi pi-check"
+              [loading]="isLoading"
               [disabled]="
                 !selectedTpa ||
                 !selectedInsuranceCompany ||

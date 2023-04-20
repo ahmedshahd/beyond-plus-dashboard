@@ -16,6 +16,7 @@
         [showClear]="true"
       ></p-dropdown>
       <p-dropdown
+        [disabled]="!selectedLanguage"
         [options]="tpaOptions"
         [(ngModel)]="selectedTpa"
         optionLabel="name"
@@ -24,6 +25,7 @@
         [showClear]="true"
       ></p-dropdown>
       <p-dropdown
+        [disabled]="!selectedTpa"
         [options]="insuranceCompanyOptions"
         [(ngModel)]="selectedInsuranceCompany"
         optionLabel="name"

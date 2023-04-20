@@ -16,8 +16,8 @@ export class ProviderService {
 
   getProviders(
     categoryId: number,
-    specialityId: number,
-    areaId: number,
+    specialityId: number[],
+    areaId: number[],
     search?: string,
     page?: number,
     limit?: number
@@ -26,8 +26,8 @@ export class ProviderService {
       query: GET_PROVIDER,
       variables: {
         categoryId: [categoryId],
-        specialityId: [specialityId],
-        areaId: [areaId],
+        specialityId,
+        areaId,
         search,
         page,
         limit,

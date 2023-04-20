@@ -15,7 +15,7 @@ export class AreaService {
   constructor(private apollo: Apollo) {}
 
   getAreas(
-    cityId,
+    cityId: number[],
     language: string,
     search?: string,
     page?: number,
@@ -24,7 +24,7 @@ export class AreaService {
     return this.apollo.watchQuery<any>({
       query: GET_AREA,
       variables: {
-        cityId: [parseInt(cityId)],
+        cityId,
         language,
         search,
         page,

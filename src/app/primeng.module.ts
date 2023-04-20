@@ -3,7 +3,6 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { SliderModule } from 'primeng/slider';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -22,6 +21,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CardModule } from 'primeng/card';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   exports: [
@@ -45,7 +45,7 @@ import { CardModule } from 'primeng/card';
     ConfirmDialogModule,
     InputTextareaModule,
     CheckboxModule,
-    CardModule
+    CardModule,
   ],
   providers: [MessageService, ConfirmationService],
 })

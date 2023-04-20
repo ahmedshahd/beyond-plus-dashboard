@@ -16,6 +16,7 @@
         [showClear]="true"
       ></p-dropdown>
       <p-dropdown
+        [disabled]="!selectedLanguage"
         [options]="tpaOptions"
         [(ngModel)]="selectedTpa"
         optionLabel="name"
@@ -24,6 +25,7 @@
         [showClear]="true"
       ></p-dropdown>
       <p-dropdown
+        [disabled]="!selectedTpa"
         [options]="insuranceCompanyOptions"
         [(ngModel)]="selectedInsuranceCompany"
         optionLabel="name"
@@ -32,6 +34,7 @@
         [showClear]="true"
       ></p-dropdown>
       <p-dropdown
+        [disabled]="!selectedInsuranceCompany"
         [options]="categoryOptions"
         [(ngModel)]="selectedCategory"
         optionLabel="name"
@@ -39,38 +42,42 @@
         placeholder="Select Category"
         [showClear]="true"
       ></p-dropdown>
-      <p-dropdown
+      <p-multiSelect
+        [disabled]="!selectedInsuranceCompany"
         [options]="cityOptions"
-        [(ngModel)]="selectedCity"
+        [(ngModel)]="selectedCities"
         optionLabel="name"
         (onChange)="onCityChange()"
         placeholder="Select City"
         [showClear]="true"
-      ></p-dropdown>
-      <p-dropdown
+      ></p-multiSelect>
+      <p-multiSelect
+        [disabled]="!selectedCities"
         [options]="areaOptions"
-        [(ngModel)]="selectedArea"
+        [(ngModel)]="selectedAreas"
         optionLabel="name"
         (onChange)="onAreaChange()"
         placeholder="Select Area"
         [showClear]="true"
-      ></p-dropdown>
-      <p-dropdown
+      ></p-multiSelect>
+      <p-multiSelect
+        [disabled]="!selectedInsuranceCompany"
         [options]="providerTypeOptions"
-        [(ngModel)]="selectedProviderType"
+        [(ngModel)]="selectedProviderTypes"
         optionLabel="name"
         (onChange)="onProviderTypeChange()"
         placeholder="Select Provider Type"
         [showClear]="true"
-      ></p-dropdown>
-      <p-dropdown
+      ></p-multiSelect>
+      <p-multiSelect
+        [disabled]="!selectedProviderTypes"
         [options]="specialityOptions"
-        [(ngModel)]="selectedSpeciality"
+        [(ngModel)]="selectedSpecialities"
         optionLabel="name"
         (onChange)="onSpecialityChange()"
         placeholder="Select Speciality"
         [showClear]="true"
-      ></p-dropdown>
+      ></p-multiSelect>
     </div>
   </div>
 

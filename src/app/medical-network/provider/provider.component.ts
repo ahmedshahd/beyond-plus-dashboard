@@ -61,16 +61,16 @@ export class ProviderComponent {
   selectedCategory: any;
   //// for City drop down ///
   cityOptions: SelectItem[];
-  selectedCity: any;
+  selectedCities: [];
   //// for Area drop down ///
   areaOptions: SelectItem[];
-  selectedArea: any;
+  selectedAreas: [];
   //// for Provider Type drop down ///
   providerTypeOptions: SelectItem[];
-  selectedProviderType: any;
+  selectedProviderTypes: [];
   //// for Speciality drop down ///
   specialityOptions: SelectItem[];
-  selectedSpeciality: any;
+  selectedSpecialities: [];
   //// for Sub Speciality drop down ///
 
   constructor(
@@ -111,21 +111,21 @@ export class ProviderComponent {
   onSearchInputChange(event) {
     const name = event.target.value;
 
-    this.providerService
-      .getProviders(
-        this.selectedCategory.categoryId,
-        this.selectedSpeciality.specialityId,
-        this.selectedArea.areaId,
-        name
-      )
-      .subscribe(({ data, error }: any) => {
-        if (data) {
-          this.providers =
-            data.listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
-        } else {
-          console.log(error);
-        }
-      });
+    // this.providerService
+    //   .getProviders(
+    //     this.selectedCategory.categoryId,
+    //     this.selectedSpecialities.specialityId,
+    //     this.selectedAreas.areaId,
+    //     name
+    //   )
+    //   .subscribe(({ data, error }: any) => {
+    //     if (data) {
+    //       this.providers =
+    //         data.listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
+    //     } else {
+    //       console.log(error);
+    //     }
+    //   });
   }
 
   onLanguageChange() {
@@ -276,8 +276,12 @@ export class ProviderComponent {
   }
   onCategoryChange() {}
   onCityChange() {
+    const selectedCitiesId = this.selectedCities.map((city: any) => {
+      return city.cityId;
+    });
+
     return this.areaService
-      .getAreas(this.selectedCity.cityId, this.selectedLanguage.value)
+      .getAreas(selectedCitiesId, this.selectedLanguage.value)
       .subscribe(({ data, error }: any) => {
         if (data) {
           const areas = data.listAllAreasByCityId.area;
@@ -301,11 +305,14 @@ export class ProviderComponent {
   onAreaChange() {}
 
   onProviderTypeChange() {
+    const providerTypesId = this.selectedProviderTypes.map(
+      (providerType: any) => {
+        return providerType.providerTypeId;
+      }
+    );
+    console.log('providerTypesId', providerTypesId);
     return this.specialityService
-      .getSpecialities(
-        this.selectedProviderType.providerTypeId,
-        this.selectedLanguage.value
-      )
+      .getSpecialities(providerTypesId, this.selectedLanguage.value)
       .subscribe(({ data, error }: any) => {
         if (data) {
           const specialities =
@@ -328,13 +335,21 @@ export class ProviderComponent {
   }
 
   onSpecialityChange() {
+    const selectedAreasId = this.selectedAreas.map((area: any) => {
+      return area.areaId;
+    });
+    const selectedSpecialitiesId = this.selectedSpecialities.map(
+      (speciality: any) => {
+        return speciality.specialityId;
+      }
+    );
+
     return this.providerService
       .getProviders(
         this.selectedCategory.categoryId,
-        this.selectedSpeciality.specialityId,
-        this.selectedArea.areaId
+        selectedSpecialitiesId,
+        selectedAreasId
       )
-
       .subscribe(({ data, error }: any) => {
         if (data) {
           this.providers =
@@ -361,7 +376,8 @@ export class ProviderComponent {
     this.provider = {
       id: null,
       address: '',
-      areaId: this.selectedArea?.areaId ?? null,
+      // areaId: this.selectedAreas?.areaId ?? null,
+      areaId: null,
       categoryId: this.selectedCategory?.categoryId ?? null,
       email: '',
       hasChronicMedication: false,
@@ -370,7 +386,9 @@ export class ProviderComponent {
       longitude: 0.0,
       name: '',
       phoneNumber: [''],
-      specialityId: this.selectedSpeciality?.specialityId ?? null,
+      specialityId: null,
+
+      // specialityId: this.selectedSpecialities?.specialityId ?? null,
       websiteUrl: '',
       language: this.selectedLanguage?.value ?? null,
     };

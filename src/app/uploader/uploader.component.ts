@@ -27,6 +27,7 @@ export class UploaderComponent implements OnInit {
 
   rsponse$: Observable<any>;
   success = false;
+  error: string | undefined;
 
   fileName = '';
 
@@ -99,6 +100,7 @@ export class UploaderComponent implements OnInit {
 
   submitForm() {
     this.isLoading = true;
+    this.error = null;
     const tpaName =
       typeof this.selectedTpa === 'object'
         ? this.selectedTpa.name
@@ -128,15 +130,22 @@ export class UploaderComponent implements OnInit {
       },
     });
 
-    this.rsponse$.subscribe((res) => {
-      this.isLoading = false;
+    this.rsponse$.subscribe(
+      (res) => {
+        this.isLoading = false;
 
-      if (res) {
-        this.success = true;
-        this.resetForm();
+        if (res) {
+          this.resetForm();
+          this.success = true;
+          this.isLoading = false;
+        }
+      },
+      (error) => {
+        console.error('Error uploading file:', error);
+        this.error = 'There was an error uploading the file.';
         this.isLoading = false;
       }
-    });
+    );
   }
 
   resetForm() {
@@ -146,11 +155,13 @@ export class UploaderComponent implements OnInit {
     this.fileToUpload = null;
     this.selectedLanguage = null;
     this.success = false;
+    this.error = null;
   }
   removeFile() {
     console.log('here');
     this.fileInput.clear();
     this.fileToUpload = null;
+    this.error = null;
   }
 
   ngOnInit(): void {

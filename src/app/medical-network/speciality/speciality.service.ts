@@ -15,7 +15,7 @@ export class SpecialityService {
   constructor(private apollo: Apollo) {}
 
   getSpecialities(
-    providerTypeId,
+    providerTypeId: number[],
     language: string,
     search?: string,
     page?: number,
@@ -24,7 +24,7 @@ export class SpecialityService {
     return this.apollo.watchQuery<any>({
       query: GET_SPECIALITY,
       variables: {
-        providerTypeId: [parseInt(providerTypeId)],
+        providerTypeId,
         language,
         search,
         page,

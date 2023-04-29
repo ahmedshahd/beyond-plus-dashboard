@@ -85,7 +85,7 @@ export class AreaClientService {
       .mutate({
         mutation: UPDATE_CLIENT_AREA,
         variables: {
-          updateAreaInput: {
+          updateClientAreaInput: {
             id,
             name,
             clientCityId,

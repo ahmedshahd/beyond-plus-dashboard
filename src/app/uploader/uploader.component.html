@@ -62,9 +62,9 @@
               [showCancelButton]="false"
             ></p-fileUpload>
           </div>
-          <span class="green-span" *ngIf="success"
-            >File Uploaded Successfully</span
-          >
+          <span class="green-span" *ngIf="success">
+            {{ fileName }} File Uploaded Succesfully
+          </span>
         </div>
         <div *ngIf="error" class="error-message">{{ error }}</div>
 

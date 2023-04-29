@@ -92,6 +92,7 @@ export class UploaderComponent implements OnInit {
 
   onFileSelect(event) {
     const file: File = event.files[0];
+    this.fileName = file.name;
     if (file) {
       this.fileToUpload = file;
       console.log(this.fileToUpload);
@@ -101,6 +102,7 @@ export class UploaderComponent implements OnInit {
   submitForm() {
     this.isLoading = true;
     this.error = null;
+    this.success = false;
     const tpaName =
       typeof this.selectedTpa === 'object'
         ? this.selectedTpa.name
@@ -135,7 +137,6 @@ export class UploaderComponent implements OnInit {
         this.isLoading = false;
 
         if (res) {
-          this.resetForm();
           this.success = true;
           this.isLoading = false;
         }
@@ -158,7 +159,6 @@ export class UploaderComponent implements OnInit {
     this.error = null;
   }
   removeFile() {
-    console.log('here');
     this.fileInput.clear();
     this.fileToUpload = null;
     this.error = null;

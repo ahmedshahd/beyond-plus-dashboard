@@ -363,11 +363,6 @@ const GET_TPA = gql`
         }
         language
       }
-      pagination {
-        totalItemsCount
-        pagesCount
-        page
-      }
     }
   }
 `;
@@ -442,11 +437,6 @@ const GET_INSURANCE_COMPANY = gql`
         language
         tpaId
       }
-      pagination {
-        totalItemsCount
-        pagesCount
-        page
-      }
     }
   }
 `;
@@ -510,14 +500,7 @@ const GET_CATEGORY = gql`
         id
         tier
         tierRank
-        insuranceCompany {
-          id
-          name
-          language
-          createdAt
-          updatedAt
-          tpaId
-        }
+
         insuranceCompanyId
         language
         createdAt
@@ -598,45 +581,8 @@ const GET_CITY = gql`
         id
         name
         insuranceCompanyId
-        area {
-          id
-          name
-          cityId
-          provider {
-            id
-            name
-            address
-            longitude
-            latitude
-            phoneNumber
-            email
-            isOnline
-            hasChronicMedication
-            websiteUrl
-            areaId
-            specialityId
-            language
-          }
-          language
-        }
-        country {
-          id
-          name
-          language
-        }
-        insuranceCompany {
-          id
-          name
-          language
 
-          tpaId
-        }
         language
-      }
-      pagination {
-        totalItemsCount
-        pagesCount
-        page
       }
     }
   }
@@ -651,42 +597,7 @@ const CREATE_CITY = gql`
       id
       name
       insuranceCompanyId
-      area {
-        id
-        name
-        cityId
-        city {
-          id
-          name
-          insuranceCompanyId
-          language
-        }
-        provider {
-          id
-          name
-          address
-          longitude
-          latitude
-          phoneNumber
-          email
-          isOnline
-          hasChronicMedication
-          websiteUrl
-          areaId
-          specialityId
 
-          language
-        }
-        language
-      }
-
-      insuranceCompany {
-        id
-        name
-        language
-
-        tpaId
-      }
       language
     }
   }
@@ -698,44 +609,7 @@ const UPDATE_CITY = gql`
       id
       name
       insuranceCompanyId
-      area {
-        id
-        name
-        cityId
-        city {
-          id
-          name
-          insuranceCompanyId
-          language
-        }
-        provider {
-          id
-          name
-          address
-          longitude
-          latitude
-          phoneNumber
-          email
-          isOnline
-          hasChronicMedication
-          websiteUrl
-          areaId
-          specialityId
-        }
-        language
-      }
-      country {
-        id
-        name
-        language
-      }
-      insuranceCompany {
-        id
-        name
-        language
 
-        tpaId
-      }
       language
     }
   }
@@ -775,45 +649,8 @@ const GET_AREA = gql`
         id
         name
         cityId
-        city {
-          id
-          name
-          insuranceCompanyId
-          country {
-            id
-            name
-            language
-          }
-          insuranceCompany {
-            id
-            name
-            language
 
-            tpaId
-          }
-          language
-        }
-        provider {
-          id
-          name
-          address
-          longitude
-          latitude
-          phoneNumber
-          email
-          isOnline
-          hasChronicMedication
-          websiteUrl
-          areaId
-          specialityId
-          language
-        }
         language
-      }
-      pagination {
-        totalItemsCount
-        pagesCount
-        page
       }
     }
   }
@@ -828,45 +665,7 @@ const CREATE_AREA = gql`
       id
       name
       cityId
-      city {
-        id
-        name
-        insuranceCompanyId
-        area {
-          id
-          name
-          cityId
-          language
-        }
-        country {
-          id
-          name
-          language
-        }
-        insuranceCompany {
-          id
-          name
-          language
 
-          tpaId
-        }
-        language
-      }
-      provider {
-        id
-        name
-        address
-        longitude
-        latitude
-        phoneNumber
-        email
-        isOnline
-        hasChronicMedication
-        websiteUrl
-        areaId
-        specialityId
-        language
-      }
       language
     }
   }
@@ -878,45 +677,7 @@ const UPDATE_AREA = gql`
       id
       name
       cityId
-      city {
-        id
-        name
-        insuranceCompanyId
-        area {
-          id
-          name
-          cityId
-          language
-        }
-        country {
-          id
-          name
-          language
-        }
-        insuranceCompany {
-          id
-          name
-          language
 
-          tpaId
-        }
-        language
-      }
-      provider {
-        id
-        name
-        address
-        longitude
-        latitude
-        phoneNumber
-        email
-        isOnline
-        hasChronicMedication
-        websiteUrl
-        areaId
-        specialityId
-        language
-      }
       language
     }
   }
@@ -957,20 +718,6 @@ const GET_PROVIDER_TYPE = gql`
         name
         language
         insuranceCompanyId
-        insuranceCompany {
-          id
-          name
-        }
-        provider {
-          id
-          name
-          language
-        }
-      }
-      pagination {
-        totalItemsCount
-        pagesCount
-        page
       }
     }
   }
@@ -989,18 +736,6 @@ const CREATE_PROVIDER_TYPE = gql`
       name
       language
       insuranceCompanyId
-      insuranceCompany {
-        id
-        name
-        language
-        tpaId
-      }
-      provider {
-        id
-        name
-
-        language
-      }
     }
   }
 `;
@@ -1014,17 +749,6 @@ const UPDATE_PROVIDER_TYPE = gql`
       name
       language
       insuranceCompanyId
-      insuranceCompany {
-        id
-        name
-        language
-
-        tpaId
-      }
-      provider {
-        id
-        name
-      }
     }
   }
 `;
@@ -1081,46 +805,7 @@ const CREATE_SPECIALITY = gql`
       id
       name
       providerTypeId
-      providerType {
-        id
-        name
-        language
-        insuranceCompanyId
-        insuranceCompany {
-          id
-          name
-          language
 
-          tpaId
-        }
-        provider {
-          id
-          name
-          address
-          longitude
-          latitude
-          phoneNumber
-          email
-          isOnline
-          hasChronicMedication
-          websiteUrl
-          areaId
-          specialityId
-          language
-        }
-      }
-      subSpeciality {
-        id
-        name
-        language
-        specialityId
-        speciality {
-          id
-          name
-          providerTypeId
-          language
-        }
-      }
       language
     }
   }
@@ -1132,34 +817,6 @@ const UPDATE_SPECIALITY = gql`
       id
       name
       providerTypeId
-      providerType {
-        id
-        name
-        language
-        insuranceCompanyId
-        insuranceCompany {
-          id
-          name
-          language
-
-          tpaId
-        }
-        provider {
-          id
-          name
-          address
-          longitude
-          latitude
-          phoneNumber
-          email
-          isOnline
-          hasChronicMedication
-          websiteUrl
-          areaId
-          specialityId
-          language
-        }
-      }
 
       language
     }
@@ -1201,45 +858,6 @@ const GET_SUB_SPECIALITY = gql`
         name
         language
         specialityId
-        speciality {
-          id
-          name
-          providerTypeId
-          providerType {
-            id
-            name
-            language
-            insuranceCompanyId
-            insuranceCompany {
-              id
-              name
-              language
-
-              tpaId
-            }
-            provider {
-              id
-              name
-              address
-              longitude
-              latitude
-              phoneNumber
-              email
-              isOnline
-              hasChronicMedication
-              websiteUrl
-              areaId
-              specialityId
-              language
-            }
-          }
-          language
-        }
-      }
-      pagination {
-        totalItemsCount
-        pagesCount
-        page
       }
     }
   }
@@ -1258,46 +876,6 @@ const CREATE_SUB_SPECIALITY = gql`
       name
       language
       specialityId
-      speciality {
-        id
-        name
-        providerTypeId
-        providerType {
-          id
-          name
-          language
-          insuranceCompanyId
-          insuranceCompany {
-            id
-            name
-            language
-
-            tpaId
-          }
-          provider {
-            id
-            name
-            address
-            longitude
-            latitude
-            phoneNumber
-            email
-            isOnline
-            hasChronicMedication
-            websiteUrl
-            areaId
-            specialityId
-            language
-          }
-        }
-        subSpeciality {
-          id
-          name
-          language
-          specialityId
-        }
-        language
-      }
     }
   }
 `;
@@ -1311,46 +889,6 @@ const UPDATE_SUB_SPECIALITY = gql`
       name
       language
       specialityId
-      speciality {
-        id
-        name
-        providerTypeId
-        providerType {
-          id
-          name
-          language
-          insuranceCompanyId
-          insuranceCompany {
-            id
-            name
-            language
-
-            tpaId
-          }
-          provider {
-            id
-            name
-            address
-            longitude
-            latitude
-            phoneNumber
-            email
-            isOnline
-            hasChronicMedication
-            websiteUrl
-            areaId
-            specialityId
-            language
-          }
-        }
-        subSpeciality {
-          id
-          name
-          language
-          specialityId
-        }
-        language
-      }
     }
   }
 `;
@@ -1402,11 +940,6 @@ const GET_PROVIDER = gql`
         areaId
         specialityId
         language
-      }
-      pagination {
-        totalItemsCount
-        pagesCount
-        page
       }
     }
   }
@@ -1489,11 +1022,6 @@ const GET_CLIENT_CITY = gql`
         id
         language
         name
-        clientArea {
-          id
-          name
-          language
-        }
       }
     }
   }
@@ -1510,12 +1038,7 @@ const CREATE_CLIENT_CITY = gql`
     ) {
       id
       name
-      clientArea {
-        id
-        name
-        clientCityId
-        language
-      }
+
       language
     }
   }
@@ -1526,11 +1049,7 @@ const UPDATE_CLIENT_CITY = gql`
     updateClientCity(updateClientCityInput: $updateClientCityInput) {
       id
       name
-      clientArea {
-        id
-        name
-        language
-      }
+
       language
     }
   }
@@ -1556,11 +1075,7 @@ const GET_CLIENT_AREA = gql`
         id
         name
         clientCityId
-        clientCity {
-          id
-          name
-          language
-        }
+
         language
       }
     }
@@ -1579,11 +1094,7 @@ const CREATE_CLIENT_AREA = gql`
       id
       name
       clientCityId
-      clientCity {
-        id
-        name
-        language
-      }
+
       language
     }
   }
@@ -1595,17 +1106,6 @@ const UPDATE_CLIENT_AREA = gql`
       id
       name
       clientCityId
-      clientCity {
-        id
-        name
-        clientArea {
-          id
-          name
-          clientCityId
-          language
-        }
-        language
-      }
       language
     }
   }

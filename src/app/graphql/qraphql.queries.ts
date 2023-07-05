@@ -127,6 +127,7 @@ const GET_LEARN_ICON = gql`
   query Query($language: LanguageEnum!) {
     learnIcon(language: $language) {
       id
+      imageUrl
       name
       content
       language
@@ -145,6 +146,7 @@ const CREATE_LEARN_ICON = gql`
     ) {
       id
       name
+      imageUrl
       content
       language
     }
@@ -156,6 +158,7 @@ const REMOVE_LEARN_ICON = gql`
     removeLearnIcon(id: $removeLearnIconId) {
       id
       name
+      imageUrl
       content
       language
     }

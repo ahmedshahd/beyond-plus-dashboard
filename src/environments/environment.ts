@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API_KEY: '2ab9c3d4e5f91ab7c3d4e5f6',
-  API_URI: 'https://plus.beyond-solution.com',
+  API_URI: 'https://plus-dev.beyond-solution.com',
   // API_URI: 'http://localhost:8000',
 
   FIREBASE: {

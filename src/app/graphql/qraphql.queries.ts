@@ -653,6 +653,10 @@ const GET_AREA = gql`
         name
         cityId
 
+        city {
+          id
+          name
+        }
         language
       }
     }
@@ -668,7 +672,10 @@ const CREATE_AREA = gql`
       id
       name
       cityId
-
+      city {
+        id
+        name
+      }
       language
     }
   }
@@ -680,7 +687,10 @@ const UPDATE_AREA = gql`
       id
       name
       cityId
-
+      city {
+        id
+        name
+      }
       language
     }
   }
@@ -692,6 +702,10 @@ const REMOVE_AREA = gql`
       id
       name
       cityId
+      city {
+        id
+        name
+      }
       language
     }
   }

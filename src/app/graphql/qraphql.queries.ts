@@ -926,18 +926,24 @@ const REMOVE_SUB_SPECIALITY = gql`
 /////********                                          *******//////////////
 
 const GET_PROVIDER = gql`
-  query ListAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
+  query ListAllProviders(
+    $insuranceCompanyId: Int!
+    $tierRank: Int!
+    $areaId: [Int!]!
     $specialityId: [Int]
-    $areaId: [Int]
-    $categoryId: [Int]
+    $providerTypeId: [Int]
+    $subSpecialityId: [Int]
     $search: String
     $page: Int
     $limit: Int
   ) {
-    listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
-      specialityId: $specialityId
+    listAllProviders(
+      insuranceCompanyId: $insuranceCompanyId
+      tierRank: $tierRank
       areaId: $areaId
-      categoryId: $categoryId
+      specialityId: $specialityId
+      providerTypeId: $providerTypeId
+      subSpecialityId: $subSpecialityId
       search: $search
       page: $page
       limit: $limit
@@ -953,9 +959,12 @@ const GET_PROVIDER = gql`
         isOnline
         hasChronicMedication
         websiteUrl
-        categoryId
         areaId
         specialityId
+        subSpecialityId
+        tierRank
+        providerTypeId
+        insuranceCompanyId
         language
       }
     }
@@ -963,7 +972,7 @@ const GET_PROVIDER = gql`
 `;
 
 const CREATE_PROVIDER = gql`
-  mutation CreateProvider(
+  mutation Mutation(
     $createProviderInput: CreateProviderInput!
     $language: LanguageEnum!
   ) {
@@ -983,6 +992,10 @@ const CREATE_PROVIDER = gql`
       websiteUrl
       areaId
       specialityId
+      subSpecialityId
+      tierRank
+      providerTypeId
+      insuranceCompanyId
       language
     }
   }
@@ -1003,13 +1016,17 @@ const UPDATE_PROVIDER = gql`
       websiteUrl
       areaId
       specialityId
+      subSpecialityId
+      tierRank
+      providerTypeId
+      insuranceCompanyId
       language
     }
   }
 `;
 
 const REMOVE_PROVIDER = gql`
-  mutation RemoveProvider($removeProviderId: Int!) {
+  mutation UpdateProvider($removeProviderId: Int!) {
     removeProvider(id: $removeProviderId) {
       id
       name
@@ -1023,6 +1040,10 @@ const REMOVE_PROVIDER = gql`
       websiteUrl
       areaId
       specialityId
+      subSpecialityId
+      tierRank
+      providerTypeId
+      insuranceCompanyId
       language
     }
   }

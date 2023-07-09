@@ -15,9 +15,12 @@ export class ProviderService {
   constructor(private apollo: Apollo) {}
 
   getProviders(
-    categoryId: number,
-    specialityId: number[],
+    insuranceCompanyId: number,
+    tierRank: number,
     areaId: number[],
+    providerTypeId?: number[],
+    specialityId?: number[],
+    subSpecialityId?: number[],
     search?: string,
     page?: number,
     limit?: number
@@ -25,9 +28,12 @@ export class ProviderService {
     return this.apollo.watchQuery<any>({
       query: GET_PROVIDER,
       variables: {
-        categoryId: [categoryId],
-        specialityId,
+        insuranceCompanyId,
+        tierRank,
         areaId,
+        providerTypeId,
+        specialityId,
+        subSpecialityId,
         search,
         page,
         limit,
@@ -36,13 +42,16 @@ export class ProviderService {
   }
 
   createProvider(
-    categoryId: number,
-    specialityId: number,
+    insuranceCompanyId: number,
+    tierRank: number,
     areaId: number,
+    providerTypeId: number,
+    specialityId: number,
     address: string,
     name: string,
     phoneNumber: string[],
     language: string,
+    subSpecialityId?: number,
     websiteUrl?: string,
     hasChronicMedication?: boolean,
     email?: string,
@@ -55,9 +64,12 @@ export class ProviderService {
         mutation: CREATE_PROVIDER,
         variables: {
           createProviderInput: {
-            categoryId,
-            specialityId,
+            insuranceCompanyId,
+            tierRank,
             areaId,
+            providerTypeId,
+            specialityId,
+            subSpecialityId,
             address,
             name,
             phoneNumber,
@@ -74,9 +86,12 @@ export class ProviderService {
           {
             query: GET_PROVIDER,
             variables: {
-              categoryId: [categoryId],
-              specialityId: [specialityId],
-              areaId: [areaId],
+              insuranceCompanyId,
+              tierRank,
+              areaId,
+              providerTypeId,
+              specialityId,
+              subSpecialityId,
             },
           },
         ],
@@ -86,10 +101,12 @@ export class ProviderService {
 
   removeProvider(
     id: number,
-    categoryId: number,
-    specialityId: number,
+    insuranceCompanyId: number,
+    tierRank: number,
     areaId: number,
-    language: string
+    providerTypeId: number,
+    specialityId: number,
+    subSpecialityId?: number
   ): Observable<any> {
     return this.apollo
       .mutate({
@@ -101,9 +118,12 @@ export class ProviderService {
           {
             query: GET_PROVIDER,
             variables: {
-              categoryId: [categoryId],
-              specialityId: [specialityId],
-              areaId: [areaId],
+              insuranceCompanyId,
+              tierRank,
+              areaId,
+              providerTypeId,
+              specialityId,
+              subSpecialityId,
             },
           },
         ],
@@ -113,9 +133,12 @@ export class ProviderService {
 
   updateProvider(
     id: number,
-    categoryId?: number,
-    specialityId?: number,
+    insuranceCompanyId?: number,
+    tierRank?: number,
     areaId?: number,
+    providerTypeId?: number,
+    specialityId?: number,
+    subSpecialityId?: number,
     address?: string,
     websiteUrl?: string,
     hasChronicMedication?: boolean,
@@ -133,9 +156,12 @@ export class ProviderService {
         variables: {
           updateProviderInput: {
             id,
-            categoryId,
-            specialityId,
+            insuranceCompanyId,
+            tierRank,
             areaId,
+            providerTypeId,
+            specialityId,
+            subSpecialityId,
             address,
             websiteUrl,
             hasChronicMedication,
@@ -151,9 +177,12 @@ export class ProviderService {
           {
             query: GET_PROVIDER,
             variables: {
-              categoryId: [categoryId],
-              specialityId: [specialityId],
-              areaId: [areaId],
+              insuranceCompanyId,
+              tierRank,
+              areaId,
+              providerTypeId,
+              specialityId,
+              subSpecialityId,
             },
           },
         ],

@@ -121,21 +121,53 @@ export class ProviderComponent {
   onSearchInputChange(event) {
     const name = event.target.value;
 
-    // this.providerService
-    //   .getProviders(
-    //     this.selectedCategory.categoryId,
-    //     this.selectedSpecialities.specialityId,
-    //     this.selectedAreas.areaId,
-    //     name
-    //   )
-    //   .subscribe(({ data, error }: any) => {
-    //     if (data) {
-    //       this.providers =
-    //         data.listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
-    //     } else {
-    //       console.log(error);
-    //     }
-    //   });
+    const selectedAreasId = this.selectedAreas.map((area: any) => area.areaId);
+
+    const selectedProviderTypesId = this.selectedProviderTypes
+      ? this.selectedProviderTypes.map(
+          (providerType: any) => providerType.providerTypeId
+        )
+      : [];
+
+    const selectedSpecialitiesId = this.selectedSpecialities
+      ? this.selectedSpecialities.map(
+          (speciality: any) => speciality.specialityId
+        )
+      : [];
+
+    const selectedSubSpecialitiesId = this.selectedSubSpecialities
+      ? this.selectedSubSpecialities.map(
+          (subSpeciality: any) => subSpeciality.subSpecialityId
+        )
+      : [];
+    return this.providerService
+      .getProviders(
+        this.selectedInsuranceCompany.insuranceCompanyId,
+        this.selectedCategory.tierRank,
+        selectedAreasId,
+        selectedProviderTypesId,
+        selectedSpecialitiesId,
+        selectedSubSpecialitiesId,
+        name
+      )
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          console.log('data', data);
+          this.providers = data.listAllProviders.provider;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Provider data loaded successfully',
+            life: 1000,
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading Provider data',
+            life: 1000,
+          });
+        }
+      });
   }
 
   onLanguageChange() {
@@ -415,32 +447,32 @@ export class ProviderComponent {
       }
     );
 
-    // return this.providerService
-    //   .getProviders(
-    //     this.selectedInsuranceCompany.insuranceCompanyId,
-    //     this.selectedCategory.tierRank,
-    //     selectedAreasId,
-    //     selectedProviderTypesId,
-    //     selectedSpecialitiesId,
-    //     selectedSubSpecialitiesId
-    //   )
-    //   .subscribe(({ data, error }: any) => {
-    //     if (data) {
-    //       this.providers = data.listAllProviders.provider;
-    //       this.messageService.add({
-    //         severity: 'success',
-    //         summary: 'Provider data loaded successfully',
-    //         life: 1000,
-    //       });
-    //     } else {
-    //       console.log(error);
-    //       this.messageService.add({
-    //         severity: 'error',
-    //         summary: 'Error loading Provider data',
-    //         life: 1000,
-    //       });
-    //     }
-    //   });
+    return this.providerService
+      .getProviders(
+        this.selectedInsuranceCompany.insuranceCompanyId,
+        this.selectedCategory.tierRank,
+        selectedAreasId,
+        selectedProviderTypesId,
+        selectedSpecialitiesId,
+        selectedSubSpecialitiesId
+      )
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          this.providers = data.listAllProviders.provider;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Provider data loaded successfully',
+            life: 1000,
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading Provider data',
+            life: 1000,
+          });
+        }
+      });
   }
 
   onSearchClick() {
@@ -464,18 +496,18 @@ export class ProviderComponent {
         )
       : [];
 
-    console.log(
-      'this.selectedInsuranceCompany.insuranceCompanyId:',
-      this.selectedInsuranceCompany.insuranceCompanyId
-    );
-    console.log(
-      'this.selectedCategory.tierRank:',
-      this.selectedCategory.tierRank
-    );
-    console.log('selectedAreasId:', selectedAreasId);
-    console.log('selectedProviderTypesId:', selectedProviderTypesId);
-    console.log('selectedSpecialitiesId:', selectedSpecialitiesId);
-    console.log('selectedSubSpecialitiesId:', selectedSubSpecialitiesId);
+    // console.log(
+    //   'this.selectedInsuranceCompany.insuranceCompanyId:',
+    //   this.selectedInsuranceCompany.insuranceCompanyId
+    // );
+    // console.log(
+    //   'this.selectedCategory.tierRank:',
+    //   this.selectedCategory.tierRank
+    // );
+    // console.log('selectedAreasId:', selectedAreasId);
+    // console.log('selectedProviderTypesId:', selectedProviderTypesId);
+    // console.log('selectedSpecialitiesId:', selectedSpecialitiesId);
+    // console.log('selectedSubSpecialitiesId:', selectedSubSpecialitiesId);
     return this.providerService
       .getProviders(
         this.selectedInsuranceCompany.insuranceCompanyId,

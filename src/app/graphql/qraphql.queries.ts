@@ -135,14 +135,17 @@ const GET_LEARN_ICON = gql`
   }
 `;
 
+
 const CREATE_LEARN_ICON = gql`
   mutation CreateLearnIcon(
     $createLearnIconInput: CreateLearnIconInput!
     $language: LanguageEnum!
+    $image: Upload
   ) {
     createLearnIcon(
       createLearnIconInput: $createLearnIconInput
       language: $language
+      image: $image
     ) {
       id
       name

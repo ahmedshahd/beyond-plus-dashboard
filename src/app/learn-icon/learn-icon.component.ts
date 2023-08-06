@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Apollo } from 'apollo-angular';
-import {
-  CREATE_LEARN_ICON,
-  GET_LEARN_ICON,
-  REMOVE_LEARN_ICON,
-} from '../graphql/qraphql.queries';
+import { LearnIconService } from './learn-icon.service';
 
 @Component({
   selector: 'app-learn-icon',
@@ -20,32 +15,48 @@ export class LearnIconComponent implements OnInit {
   learnIconForm = new FormGroup({
     name: new FormControl('', Validators.required),
     content: new FormControl('', Validators.required),
+    image: new FormControl(),
     language: new FormControl('Select Language', Validators.required),
   });
 
-  createLearnIcon() {
-    this.apollo
-      .mutate({
-        mutation: CREATE_LEARN_ICON,
-        variables: {
-          createLearnIconInput: {
-            name: this.learnIconForm.value.name,
-            content: this.learnIconForm.value.content,
-          },
-          language: this.learnIconForm.value.language,
-        },
-        refetchQueries: [
-          {
-            query: GET_LEARN_ICON,
-            variables: {
-              language: this.refetchLanguage,
-            },
-          },
-        ],
-      })
+  constructor(private learnIconService: LearnIconService) {}
+
+  ngOnInit(): void {
+    this.fetchLearnIcons();
+  }
+
+  private fetchLearnIcons(): void {
+    this.learnIconService
+      .getLearnIcon(this.refetchLanguage)
+      .subscribe(({ data, error }: any) => {
+        this.learnIcons = data.learnIcon;
+        this.error = error;
+      });
+  }
+
+  onFileChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const { files } = target;
+    if (files && files.length) {
+      this.learnIconForm.get('image').setValue(files[0]);
+    }
+
+  }
+
+  createLearnIcon(): void {
+    const createLearnIconInput = {
+      name: this.learnIconForm.value.name,
+      content: this.learnIconForm.value.content,
+    };
+
+    this.learnIconService
+      .createLearnIcon(
+        createLearnIconInput,
+        this.learnIconForm.value.language,
+        this.learnIconForm.value.image
+      )
       .subscribe(
         ({ data }: any) => {
-          this.learnIcons = data.learnIcon;
           this.learnIconForm.reset();
         },
         (error) => {
@@ -54,38 +65,17 @@ export class LearnIconComponent implements OnInit {
       );
   }
 
-  removeLearnIcon(id: number) {
-    this.apollo
-      .mutate({
-        mutation: REMOVE_LEARN_ICON,
-        variables: {
-          removeLearnIconId: id,
-        },
-        refetchQueries: [
-          {
-            query: GET_LEARN_ICON,
-            variables: {
-              language: this.refetchLanguage,
-            },
-          },
-        ],
-      })
-      .subscribe(
-        ({ data }: any) => {
-          this.learnIcons = data.removeLearnIcon;
-        },
-        (error) => {
-          this.error = error;
-        }
-      );
+  removeLearnIcon(id: number): void {
+    this.learnIconService.removeLearnIcon(id, this.refetchLanguage).subscribe(
+      ({ data }: any) => {},
+      (error) => {
+        this.error = error;
+      }
+    );
   }
 
-  constructor(private apollo: Apollo) {}
   get selectedLanguage() {
     return this.learnIconForm.get('language');
-  }
-  get question() {
-    return this.learnIconForm.get('question');
   }
 
   changeSelectedLanguage(e: any) {
@@ -96,44 +86,10 @@ export class LearnIconComponent implements OnInit {
   getEnglishLearnIcon() {
     this.refetchLanguage = 'ENGLISH';
 
-    this.apollo
-      .watchQuery({
-        query: GET_LEARN_ICON,
-        variables: {
-          language: this.refetchLanguage,
-        },
-      })
-      .valueChanges.subscribe(({ data, error }: any) => {
-        this.learnIcons = data.learnIcon;
-        this.error = error;
-      });
+    this.fetchLearnIcons();
   }
   getArabicLearnIcon() {
     this.refetchLanguage = 'ARABIC';
-    this.apollo
-      .watchQuery({
-        query: GET_LEARN_ICON,
-        variables: {
-          language: this.refetchLanguage,
-        },
-      })
-      .valueChanges.subscribe(({ data, error }: any) => {
-        this.learnIcons = data.learnIcon;
-        this.error = error;
-      });
-  }
-
-  ngOnInit(): void {
-    this.apollo
-      .watchQuery({
-        query: GET_LEARN_ICON,
-        variables: {
-          language: this.refetchLanguage,
-        },
-      })
-      .valueChanges.subscribe(({ data, error }: any) => {
-        this.learnIcons = data.learnIcon;
-        this.error = error;
-      });
+    this.fetchLearnIcons();
   }
 }

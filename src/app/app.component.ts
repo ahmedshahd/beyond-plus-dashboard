@@ -79,6 +79,7 @@ export class AppComponent implements OnInit {
   clientLinks = [
     { path: '/clientCity', icon: 'view_list', title: 'City' },
     { path: '/clientArea', icon: 'view_list', title: 'Area' },
+    { path: '/userInfo', icon: 'view_list', title: 'UsersInfo' },
   ];
 
   constructor(

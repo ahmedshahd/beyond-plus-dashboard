@@ -34,6 +34,7 @@ import { PrimengModule } from './primeng.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CityClientComponent } from './client/city/city.client.component';
 import { AreaClientComponent } from './client/area/area.client.component';
+import { UserComponent } from './client/user/user.component';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import { AreaClientComponent } from './client/area/area.client.component';
     SubSpecialityComponent,
     CityClientComponent,
     AreaClientComponent,
+    UserComponent,
   ],
   providers: [AuthService, TpaService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],

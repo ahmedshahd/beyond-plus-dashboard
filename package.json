@@ -25,6 +25,7 @@
     "@angular/service-worker": "^13.0.4",
     "@apollo/client": "3.6.9",
     "apollo-angular": "^3.0.1",
+    "apollo-upload-client": "^17.0.0",
     "concurrently": "^6.4.0",
     "firebase": "^9.9.3",
     "graphql": "^15.0.0",

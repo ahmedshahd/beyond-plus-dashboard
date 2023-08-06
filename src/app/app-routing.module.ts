@@ -24,6 +24,7 @@ import { AuthGuard } from './guards/authentication.guard';
 import { RouteSerializerService } from './services/router-serializer-service.service';
 import { CityClientComponent } from './client/city/city.client.component';
 import { AreaClientComponent } from './client/area/area.client.component';
+import { UserComponent } from './client/user/user.component';
 
 const routes: Routes = [
   {
@@ -132,6 +133,11 @@ const routes: Routes = [
   {
     path: 'clientArea',
     component: AreaClientComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'userInfo',
+    component: UserComponent,
     canActivate: [AuthGuard],
   },
 

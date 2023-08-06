@@ -21,19 +21,35 @@ export class WelcomeScreenComponent implements OnInit {
     language: new FormControl('Select Language', Validators.required),
     title: new FormControl('', Validators.required),
     text: new FormControl('', Validators.required),
-    imageUrl: new FormControl('', Validators.required),
+    images: new FormControl(null, Validators.required),
   });
+  onFileChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const { files } = target;
+    if (files && files.length) {
+      // Convert the FileList to an array
+      const fileList: File[] = Array.from(files);
+      this.welcomeScreenForm.get('images').setValue(fileList);
+    }
+  }
 
+
+  removeImage(index: number) {
+    const images = this.welcomeScreenForm.get('images').value;
+    images.splice(index, 1);
+    this.welcomeScreenForm.get('images').setValue([...images]);
+  }
   createWelcomeScreen() {
+    const images = this.welcomeScreenForm.value.images;
     this.apollo
       .mutate({
         mutation: CREATE_WELCOME_SCREEN,
         variables: {
           createWelcomeScreenInput: {
             title: this.welcomeScreenForm.value.title,
-            imageUrl: this.welcomeScreenForm.value.imageUrl,
             text: this.welcomeScreenForm.value.text,
           },
+          images,
           language: this.welcomeScreenForm.value.language,
         },
         refetchQueries: [
@@ -47,7 +63,6 @@ export class WelcomeScreenComponent implements OnInit {
       })
       .subscribe(
         ({ data }: any) => {
-          this.welcomeScreens = data.welcomeScreen;
           this.welcomeScreenForm.reset();
         },
         (error) => {
@@ -74,7 +89,6 @@ export class WelcomeScreenComponent implements OnInit {
       })
       .subscribe(
         ({ data }: any) => {
-          this.welcomeScreens = data.welcomeScreen;
         },
         (error) => {
           this.error = error;
@@ -92,9 +106,7 @@ export class WelcomeScreenComponent implements OnInit {
   get text() {
     return this.welcomeScreenForm.get('text');
   }
-  get imageUrl() {
-    return this.welcomeScreenForm.get('imageUrl');
-  }
+
 
   changeSelectedLanguage(e: any) {
     this.selectedLanguage?.setValue(e.target.value, {
@@ -127,11 +139,13 @@ export class WelcomeScreenComponent implements OnInit {
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
-        this.welcomeScreens = data.welcomeScreen;
         this.error = error;
       });
   }
 
+  getWelcomeScreen() {
+    this
+  }
   ngOnInit(): void {
     this.apollo
       .watchQuery({

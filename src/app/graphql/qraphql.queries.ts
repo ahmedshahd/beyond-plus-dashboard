@@ -177,7 +177,7 @@ const GET_WELCOME_SCREEN = gql`
       id
       text
       title
-      imageUrl
+      imageUrls
       language
     }
   }
@@ -187,15 +187,17 @@ const CREATE_WELCOME_SCREEN = gql`
   mutation CreateWelcomeScreen(
     $createWelcomeScreenInput: CreateWelcomeScreenInput!
     $language: LanguageEnum!
+    $images: [Upload!]!
   ) {
     createWelcomeScreen(
       createWelcomeScreenInput: $createWelcomeScreenInput
       language: $language
+      images: $images
     ) {
       id
-      text
       title
-      imageUrl
+      text
+      imageUrls
       language
     }
   }
@@ -207,7 +209,7 @@ const REMOVE_WELCOME_SCREEN = gql`
       id
       text
       title
-      imageUrl
+      imageUrls
       language
     }
   }

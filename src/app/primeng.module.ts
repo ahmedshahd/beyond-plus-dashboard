@@ -22,6 +22,8 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CardModule } from 'primeng/card';
 import { MultiSelectModule } from 'primeng/multiselect';
+import {CarouselModule} from 'primeng/carousel';
+
 
 @NgModule({
   exports: [
@@ -46,6 +48,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     InputTextareaModule,
     CheckboxModule,
     CardModule,
+    CarouselModule
   ],
   providers: [MessageService, ConfirmationService],
 })

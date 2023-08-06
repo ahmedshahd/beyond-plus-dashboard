@@ -1,4 +1,3 @@
-import { LineOfBusinessComponent } from './line-of-business.component';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 

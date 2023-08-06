@@ -48,6 +48,7 @@ import { UserComponent } from './client/user/user.component';
     PrimengModule,
     GraphQLModule,
     AngularFireModule.initializeApp(environment.FIREBASE),
+
   ],
   declarations: [
     AppComponent,

@@ -135,7 +135,6 @@ const GET_LEARN_ICON = gql`
   }
 `;
 
-
 const CREATE_LEARN_ICON = gql`
   mutation CreateLearnIcon(
     $createLearnIconInput: CreateLearnIconInput!
@@ -275,10 +274,12 @@ const CREATE_LINE_OF_BUSINESS = gql`
   mutation CreateLineOfBusiness(
     $createLineOfBusinessInput: CreateLineOfBusinessInput!
     $language: LanguageEnum!
+    $image: Upload!
   ) {
     createLineOfBusiness(
       createLineOfBusinessInput: $createLineOfBusinessInput
       language: $language
+      image: $image
     ) {
       id
       name

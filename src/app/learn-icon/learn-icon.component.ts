@@ -22,10 +22,10 @@ export class LearnIconComponent implements OnInit {
   constructor(private learnIconService: LearnIconService) {}
 
   ngOnInit(): void {
-    this.fetchLearnIcons();
+    this.getLearnIcons();
   }
 
-  private fetchLearnIcons(): void {
+  private getLearnIcons(): void {
     this.learnIconService
       .getLearnIcon(this.refetchLanguage)
       .subscribe(({ data, error }: any) => {
@@ -86,10 +86,10 @@ export class LearnIconComponent implements OnInit {
   getEnglishLearnIcon() {
     this.refetchLanguage = 'ENGLISH';
 
-    this.fetchLearnIcons();
+    this.getLearnIcons();
   }
   getArabicLearnIcon() {
     this.refetchLanguage = 'ARABIC';
-    this.fetchLearnIcons();
+    this.getLearnIcons();
   }
 }

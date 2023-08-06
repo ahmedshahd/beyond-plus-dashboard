@@ -64,10 +64,7 @@
       <mat-card-header>
         <mat-card-title>Create Line Of Business </mat-card-title>
       </mat-card-header>
-      <form
-        [formGroup]="lineOfBusinessForm"
-        (ngSubmit)="createLineOfBusiness()"
-      >
+      <form [formGroup]="lineOfBusinessForm">
         <mat-card-content>
           <mat-form-field class="full-width">
             <input
@@ -76,16 +73,6 @@
               formControlName="name"
               type="text"
               name="name"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              placeholder="Enter image URL"
-              formControlName="imageUrl"
-              type="text"
-              name="imageUrl"
               required
             />
           </mat-form-field>
@@ -109,6 +96,29 @@
               required
             />
           </mat-form-field>
+          <div class="upload-container">
+            <input
+              type="file"
+              name="image"
+              (change)="onFileChange($event)"
+              style="display: none"
+              #fileInput
+              hidden
+            />
+            <button
+              class="upload-btn"
+              mat-raised-button
+              color="primary"
+              (click)="fileInput.click()"
+            >
+              Choose Image
+            </button>
+            <span>{{
+              lineOfBusinessForm.get("image").value
+                ? lineOfBusinessForm.get("image").value.name
+                : "No image selected"
+            }}</span>
+          </div>
 
           <mat-form-field appearance="fill">
             <mat-label>Select Language</mat-label>
@@ -129,6 +139,7 @@
             type="submit"
             mat-button
             color="primary"
+            (click)="createLineOfBusiness()"
           >
             Save
           </button>

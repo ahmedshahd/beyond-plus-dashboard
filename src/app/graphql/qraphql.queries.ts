@@ -316,6 +316,8 @@ const GET_CONTACT_US = gql`
       id
       phoneNumber
       email
+      telegramChannel
+      whatsappNumber
       websiteUrl
     }
   }
@@ -328,6 +330,8 @@ const CREATE_CONTACT_US = gql`
       phoneNumber
       email
       websiteUrl
+      telegramChannel
+      whatsappNumber
     }
   }
 `;
@@ -339,6 +343,8 @@ const REMOVE_CONTACT_US = gql`
       phoneNumber
       email
       websiteUrl
+      telegramChannel
+      whatsappNumber
     }
   }
 `;

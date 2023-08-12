@@ -20,6 +20,9 @@ export class ContactUsComponent implements OnInit {
     email: new FormControl('', Validators.required),
     websiteUrl: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', Validators.required),
+    telegramChannel: new FormControl('', Validators.required),
+    whatsappNumber: new FormControl('', Validators.required),
+
   });
 
   createContactUs() {
@@ -31,6 +34,9 @@ export class ContactUsComponent implements OnInit {
             email: this.contactUsForm.value.email,
             websiteUrl: this.contactUsForm.value.websiteUrl,
             phoneNumber: this.contactUsForm.value.phoneNumber,
+            telegramChannel: this.contactUsForm.value.telegramChannel,
+            whatsappNumber: this.contactUsForm.value.whatsappNumber,
+
           },
         },
         refetchQueries: [
@@ -41,7 +47,7 @@ export class ContactUsComponent implements OnInit {
       })
       .subscribe(
         ({ data }: any) => {
-          this.contactUs = data.contactUs;
+          // this.contactUs = data.contactUs;
           this.contactUsForm.reset();
         },
         (error) => {
@@ -65,7 +71,7 @@ export class ContactUsComponent implements OnInit {
       })
       .subscribe(
         ({ data }: any) => {
-          this.contactUs = data.removeContactUs;
+          // this.contactUs = data.removeContactUs;
         },
         (error) => {
           this.error = error;
@@ -82,6 +88,12 @@ export class ContactUsComponent implements OnInit {
   }
   get phoneNumber() {
     return this.contactUsForm.get('phoneNumber');
+  }
+  get telegramChannel() {
+    return this.contactUsForm.get('telegramChannel');
+  }
+  get whatsappNumber() {
+    return this.contactUsForm.get('whatsappNumber');
   }
 
   ngOnInit(): void {

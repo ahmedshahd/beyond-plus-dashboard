@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from 'firebase/auth';
+import {  Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -36,48 +34,8 @@ export class AuthService {
       throw error;
     }
   }
-  //
 
-  getCurrentUser(): Promise<any> {
-    return this.afAuth.currentUser;
-  }
+  // getCurrentUser(): Promise<any> {
+  //   return this.afAuth.currentUser;
+  // }
 }
-
-//   getCurrentUser(): Observable<User> {
-//     return this.afAuth.authState;
-//   }
-// }
-
-// }
-// export class AuthService {
-//   private isAuthenticated = new BehaviorSubject(this.afAuth.authState || false);
-//   isAuthenticated$ = this.isAuthenticated.asObservable();
-
-//   constructor(public afAuth: AngularFireAuth, public router: Router) {}
-
-//   SignIn(email: string, password: string) {
-//     try {
-//       if (this.afAuth.signInWithEmailAndPassword(email, password)) {
-//         this.router.navigateByUrl('/uploader');
-//         console.log(
-//           'this.isAuthenticated.next(true)',
-//           this.isAuthenticated.next(true)
-//         );
-//         return this.isAuthenticated.next(true);
-//       }
-//       this.isAuthenticated.next(false);
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-
-//   SignOut() {
-//     try {
-//       this.isAuthenticated.next(false);
-//       this.router.navigateByUrl('/login');
-//       return this.afAuth.signOut();
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-// }

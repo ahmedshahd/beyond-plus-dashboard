@@ -135,11 +135,11 @@ const routes: Routes = [
     component: AreaClientComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'userInfo',
-    component: UserComponent,
-    canActivate: [AuthGuard],
-  },
+  // {
+  //   path: 'userInfo',
+  //   component: UserComponent,
+  //   canActivate: [AuthGuard],
+  // },
 
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

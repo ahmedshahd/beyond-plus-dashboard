@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { shareReplay } from 'rxjs/operators';
 import { AuthService } from './services/auth-service.service';
 import { RouteSerializerService } from './services/router-serializer-service.service';
 
@@ -79,7 +78,7 @@ export class AppComponent implements OnInit {
   clientLinks = [
     { path: '/clientCity', icon: 'view_list', title: 'City' },
     { path: '/clientArea', icon: 'view_list', title: 'Area' },
-    { path: '/userInfo', icon: 'view_list', title: 'UsersInfo' },
+    // { path: '/userInfo', icon: 'view_list', title: 'UsersInfo' },
   ];
 
   constructor(
@@ -89,6 +88,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   logout() {
+    this.router.navigateByUrl("/login")
     this.authService.SignOut();
   }
   ngOnInit(): void {

@@ -13,18 +13,17 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgModule } from '@angular/core';
 import { NavigationEnd, Router, RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './login/login.component';
 import { FaqComponent } from './faq/faq.component';
 import { LabelComponent } from './label/label.component';
 import { LearnIconComponent } from './learn-icon/learn-icon.component';
 import { LineOfBusinessComponent } from './line-of-business/line-of-business.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
-import { AuthGuard } from './guards/authentication.guard';
 import { RouteSerializerService } from './services/router-serializer-service.service';
 import { CityClientComponent } from './client/city/city.client.component';
 import { AreaClientComponent } from './client/area/area.client.component';
 import { UserComponent } from './client/user/user.component';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
@@ -32,7 +31,6 @@ const routes: Routes = [
     component: UploaderComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'login', component: LoginComponent },
   {
     path: 'faq',
     component: FaqComponent,

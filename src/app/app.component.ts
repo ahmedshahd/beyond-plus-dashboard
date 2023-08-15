@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from './services/auth-service.service';
+// import { AuthService } from './services/auth-service.service';
 import { RouteSerializerService } from './services/router-serializer-service.service';
+import { AuthService } from '@auth0/auth0-angular';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -83,16 +85,24 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    @Inject(DOCUMENT) public document: Document,
+
+    private auth: AuthService,
+
     private router: Router,
     private routeSerializer: RouteSerializerService
   ) {}
 
   logout() {
-    this.router.navigateByUrl("/login")
-    this.authService.SignOut();
+    this.auth.logout({
+      logoutParams: {
+        returnTo: this.document.location.origin,
+      },
+    });
   }
   ngOnInit(): void {
-    this.authService.user.subscribe((user) => {
+
+    this.authService.user$.subscribe((user) => {
       if (user) {
         this.router.navigateByUrl(lastRoute);
         return (this.isUser = true);

@@ -7,7 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material.module';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
@@ -17,7 +16,6 @@ import { GraphQLModule } from './graphql.module';
 import { LabelComponent } from './label/label.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { UploaderComponent } from './uploader/uploader.component';
-import { AuthService } from './services/auth-service.service';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
@@ -35,6 +33,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { CityClientComponent } from './client/city/city.client.component';
 import { AreaClientComponent } from './client/area/area.client.component';
 import { UserComponent } from './client/user/user.component';
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   imports: [
@@ -47,12 +46,18 @@ import { UserComponent } from './client/user/user.component';
     ReactiveFormsModule,
     PrimengModule,
     GraphQLModule,
-    AngularFireModule.initializeApp(environment.FIREBASE),
+    AuthModule.forRoot({
+      domain: environment.AUTH0_DOMIN,
+      clientId: environment.AUTH0_CLIENT_ID,
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      }
+    }),
+    // AngularFireModule.initializeApp(environment.FIREBASE),
 
   ],
   declarations: [
     AppComponent,
-    LoginComponent,
     FaqComponent,
     LabelComponent,
     TermsAndConditionsComponent,
@@ -75,7 +80,7 @@ import { UserComponent } from './client/user/user.component';
     AreaClientComponent,
     UserComponent,
   ],
-  providers: [AuthService, TpaService, MessageService, ConfirmationService],
+  providers: [ TpaService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

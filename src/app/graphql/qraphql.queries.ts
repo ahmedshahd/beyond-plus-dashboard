@@ -1118,6 +1118,7 @@ const REMOVE_CLIENT_CITY = gql`
 /////********                                     *********//////////////
 /////****************** CLIENT AREA QUERIES AND MUTITION *********//////////////
 /////********                                          *******//////////////
+
 const GET_CLIENT_AREA = gql`
   query ListAllClientAreasByClientCityId($clientCityId: [Int!]!) {
     listAllClientAreasByClientCityId(clientCityId: $clientCityId) {
@@ -1164,6 +1165,92 @@ const UPDATE_CLIENT_AREA = gql`
 const REMOVE_CLIENT_AREA = gql`
   mutation RemoveClientArea($removeClientAreaId: Int!) {
     removeClientArea(id: $removeClientAreaId) {
+      id
+      name
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** User Profile Queries And Mutations*********//////////////
+/////********                                          *******//////////////
+
+const GET_USERS_PROFILES = gql`
+  query UsersProfiles($phoneNumber: String) {
+    usersProfiles(phoneNumber: $phoneNumber) {
+      uuid
+      name
+      phoneNumber
+      gender
+      email
+      dateOfbirth
+      profileImgUrl
+    }
+  }
+`;
+
+const GET_USER_PROFILE = gql`
+  query UserProfile($uuid: String!) {
+    userProfile(uuid: $uuid) {
+      uuid
+      name
+      email
+      phoneNumber
+      dateOfbirth
+      profileImgUrl
+      gender
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** Wellness tip Queries And Mutations*********//////////////
+/////********                                          *******//////////////
+
+const GET_WELLNESS_TIPS_OF_USER = gql`
+  query Query($userProfileUuid: String) {
+    wellnessTipsOfUser(userProfileUuid: $userProfileUuid) {
+      id
+      name
+      description
+      details
+      images
+      pdfs
+      thumbnails
+      userProfileUuid
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+const CREATE_WELLNESS_TIP = gql`
+  mutation CreateWellnessTip(
+    $createWellnessTipInput: CreateWellnessTipInput!
+    $attachments: [Upload]
+  ) {
+    createWellnessTip(
+      createWellnessTipInput: $createWellnessTipInput
+      attachments: $attachments
+    ) {
+      id
+      name
+    }
+  }
+`;
+
+const UPDATE_WELLNESS_TIP = gql`
+  mutation UpdateWellnessTip($updateWellnessTipInput: UpdateWellnessTipInput!) {
+    updateWellnessTip(updateWellnessTipInput: $updateWellnessTipInput) {
+      id
+      name
+    }
+  }
+`;
+
+const REMOVE_WELLNESS_TIP = gql`
+  mutation RemoveWellnessTip($removeWellnessTipId: Int!) {
+    removeWellnessTip(id: $removeWellnessTipId) {
       id
       name
     }
@@ -1239,4 +1326,10 @@ export {
   CREATE_CLIENT_AREA,
   UPDATE_CLIENT_AREA,
   REMOVE_CLIENT_AREA,
+  GET_USER_PROFILE,
+  GET_USERS_PROFILES,
+  GET_WELLNESS_TIPS_OF_USER,
+  CREATE_WELLNESS_TIP,
+  UPDATE_WELLNESS_TIP,
+  REMOVE_WELLNESS_TIP,
 };

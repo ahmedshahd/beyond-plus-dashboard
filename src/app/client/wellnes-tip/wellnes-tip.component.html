@@ -1,0 +1,200 @@
+<div class="faq-container">
+  <div class="faq-list">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Wellness Tips List </mat-card-title>
+      </mat-card-header>
+      <div class="p-field">
+        <p-dropdown
+          placeholder="Select User"
+          (onChange)="onListUserChange()"
+          [(ngModel)]="selectedUser"
+          [filter]="true"
+          filterBy="phoneNumber"
+          name="user"
+          [options]="userOptions"
+          optionLabel="phoneNumber"
+          [showClear]="true"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div>
+
+      <mat-card-content *ngFor="let wellnessTip of wellnessTips">
+        <mat-card class="container">
+          <mat-card-header>
+            <mat-card-title
+              ><span><strong>Title: </strong></span
+              >{{ wellnessTip.name }}</mat-card-title
+            >
+          </mat-card-header>
+
+          <div class="image-delete-container">
+            <ng-container *ngIf="wellnessTip.pdfs[0]; else imageBlock">
+              <span><strong>pdfs: </strong></span>
+              <div #pdfContainer>
+                <app-pdf-viewer
+                  [thumbnail]="true"
+                  [pdfUrl]="wellnessTip.pdfs[0]"
+                ></app-pdf-viewer>
+                <a [href]="wellnessTip.pdfs[0]" download>Download PDF</a>
+              </div>
+            </ng-container>
+            <ng-template #imageBlock>
+              <span><strong>images: </strong></span>
+
+              <div>
+                <img
+                  [src]="wellnessTip.images[0]"
+                  style="height: 300px"
+                  alt="Image"
+                />
+                <a [href]="wellnessTip.images[0]" download
+                style="display: block;"
+                  >Download Original Image</a
+                >
+              </div>
+            </ng-template>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="
+                removeWellnessTip(wellnessTip.id);
+                $event.stopImmediatePropagation()
+              "
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <mat-card-content class="text">
+            <span><strong>description: </strong></span
+            >{{ wellnessTip.description }}
+          </mat-card-content>
+          <mat-card-content class="text">
+            <span><strong>details: </strong></span>{{ wellnessTip.details }}
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="faq-details">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Create Wellness Tip</mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="wellnessTipForm">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter name"
+              formControlName="name"
+              type="text"
+              name="name"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter description"
+              formControlName="description"
+              type="text"
+              name="description"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter details"
+              formControlName="details"
+              type="text"
+              name="details"
+              required
+            />
+          </mat-form-field>
+          <div class="upload-container">
+            <input
+              type="file"
+              multiple
+              name="images"
+              (change)="onFileChange($event)"
+              style="display: none"
+              #fileInput
+              hidden
+            />
+            <button
+              class="upload-btn"
+              mat-raised-button
+              color="primary"
+              (click)="fileInput.click()"
+            >
+              Choose Attachments
+            </button>
+            <div *ngIf="wellnessTipForm.get('attachments').value">
+              <ul>
+                <li
+                  *ngFor="
+                    let attachment of wellnessTipForm.get('attachments').value;
+                    let i = index
+                  "
+                >
+                  {{ attachment.name }}
+                  <button mat-icon-button (click)="removeAttachment(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <span *ngIf="!wellnessTipForm.get('attachments').value">
+              No attachment selected
+            </span>
+          </div>
+          <div class="p-field">
+            <p-dropdown
+              placeholder="Select User"
+              formControlName="user"
+              (onChange)="onUserChange()"
+              [filter]="true"
+              filterBy="phoneNumber"
+              name="user"
+              [options]="userOptions"
+              optionLabel="phoneNumber"
+              [required]="true"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+          </div>
+
+          <!-- <mat-form-field appearance="fill">
+            <mat-label>Select Language</mat-label>
+            <mat-select
+              required
+              name="language"
+              formControlName="language"
+              (change)="changeSelectedLanguage($event)"
+            >
+              <mat-option [value]="'ENGLISH'">English </mat-option>
+              <mat-option [value]="'ARABIC'">Arabic </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            [disabled]="wellnessTipForm.invalid"
+            type="submit"
+            mat-button
+            color="primary"
+            (click)="createWellnessTip()"
+          >
+            Save
+          </button>
+          <button type="button" mat-button (click)="wellnessTipForm.reset()">
+            Cancel
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

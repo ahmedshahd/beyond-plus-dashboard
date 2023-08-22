@@ -78,6 +78,8 @@ export class AppComponent implements OnInit {
   ];
 
   clientLinks = [
+    { path: '/userWellnessTip', icon: 'view_list', title: 'Wellness Tips' },
+    { path: '/userHealthCare', icon: 'view_list', title: 'Health Care' },
     { path: '/clientCity', icon: 'view_list', title: 'City' },
     { path: '/clientArea', icon: 'view_list', title: 'Area' },
     // { path: '/userInfo', icon: 'view_list', title: 'UsersInfo' },
@@ -101,7 +103,6 @@ export class AppComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-
     this.authService.user$.subscribe((user) => {
       if (user) {
         this.router.navigateByUrl(lastRoute);

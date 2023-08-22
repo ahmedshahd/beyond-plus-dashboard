@@ -17,7 +17,7 @@ import { LabelComponent } from './label/label.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { UploaderComponent } from './uploader/uploader.component';
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
+// import { AngularFireModule } from '@angular/fire/compat';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { InsuranceCompanyComponent } from './medical-network/insurance-company/insurance-company.component';
 import { TpaComponent } from './medical-network/tpa/tpa.component';
@@ -34,6 +34,9 @@ import { CityClientComponent } from './client/city/city.client.component';
 import { AreaClientComponent } from './client/area/area.client.component';
 import { UserComponent } from './client/user/user.component';
 import { AuthModule } from '@auth0/auth0-angular';
+import { WellnesTipComponent } from './client/wellnes-tip/wellnes-tip.component';
+import { HealthCareComponent } from './client/health-care/health-care.component';
+import { PdfViewerComponent } from './client/pdf-viewer/pdf-viewer.component';
 
 @NgModule({
   imports: [
@@ -79,6 +82,9 @@ import { AuthModule } from '@auth0/auth0-angular';
     CityClientComponent,
     AreaClientComponent,
     UserComponent,
+    WellnesTipComponent,
+    HealthCareComponent,
+    PdfViewerComponent,
   ],
   providers: [ TpaService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],

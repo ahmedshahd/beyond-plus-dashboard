@@ -1,1 +1,187 @@
-<p>health-care works!</p>
+<div class="faq-container">
+  <div class="faq-list">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Health Care List </mat-card-title>
+      </mat-card-header>
+      <div class="p-field">
+        <p-dropdown
+          placeholder="Select User"
+          (onChange)="onListUserChange()"
+          [(ngModel)]="selectedUser"
+          [filter]="true"
+          filterBy="phoneNumber"
+          name="user"
+          [options]="userOptions"
+          optionLabel="phoneNumber"
+          [showClear]="true"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div>
+
+      <mat-card-content *ngFor="let healthCare of healthCares">
+        <mat-card class="container">
+          <mat-card-header>
+            <mat-card-title
+              ><span><strong>Title: </strong></span
+              >{{ healthCare.name }}</mat-card-title
+            >
+          </mat-card-header>
+
+          <div class="image-delete-container">
+            <ng-container *ngIf="healthCare.pdfs[0]; else imageBlock">
+              <span><strong>pdfs: </strong></span>
+              <div #pdfContainer>
+                <app-pdf-viewer
+                  [thumbnail]="true"
+                  [pdfUrl]="healthCare.pdfs[0]"
+                ></app-pdf-viewer>
+                <a [href]="healthCare.pdfs[0]" download>Download PDF</a>
+              </div>
+            </ng-container>
+            <ng-template #imageBlock>
+              <span><strong>images: </strong></span>
+
+              <div>
+                <img
+                  [src]="healthCare.images[0]"
+                  style="height: 300px"
+                  alt="Image"
+                />
+                <a [href]="healthCare.images[0]" download
+                style="display: block;"
+                  >Download Original Image</a
+                >
+              </div>
+            </ng-template>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="
+                removeHealthCare(healthCare.id);
+                $event.stopImmediatePropagation()
+              "
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <mat-card-content class="text">
+            <span><strong>description: </strong></span
+            >{{ healthCare.description }}
+          </mat-card-content>
+          <mat-card-content class="text">
+            <span><strong>details: </strong></span>{{ healthCare.details }}
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="faq-details">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Create Health Care</mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="healthCareForm">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter name"
+              formControlName="name"
+              type="text"
+              name="name"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter description"
+              formControlName="description"
+              type="text"
+              name="description"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter details"
+              formControlName="details"
+              type="text"
+              name="details"
+              required
+            />
+          </mat-form-field>
+          <div class="upload-container">
+            <input
+              type="file"
+              multiple
+              name="images"
+              (change)="onFileChange($event)"
+              style="display: none"
+              #fileInput
+              hidden
+            />
+            <button
+              class="upload-btn"
+              mat-raised-button
+              color="primary"
+              (click)="fileInput.click()"
+            >
+              Choose Attachments
+            </button>
+            <div *ngIf="healthCareForm.get('attachments').value">
+              <ul>
+                <li
+                  *ngFor="
+                    let attachment of healthCareForm.get('attachments').value;
+                    let i = index
+                  "
+                >
+                  {{ attachment.name }}
+                  <button mat-icon-button (click)="removeAttachment(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <span *ngIf="!healthCareForm.get('attachments').value">
+              No attachment selected
+            </span>
+          </div>
+          <div class="p-field">
+            <p-dropdown
+              placeholder="Select User"
+              formControlName="user"
+              (onChange)="onUserChange()"
+              [filter]="true"
+              filterBy="phoneNumber"
+              name="user"
+              [options]="userOptions"
+              optionLabel="phoneNumber"
+              [required]="true"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+            ></p-dropdown>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            [disabled]="healthCareForm.invalid"
+            type="submit"
+            mat-button
+            color="primary"
+            (click)="createHealthCare()"
+          >
+            Save
+          </button>
+          <button type="button" mat-button (click)="healthCareForm.reset()">
+            Cancel
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

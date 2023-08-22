@@ -1257,6 +1257,66 @@ const REMOVE_WELLNESS_TIP = gql`
   }
 `;
 
+/////********                                     *********//////////////
+/////****************** Health Care Queries And Mutations*********//////////////
+/////********                                          *******//////////////
+
+const GET_HEALTH_CARE_OF_USER = gql`
+  query HealthCareOfUser($userProfileUuid: String) {
+    healthCareOfUser(userProfileUuid: $userProfileUuid) {
+      id
+      name
+      description
+      details
+      images
+      pdfs
+      thumbnails
+      userProfileUuid
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+const CREATE_HEALTH_CARE = gql`
+  mutation Mutation(
+    $createHealthCareInput: CreateHealthCareInput!
+    $attachments: [Upload]
+  ) {
+    createHealthCare(
+      createHealthCareInput: $createHealthCareInput
+      attachments: $attachments
+    ) {
+      id
+      name
+    }
+  }
+`;
+
+const UPDATE_HEALTH_CARE = gql`
+  mutation UpdateHealthCare(
+    $updateHealthCareInput: UpdateHealthCareInput!
+    $attachments: [Upload]
+  ) {
+    updateHealthCare(
+      updateHealthCareInput: $updateHealthCareInput
+      attachments: $attachments
+    ) {
+      id
+      name
+    }
+  }
+`;
+
+const REMOVE_HEALTH_CARE = gql`
+  mutation RemoveHealthCare($removeHealthCareId: Int!) {
+    removeHealthCare(id: $removeHealthCareId) {
+      id
+      name
+    }
+  }
+`;
+
 export {
   GET_FAQ,
   CREATE_FAQ,
@@ -1332,4 +1392,8 @@ export {
   CREATE_WELLNESS_TIP,
   UPDATE_WELLNESS_TIP,
   REMOVE_WELLNESS_TIP,
+  GET_HEALTH_CARE_OF_USER,
+  CREATE_HEALTH_CARE,
+  UPDATE_HEALTH_CARE,
+  REMOVE_HEALTH_CARE,
 };

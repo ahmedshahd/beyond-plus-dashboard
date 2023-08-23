@@ -1239,6 +1239,21 @@ const CREATE_WELLNESS_TIP = gql`
   }
 `;
 
+const CREATE_GLOBAL_WELLNESS_TIP = gql`
+  mutation CreateGlobalWellnessTip(
+    $createGlobalWellnessTipInput: CreateGlobalWellnessTipCareInput!
+    $attachments: [Upload]
+  ) {
+    createGlobalWellnessTip(
+      createGlobalWellnessTipInput: $createGlobalWellnessTipInput
+      attachments: $attachments
+    ) {
+      name
+      description
+    }
+  }
+`;
+
 const UPDATE_WELLNESS_TIP = gql`
   mutation UpdateWellnessTip($updateWellnessTipInput: UpdateWellnessTipInput!) {
     updateWellnessTip(updateWellnessTipInput: $updateWellnessTipInput) {
@@ -1289,6 +1304,21 @@ const CREATE_HEALTH_CARE = gql`
     ) {
       id
       name
+    }
+  }
+`;
+
+const CREATE_GLOBAL_HEALTH_CARE = gql`
+  mutation Mutation(
+    $createGlobalHealthCareInput: CreateGlobalHealthCareInput!
+    $attachments: [Upload]
+  ) {
+    createGlobalHealthCare(
+      createGlobalHealthCareInput: $createGlobalHealthCareInput
+      attachments: $attachments
+    ) {
+      name
+      id
     }
   }
 `;
@@ -1390,10 +1420,13 @@ export {
   GET_USERS_PROFILES,
   GET_WELLNESS_TIPS_OF_USER,
   CREATE_WELLNESS_TIP,
+  CREATE_GLOBAL_WELLNESS_TIP,
   UPDATE_WELLNESS_TIP,
   REMOVE_WELLNESS_TIP,
   GET_HEALTH_CARE_OF_USER,
   CREATE_HEALTH_CARE,
+  CREATE_GLOBAL_HEALTH_CARE,
   UPDATE_HEALTH_CARE,
   REMOVE_HEALTH_CARE,
+
 };

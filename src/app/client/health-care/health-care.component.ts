@@ -53,9 +53,15 @@ export class HealthCareComponent {
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     details: new FormControl(),
-    user: new FormControl('Select User', Validators.required),
     attachments: new FormControl(null, Validators.required),
+    allUsersCheck: new FormControl(false, Validators.required),
+    user: new FormControl({ value: 'Select User', disabled: false }),
   });
+
+  onToggle() {
+    const checked = this.healthCareForm.get('allUsersCheck').value;
+    console.log('checked', checked);
+  }
 
   removeAttachment(index: number) {
     const attachments = this.healthCareForm.get('attachments').value;
@@ -79,16 +85,36 @@ export class HealthCareComponent {
   }
 
   createHealthCare() {
-    const createHealthCareInput = {
+    const globalChecked = this.healthCareForm.get('allUsersCheck').value;
+
+    if (!globalChecked) {
+      const createHealthCareInput = {
+        name: this.healthCareForm.value.name,
+        description: this.healthCareForm.value.description,
+        details: this.healthCareForm.value.details,
+        userProfileUuid: this.selectedUserUuid,
+      };
+      const attachments = this.healthCareForm.get('attachments').value;
+      const userProfileUuid = this.selectedUserUuid;
+      return this.healthCareService
+        .createHealthCare(createHealthCareInput, attachments, userProfileUuid)
+        .subscribe(
+          ({ data }: any) => {
+            this.resetForm();
+          },
+          (error) => {
+            this.error = error;
+          }
+        );
+    }
+    const createGlobalHealthCareInput = {
       name: this.healthCareForm.value.name,
       description: this.healthCareForm.value.description,
       details: this.healthCareForm.value.details,
-      userProfileUuid: this.selectedUserUuid,
     };
     const attachments = this.healthCareForm.get('attachments').value;
-    const userProfileUuid = this.selectedUserUuid;
     return this.healthCareService
-      .createHealthCare(createHealthCareInput, attachments, userProfileUuid)
+      .createGlobalHealthCare(createGlobalHealthCareInput, attachments)
       .subscribe(
         ({ data }: any) => {
           this.resetForm();

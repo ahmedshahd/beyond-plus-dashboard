@@ -48,8 +48,7 @@
                   style="height: 300px"
                   alt="Image"
                 />
-                <a [href]="healthCare.images[0]" download
-                style="display: block;"
+                <a [href]="healthCare.images[0]" download style="display: block"
                   >Download Original Image</a
                 >
               </div>
@@ -124,14 +123,13 @@
               #fileInput
               hidden
             />
-            <button
+            <p-button
               class="upload-btn"
-              mat-raised-button
               color="primary"
               (click)="fileInput.click()"
             >
               Choose Attachments
-            </button>
+            </p-button>
             <div *ngIf="healthCareForm.get('attachments').value">
               <ul>
                 <li
@@ -151,8 +149,17 @@
               No attachment selected
             </span>
           </div>
+          <div class="toggle-container">
+            <p-toggleButton
+              formControlName="allUsersCheck"
+              (onChange)="onToggle()"
+              onLabel="Global"
+              offLabel="User"
+            ></p-toggleButton>
+          </div>
           <div class="p-field">
             <p-dropdown
+              [disabled]="healthCareForm.get('allUsersCheck').value"
               placeholder="Select User"
               formControlName="user"
               (onChange)="onUserChange()"
@@ -161,7 +168,6 @@
               name="user"
               [options]="userOptions"
               optionLabel="phoneNumber"
-              [required]="true"
               [showClear]="true"
               [style]="{ width: '100%' }"
             ></p-dropdown>

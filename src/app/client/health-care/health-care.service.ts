@@ -5,6 +5,7 @@ import {
   CREATE_HEALTH_CARE,
   UPDATE_HEALTH_CARE,
   REMOVE_HEALTH_CARE,
+  CREATE_GLOBAL_HEALTH_CARE
 } from '../../graphql/qraphql.queries';
 
 @Injectable({
@@ -14,7 +15,6 @@ export class HealthCareService {
   constructor(private apollo: Apollo) {}
 
   createHealthCare(createHealthCareInput: any, attachments: any, uuid: any) {
-    console.log('here create');
     return this.apollo
       .mutate({
         mutation: CREATE_HEALTH_CARE,
@@ -32,8 +32,18 @@ export class HealthCareService {
 
   }
 
+  createGlobalHealthCare(createGlobalHealthCareInput: any, attachments: any) {
+    return this.apollo
+      .mutate({
+        mutation: CREATE_GLOBAL_HEALTH_CARE,
+        variables: {
+          createGlobalHealthCareInput,
+          attachments,
+        }
+      })
+  }
+
   removeHealthCare(id: number, uuid: string) {
-    console.log('object', id, uuid);
     return this.apollo
       .mutate({
         mutation: REMOVE_HEALTH_CARE,

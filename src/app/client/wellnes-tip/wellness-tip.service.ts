@@ -3,6 +3,8 @@ import { Apollo } from 'apollo-angular';
 import {
   GET_WELLNESS_TIPS_OF_USER,
   CREATE_WELLNESS_TIP,
+  CREATE_GLOBAL_WELLNESS_TIP,
+
   UPDATE_WELLNESS_TIP,
   REMOVE_WELLNESS_TIP,
 } from '../../graphql/qraphql.queries';
@@ -31,6 +33,18 @@ export class WellnessTipsService {
         ],
       })
 
+  }
+
+
+  createGlobalWellnessTip(createGlobalWellnessTipInput: any, attachments: any) {
+    return this.apollo
+      .mutate({
+        mutation: CREATE_GLOBAL_WELLNESS_TIP,
+        variables: {
+          createGlobalWellnessTipInput,
+          attachments,
+        }
+      })
   }
 
   removeWellnessTip(id: number, uuid: string) {

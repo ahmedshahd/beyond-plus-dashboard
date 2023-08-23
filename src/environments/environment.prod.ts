@@ -4,14 +4,14 @@ export const environment = {
   API_URI: 'https://plus-dev.beyond-solution.com',
   // API_URI: 'http://localhost:8000',
 
-//PRODUCTION
-  // AUTH0_DOMIN: 'dev-50c81431dzyp4dfe.us.auth0.com',
-  // AUTH0_CLIENT_ID: 'IG6B2tG117PbY3j1HwHWm5Y3o6HQttMm',
+// PRODUCTION
+  AUTH0_DOMIN: 'dev-50c81431dzyp4dfe.us.auth0.com',
+  AUTH0_CLIENT_ID: 'IG6B2tG117PbY3j1HwHWm5Y3o6HQttMm',
 
 
-  //development
- AUTH0_DOMIN: 'dev-50c81431dzyp4dfe.us.auth0.com',
-  AUTH0_CLIENT_ID: 'w9oHzxGe9iSXG0JwnAzmsA1JCTtl3QlT',
+//   //development
+//  AUTH0_DOMIN: 'dev-50c81431dzyp4dfe.us.auth0.com',
+//   AUTH0_CLIENT_ID: 'w9oHzxGe9iSXG0JwnAzmsA1JCTtl3QlT',
 
 
   FIREBASE: {

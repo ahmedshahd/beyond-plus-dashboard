@@ -39,8 +39,9 @@ export class WellnesTipComponent implements OnInit {
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     details: new FormControl(),
-    user: new FormControl('Select User', Validators.required),
     attachments: new FormControl(null, Validators.required),
+    allUsersCheck: new FormControl(false, Validators.required),
+    user: new FormControl({ value: 'Select User', disabled: false }),
   });
 
   ngOnInit(): void {
@@ -80,19 +81,39 @@ export class WellnesTipComponent implements OnInit {
   }
 
   createWellnessTip() {
-    const createWellnessTipInput = {
+    const globalChecked = this.wellnessTipForm.get('allUsersCheck').value;
+    if (!globalChecked) {
+      const createWellnessTipInput = {
+        name: this.wellnessTipForm.value.name,
+        description: this.wellnessTipForm.value.description,
+        details: this.wellnessTipForm.value.details,
+        userProfileUuid: this.selectedUserUuid,
+      };
+      const attachments = this.wellnessTipForm.get('attachments').value;
+      const userProfileUuid = this.selectedUserUuid;
+      return this.wellnessTipsService
+        .createWellnessTip(createWellnessTipInput, attachments, userProfileUuid)
+        .subscribe(
+          ({ data }: any) => {
+            this.resetForm();
+          },
+          (error) => {
+            this.error = error;
+          }
+        );
+    }
+    const createGlobalWellnessTipInput = {
       name: this.wellnessTipForm.value.name,
       description: this.wellnessTipForm.value.description,
       details: this.wellnessTipForm.value.details,
-      userProfileUuid: this.selectedUserUuid,
     };
     const attachments = this.wellnessTipForm.get('attachments').value;
-    const userProfileUuid = this.selectedUserUuid;
+
     return this.wellnessTipsService
-      .createWellnessTip(createWellnessTipInput, attachments, userProfileUuid)
+      .createGlobalWellnessTip(createGlobalWellnessTipInput, attachments)
       .subscribe(
         ({ data }: any) => {
-          this.resetForm()
+          this.resetForm();
         },
         (error) => {
           this.error = error;
@@ -105,7 +126,7 @@ export class WellnesTipComponent implements OnInit {
       .removeWellnessTip(id, this.selectedUserUuid)
       .subscribe(
         ({ data }: any) => {
-          this.resetForm()
+          this.resetForm();
         },
         (error) => {
           this.error = error;
@@ -125,6 +146,4 @@ export class WellnesTipComponent implements OnInit {
   resetForm() {
     this.wellnessTipForm.reset();
   }
-
-
 }

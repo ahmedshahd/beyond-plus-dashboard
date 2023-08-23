@@ -58,11 +58,6 @@ export class HealthCareComponent {
     user: new FormControl({ value: 'Select User', disabled: false }),
   });
 
-  onToggle() {
-    const checked = this.healthCareForm.get('allUsersCheck').value;
-    console.log('checked', checked);
-  }
-
   removeAttachment(index: number) {
     const attachments = this.healthCareForm.get('attachments').value;
     attachments.splice(index, 1);

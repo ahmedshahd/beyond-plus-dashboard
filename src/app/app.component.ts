@@ -14,22 +14,22 @@ export class AppComponent implements OnInit {
   title = 'Beyond Plus Admin Dashboard';
   isUser: Boolean = false;
   links = [
-    { path: '/faq', icon: 'view_list', title: 'FAQ' },
-    { path: '/label', icon: 'view_list', title: 'Label' },
+    { path: '/faq', icon: 'question_mark', title: 'FAQ' },
+    // { path: '/label', icon: 'view_list', title: 'Label' },
     {
       path: '/termsAndConditions',
-      icon: 'view_list',
+      icon: 'gavel',
       title: 'Terms And Conditions',
     },
     {
       path: '/privacyPolicy',
-      icon: 'view_list',
+      icon: 'security',
       title: 'Privacy Policy',
     },
-    { path: '/learnIcon', icon: 'view_list', title: 'Learn Icon' },
-    { path: '/lineOfBusiness', icon: 'view_list', title: 'Line Of Business' },
-    { path: '/welcomeScreen', icon: 'view_list', title: 'Welcome Screen' },
-    { path: '/contactUs', icon: 'view_list', title: 'Contact Us' },
+    { path: '/learnIcon', icon: 'school', title: 'Learn Icon' },
+    // { path: '/lineOfBusiness', icon: 'view_list', title: 'Line Of Business' },
+    { path: '/welcomeScreen', icon: 'smart_display', title: 'Welcome Screen' },
+    { path: '/contactUs', icon: 'contacts', title: 'Contact Us' },
   ];
 
   medicalNetworkLinks = [
@@ -78,10 +78,11 @@ export class AppComponent implements OnInit {
   ];
 
   clientLinks = [
-    { path: '/userWellnessTip', icon: 'view_list', title: 'Wellness Tips' },
-    { path: '/userHealthCare', icon: 'view_list', title: 'Health Care' },
-    { path: '/clientCity', icon: 'view_list', title: 'City' },
-    { path: '/clientArea', icon: 'view_list', title: 'Area' },
+    { path: '/notifications', icon: 'notifications', title: 'Notifications' },
+    { path: '/userWellnessTip', icon: 'spa', title: 'Wellness Tips' },
+    { path: '/userHealthCare', icon: 'health_and_safety', title: 'Health Care' },
+    { path: '/clientCity', icon: 'location_on', title: 'City' },
+    { path: '/clientArea', icon: 'location_on', title: 'Area' },
     // { path: '/userInfo', icon: 'view_list', title: 'UsersInfo' },
   ];
 

@@ -17,7 +17,6 @@ export class WellnessTipsService {
   constructor(private apollo: Apollo) {}
 
   createWellnessTip(createWellnessTipInput: any, attachments: any, uuid: any) {
-    console.log('here create');
     return this.apollo
       .mutate({
         mutation: CREATE_WELLNESS_TIP,

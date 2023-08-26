@@ -25,6 +25,7 @@ import { AreaClientComponent } from './client/area/area.client.component';
 import { AuthGuard } from '@auth0/auth0-angular';
 import { WellnesTipComponent } from './client/wellnes-tip/wellnes-tip.component';
 import { HealthCareComponent } from './client/health-care/health-care.component';
+import { NotificationsComponent } from './client/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -142,6 +143,11 @@ const routes: Routes = [
   {
     path: 'clientArea',
     component: AreaClientComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'notifications',
+    component: NotificationsComponent,
     canActivate: [AuthGuard],
   },
   // {

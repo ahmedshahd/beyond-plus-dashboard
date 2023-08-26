@@ -37,6 +37,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { WellnesTipComponent } from './client/wellnes-tip/wellnes-tip.component';
 import { HealthCareComponent } from './client/health-care/health-care.component';
 import { PdfViewerComponent } from './client/pdf-viewer/pdf-viewer.component';
+import { NotificationsComponent } from './client/notifications/notifications.component';
 
 @NgModule({
   imports: [
@@ -85,6 +86,7 @@ import { PdfViewerComponent } from './client/pdf-viewer/pdf-viewer.component';
     WellnesTipComponent,
     HealthCareComponent,
     PdfViewerComponent,
+    NotificationsComponent,
   ],
   providers: [ TpaService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],

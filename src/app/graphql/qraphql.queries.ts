@@ -1347,6 +1347,28 @@ const REMOVE_HEALTH_CARE = gql`
   }
 `;
 
+/////********                                     *********//////////////
+/////****************** Notifications Queries And Mutations*********//////////////
+/////********                                          *******//////////////
+
+
+
+const SEND_NOTIFICATION_TO_DEVICE = gql`
+  mutation Mutation($sendNotificationToDeviceInput: SendNotificationToDeviceInput, $image: Upload) {
+  sendNotificationToDevice(sendNotificationToDeviceInput: $sendNotificationToDeviceInput, image: $image)
+}
+`;
+
+const SEND_NOTIFICATION_TO_MULTIPLE_DEVICES = gql`
+  mutation SendNotificationToMultipleDevices($sendNotificationToMultipleDevicesInput: SendNotificationToMultipleDevicesInput, $image: Upload) {
+  sendNotificationToMultipleDevices(sendNotificationToMultipleDevicesInput: $sendNotificationToMultipleDevicesInput, image: $image) {
+    failureCount
+    successCount
+  }
+}
+`;
+
+
 export {
   GET_FAQ,
   CREATE_FAQ,
@@ -1428,5 +1450,6 @@ export {
   CREATE_GLOBAL_HEALTH_CARE,
   UPDATE_HEALTH_CARE,
   REMOVE_HEALTH_CARE,
-
+  SEND_NOTIFICATION_TO_DEVICE,
+  SEND_NOTIFICATION_TO_MULTIPLE_DEVICES
 };

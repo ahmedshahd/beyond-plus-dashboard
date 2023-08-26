@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.image-delete-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  p {
+   margin-top: 15px;
+  }
+}
+
+.image {
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.text {
+  margin-top: 10px;
+}
+
+.container:hover {
+  background: whitesmoke;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.upload-btn {
+  margin-right: 10px; /* top right bottom left */
+}
+.upload-container {
+  margin-bottom: 10px;
+}
+.toggle-container {
+  margin-bottom: 10px;
+}

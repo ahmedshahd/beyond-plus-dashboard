@@ -26,6 +26,7 @@ export class WellnesTipComponent implements OnInit {
   selectedUserUuid: any;
   selectedUser: any;
   error: any;
+  isLoading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -39,8 +40,8 @@ export class WellnesTipComponent implements OnInit {
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     details: new FormControl(),
-    attachments: new FormControl(null, Validators.required),
-    allUsersCheck: new FormControl(false, Validators.required),
+    attachments: new FormControl(null,),
+    allUsersCheck: new FormControl(false),
     user: new FormControl({ value: 'Select User', disabled: false }),
   });
 
@@ -82,6 +83,8 @@ export class WellnesTipComponent implements OnInit {
 
   createWellnessTip() {
     const globalChecked = this.wellnessTipForm.get('allUsersCheck').value;
+    this.isLoading = true;
+
     if (!globalChecked) {
       const createWellnessTipInput = {
         name: this.wellnessTipForm.value.name,
@@ -95,9 +98,13 @@ export class WellnesTipComponent implements OnInit {
         .createWellnessTip(createWellnessTipInput, attachments, userProfileUuid)
         .subscribe(
           ({ data }: any) => {
+            this.isLoading = false;
+
             this.resetForm();
           },
           (error) => {
+            this.isLoading = false;
+
             this.error = error;
           }
         );
@@ -113,9 +120,13 @@ export class WellnesTipComponent implements OnInit {
       .createGlobalWellnessTip(createGlobalWellnessTipInput, attachments)
       .subscribe(
         ({ data }: any) => {
+          this.isLoading = false;
+
           this.resetForm();
         },
         (error) => {
+          this.isLoading = false;
+
           this.error = error;
         }
       );

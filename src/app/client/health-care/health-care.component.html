@@ -110,7 +110,6 @@
               formControlName="details"
               type="text"
               name="details"
-              required
             />
           </mat-form-field>
           <div class="upload-container">
@@ -172,19 +171,29 @@
             ></p-dropdown>
           </div>
         </mat-card-content>
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+
         <mat-card-actions>
-          <button
-            [disabled]="healthCareForm.invalid"
-            type="submit"
-            mat-button
-            color="primary"
-            (click)="createHealthCare()"
-          >
-            Save
-          </button>
-          <button type="button" mat-button (click)="healthCareForm.reset()">
-            Cancel
-          </button>
+          <div class="btns-container">
+            <p-button
+              [disabled]="healthCareForm.invalid"
+              label="Save"
+              type="button"
+              (onClick)="createHealthCare()"
+              styleClass="p-button-rounded p-button-primary"
+              icon="pi pi-check"
+              [loading]="isLoading"
+            ></p-button>
+
+            <p-button
+              type="button"
+              label="Cancel"
+              icon="pi pi-times"
+              styleClass="p-button-rounded p-button-secondary"
+              (click)="healthCareForm.reset()"
+            >
+            </p-button>
+          </div>
         </mat-card-actions>
       </form>
     </mat-card>

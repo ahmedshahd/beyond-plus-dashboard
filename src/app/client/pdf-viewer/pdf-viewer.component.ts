@@ -27,9 +27,10 @@ export class PdfViewerComponent implements AfterViewInit {
           const canvas = document.createElement('canvas');
           container.appendChild(canvas);
 
-          const viewport = page.getViewport({ scale: 0.5 });
+          const viewport = page.getViewport({ scale: 0.1 });
           canvas.height = viewport.height;
           canvas.width = viewport.width;
+
 
           const context = canvas.getContext('2d');
           const renderContext = {

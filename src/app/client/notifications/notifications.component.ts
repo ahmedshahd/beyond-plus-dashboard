@@ -14,7 +14,8 @@ export class NotificationsComponent {
   selectedUser: any;
   error: any;
   userOptions: [];
-
+  isLoading: boolean = false;
+  success: boolean = false;
   constructor(
     private userService: UserService,
     private messageService: MessageService,
@@ -46,7 +47,7 @@ export class NotificationsComponent {
     title: new FormControl('', Validators.required),
     body: new FormControl('', Validators.required),
     image: new FormControl(null),
-    allUsersCheck: new FormControl(false, Validators.required),
+    allUsersCheck: new FormControl(false, ),
     user: new FormControl({ value: 'Select User', disabled: false }),
   });
 
@@ -72,6 +73,8 @@ export class NotificationsComponent {
     const title = this.notificationsForm.value.title;
     const body = this.notificationsForm.value.body;
     const image = this.notificationsForm.get('image').value;
+    this.isLoading = true;
+    this.success = false;
 
     if (!globalChecked) {
       const uuid = this.selectedUserUuid;
@@ -79,9 +82,15 @@ export class NotificationsComponent {
         .sendNotificationToSingleDevice(uuid, title, body, image)
         .subscribe(
           ({ data }: any) => {
+            console.log('data', data);
+            this.isLoading = false;
+            this.success = true;
             this.resetForm();
           },
           (error) => {
+            this.isLoading = false;
+            this.success = false;
+            console.log('error', error);
             this.error = error;
           }
         );
@@ -91,14 +100,24 @@ export class NotificationsComponent {
       .subscribe(
         ({ data }: any) => {
           console.log('data multiple', data);
+          this.isLoading = false;
+          this.success = true;
+
           this.resetForm();
         },
         (error) => {
+          this.isLoading = false;
+          this.success = false;
+
+          console.log('error', error);
+
           this.error = error;
         }
       );
   }
   resetForm() {
+    this.isLoading = false;
+    this.success = false;
     this.notificationsForm.reset();
   }
 }

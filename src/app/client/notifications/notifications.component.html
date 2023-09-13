@@ -42,8 +42,11 @@
             >
               Choose Image
             </p-button>
-            <div class="image-delete-container " *ngIf="notificationsForm.get('image').value">
-              <p>{{ notificationsForm.get('image').value.name }}</p>
+            <div
+              class="image-delete-container"
+              *ngIf="notificationsForm.get('image').value"
+            >
+              <p>{{ notificationsForm.get("image").value.name }}</p>
               <button mat-icon-button (click)="removeImage()">
                 <mat-icon>delete</mat-icon>
               </button>
@@ -75,19 +78,31 @@
             ></p-dropdown>
           </div>
         </mat-card-content>
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+        <span class="green-span" *ngIf="success">
+          Notification Sent Succesfully
+        </span>
         <mat-card-actions>
-          <button
-            [disabled]="notificationsForm.invalid"
-            type="submit"
-            mat-button
-            color="primary"
-            (click)="sendNotification()"
-          >
-            Save
-          </button>
-          <button type="button" mat-button (click)="notificationsForm.reset()">
-            Cancel
-          </button>
+          <div class="btns-container">
+            <p-button
+              [disabled]="notificationsForm.invalid"
+              label="Save"
+              type="button"
+              (onClick)="sendNotification()"
+              styleClass="p-button-rounded p-button-primary"
+              icon="pi pi-check"
+              [loading]="isLoading"
+            ></p-button>
+
+            <p-button
+              type="button"
+              label="Cancel"
+              icon="pi pi-times"
+              styleClass="p-button-rounded p-button-secondary"
+              (click)="notificationsForm.reset()"
+            >
+            </p-button>
+          </div>
         </mat-card-actions>
       </form>
     </mat-card>

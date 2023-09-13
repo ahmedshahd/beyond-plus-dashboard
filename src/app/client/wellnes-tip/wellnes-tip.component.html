@@ -113,7 +113,6 @@
               formControlName="details"
               type="text"
               name="details"
-              required
             />
           </mat-form-field>
           <div class="upload-container">
@@ -176,18 +175,26 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <button
-            [disabled]="wellnessTipForm.invalid"
-            type="submit"
-            mat-button
-            color="primary"
-            (click)="createWellnessTip()"
-          >
-            Save
-          </button>
-          <button type="button" mat-button (click)="wellnessTipForm.reset()">
-            Cancel
-          </button>
+          <div class="btns-container">
+            <p-button
+              [disabled]="wellnessTipForm.invalid"
+              label="Save"
+              type="button"
+              (onClick)="createWellnessTip()"
+              styleClass="p-button-rounded p-button-primary"
+              icon="pi pi-check"
+              [loading]="isLoading"
+            ></p-button>
+
+            <p-button
+              type="button"
+              label="Cancel"
+              icon="pi pi-times"
+              styleClass="p-button-rounded p-button-secondary"
+              (click)="wellnessTipForm.reset()"
+            >
+            </p-button>
+          </div>
         </mat-card-actions>
       </form>
     </mat-card>

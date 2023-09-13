@@ -21,6 +21,7 @@ export class HealthCareComponent {
   selectedUser: any;
   error: any;
   userOptions: [];
+  isLoading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -53,8 +54,8 @@ export class HealthCareComponent {
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     details: new FormControl(),
-    attachments: new FormControl(null, Validators.required),
-    allUsersCheck: new FormControl(false, Validators.required),
+    attachments: new FormControl(null),
+    allUsersCheck: new FormControl(false),
     user: new FormControl({ value: 'Select User', disabled: false }),
   });
 
@@ -81,6 +82,7 @@ export class HealthCareComponent {
 
   createHealthCare() {
     const globalChecked = this.healthCareForm.get('allUsersCheck').value;
+    this.isLoading = true;
 
     if (!globalChecked) {
       const createHealthCareInput = {
@@ -95,9 +97,12 @@ export class HealthCareComponent {
         .createHealthCare(createHealthCareInput, attachments, userProfileUuid)
         .subscribe(
           ({ data }: any) => {
+            this.isLoading = false;
             this.resetForm();
           },
           (error) => {
+            console.log('error creating health care', error);
+            this.isLoading = false;
             this.error = error;
           }
         );
@@ -113,9 +118,11 @@ export class HealthCareComponent {
       .subscribe(
         ({ data }: any) => {
           this.resetForm();
+          this.isLoading = false;
         },
         (error) => {
           this.error = error;
+          this.isLoading = false;
         }
       );
   }

@@ -5,11 +5,10 @@ import { NgModule } from '@angular/core';
 import { ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { environment } from 'src/environments/environment.prod';
+import { createUploadLink } from 'apollo-upload-client';
 
-// Production Aws
 const uri = `${environment.API_URI}/graphql`;
-// // Local Machine
-// const uri = 'http://localhost:8000/graphql';
+const uploadLink = createUploadLink({ uri });
 
 export function createApollo(httpLink: HttpLink) {
   const apiKey = setContext((operation, context) => ({
@@ -18,7 +17,7 @@ export function createApollo(httpLink: HttpLink) {
     },
   }));
 
-  const link = ApolloLink.from([apiKey, httpLink.create({ uri })]);
+  const link = ApolloLink.from([apiKey, uploadLink, httpLink.create({ uri })]); // Include uploadLink here
   const cache = new InMemoryCache();
 
   return {

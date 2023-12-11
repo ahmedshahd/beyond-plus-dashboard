@@ -8,6 +8,7 @@ import { ProviderTypeService } from '../provider-type/provider-type.service';
 import { SpecialityService } from '../speciality/speciality.service';
 import { TpaService } from '../tpa/tpa.service';
 import { ProviderService } from './provider.service';
+import { SubSpecialityService } from '../sub-speciality/sub-speciality.service';
 
 @Component({
   selector: 'app-provider',
@@ -15,6 +16,9 @@ import { ProviderService } from './provider.service';
   styleUrls: ['./provider.component.scss'],
 })
 export class ProviderComponent {
+  filter() {
+    throw new Error('Method not implemented.');
+  }
   createDialog: boolean;
 
   editDialog: boolean;
@@ -23,9 +27,13 @@ export class ProviderComponent {
 
   provider = {
     id: null,
-    address: '',
+    insuranceCompanyId: null,
+    tierRank: null,
     areaId: null,
-    categoryId: null,
+    specialityId: null,
+    providerTypeId: null,
+    subSpecialityId: null,
+    address: '',
     email: '',
     hasChronicMedication: false,
     isOnline: false,
@@ -33,7 +41,6 @@ export class ProviderComponent {
     longitude: 0.0,
     name: '',
     phoneNumber: [],
-    specialityId: null,
     websiteUrl: '',
     language: '',
   };
@@ -72,6 +79,8 @@ export class ProviderComponent {
   specialityOptions: SelectItem[];
   selectedSpecialities: [];
   //// for Sub Speciality drop down ///
+  subSpecialityOptions: SelectItem[];
+  selectedSubSpecialities: [];
 
   constructor(
     private tpaService: TpaService,
@@ -81,6 +90,7 @@ export class ProviderComponent {
     private areaService: AreaService,
     private providerTypeService: ProviderTypeService,
     private specialityService: SpecialityService,
+    private subSpecialityService: SubSpecialityService,
     private providerService: ProviderService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
@@ -111,21 +121,53 @@ export class ProviderComponent {
   onSearchInputChange(event) {
     const name = event.target.value;
 
-    // this.providerService
-    //   .getProviders(
-    //     this.selectedCategory.categoryId,
-    //     this.selectedSpecialities.specialityId,
-    //     this.selectedAreas.areaId,
-    //     name
-    //   )
-    //   .subscribe(({ data, error }: any) => {
-    //     if (data) {
-    //       this.providers =
-    //         data.listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
-    //     } else {
-    //       console.log(error);
-    //     }
-    //   });
+    const selectedAreasId = this.selectedAreas.map((area: any) => area.areaId);
+
+    const selectedProviderTypesId = this.selectedProviderTypes
+      ? this.selectedProviderTypes.map(
+          (providerType: any) => providerType.providerTypeId
+        )
+      : [];
+
+    const selectedSpecialitiesId = this.selectedSpecialities
+      ? this.selectedSpecialities.map(
+          (speciality: any) => speciality.specialityId
+        )
+      : [];
+
+    const selectedSubSpecialitiesId = this.selectedSubSpecialities
+      ? this.selectedSubSpecialities.map(
+          (subSpeciality: any) => subSpeciality.subSpecialityId
+        )
+      : [];
+    return this.providerService
+      .getProviders(
+        this.selectedInsuranceCompany.insuranceCompanyId,
+        this.selectedCategory.tierRank,
+        selectedAreasId,
+        selectedProviderTypesId,
+        selectedSpecialitiesId,
+        selectedSubSpecialitiesId,
+        name
+      )
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          console.log('data', data);
+          this.providers = data.listAllProviders.provider;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Provider data loaded successfully',
+            life: 1000,
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading Provider data',
+            life: 1000,
+          });
+        }
+      });
   }
 
   onLanguageChange() {
@@ -199,6 +241,11 @@ export class ProviderComponent {
   }
 
   onInsuranceCompanyChange() {
+    this.provider = {
+      ...this.provider,
+      insuranceCompanyId: this.selectedInsuranceCompany.insuranceCompanyId,
+    };
+
     this.providerTypeService
       .getProviderTypes(
         this.selectedInsuranceCompany.insuranceCompanyId,
@@ -262,6 +309,7 @@ export class ProviderComponent {
             return {
               categoryId: category.id,
               name: category.tier,
+              tierRank: category.tierRank,
             };
           });
         } else {
@@ -274,7 +322,12 @@ export class ProviderComponent {
         }
       });
   }
-  onCategoryChange() {}
+  onCategoryChange() {
+    this.provider = {
+      ...this.provider,
+      tierRank: this.selectedCategory.tierRank,
+    };
+  }
   onCityChange() {
     const selectedCitiesId = this.selectedCities.map((city: any) => {
       return city.cityId;
@@ -302,7 +355,15 @@ export class ProviderComponent {
       });
   }
 
-  onAreaChange() {}
+  onAreaChange() {
+    const selectedAreasId = this.selectedAreas.map((area: any) => {
+      return area.areaId;
+    });
+    this.provider = {
+      ...this.provider,
+      areaId: selectedAreasId,
+    };
+  }
 
   onProviderTypeChange() {
     const providerTypesId = this.selectedProviderTypes.map(
@@ -335,25 +396,69 @@ export class ProviderComponent {
   }
 
   onSpecialityChange() {
-    const selectedAreasId = this.selectedAreas.map((area: any) => {
-      return area.areaId;
-    });
     const selectedSpecialitiesId = this.selectedSpecialities.map(
       (speciality: any) => {
         return speciality.specialityId;
       }
     );
+    return this.subSpecialityService
+      .getSubSpecialities(selectedSpecialitiesId, this.selectedLanguage.value)
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          const subSpecialities =
+            data.listAllSubSpecialityBySpecialityId.subSpeciality;
+
+          this.subSpecialityOptions = subSpecialities.map((subSpeciality) => {
+            return {
+              subSpecialityId: subSpeciality.id,
+              name: subSpeciality.name,
+            };
+          });
+          console.log('this.subSpecialityOptions', this.subSpecialityOptions);
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading Sub Speciality data',
+            life: 1000,
+          });
+        }
+      });
+  }
+
+  onSubSpecialityChange() {
+    const selectedAreasId = this.selectedAreas.map((area: any) => {
+      return area.areaId;
+    });
+    const selectedProviderTypesId = this.selectedProviderTypes.map(
+      (providerType: any) => {
+        return providerType.providerTypeId;
+      }
+    );
+
+    const selectedSpecialitiesId = this.selectedSpecialities.map(
+      (speciality: any) => {
+        return speciality.specialityId;
+      }
+    );
+    const selectedSubSpecialitiesId = this.selectedSubSpecialities.map(
+      (subSpeciality: any) => {
+        return subSpeciality.subSpecialityId;
+      }
+    );
 
     return this.providerService
       .getProviders(
-        this.selectedCategory.categoryId,
+        this.selectedInsuranceCompany.insuranceCompanyId,
+        this.selectedCategory.tierRank,
+        selectedAreasId,
+        selectedProviderTypesId,
         selectedSpecialitiesId,
-        selectedAreasId
+        selectedSubSpecialitiesId
       )
       .subscribe(({ data, error }: any) => {
         if (data) {
-          this.providers =
-            data.listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId.provider;
+          this.providers = data.listAllProviders.provider;
           this.messageService.add({
             severity: 'success',
             summary: 'Provider data loaded successfully',
@@ -370,15 +475,81 @@ export class ProviderComponent {
       });
   }
 
-  // onSubSpecialityChange() {}
+  onSearchClick() {
+    const selectedAreasId = this.selectedAreas.map((area: any) => area.areaId);
+
+    const selectedProviderTypesId = this.selectedProviderTypes
+      ? this.selectedProviderTypes.map(
+          (providerType: any) => providerType.providerTypeId
+        )
+      : [];
+
+    const selectedSpecialitiesId = this.selectedSpecialities
+      ? this.selectedSpecialities.map(
+          (speciality: any) => speciality.specialityId
+        )
+      : [];
+
+    const selectedSubSpecialitiesId = this.selectedSubSpecialities
+      ? this.selectedSubSpecialities.map(
+          (subSpeciality: any) => subSpeciality.subSpecialityId
+        )
+      : [];
+
+    // console.log(
+    //   'this.selectedInsuranceCompany.insuranceCompanyId:',
+    //   this.selectedInsuranceCompany.insuranceCompanyId
+    // );
+    // console.log(
+    //   'this.selectedCategory.tierRank:',
+    //   this.selectedCategory.tierRank
+    // );
+    // console.log('selectedAreasId:', selectedAreasId);
+    // console.log('selectedProviderTypesId:', selectedProviderTypesId);
+    // console.log('selectedSpecialitiesId:', selectedSpecialitiesId);
+    // console.log('selectedSubSpecialitiesId:', selectedSubSpecialitiesId);
+    return this.providerService
+      .getProviders(
+        this.selectedInsuranceCompany.insuranceCompanyId,
+        this.selectedCategory.tierRank,
+        selectedAreasId,
+        selectedProviderTypesId,
+        selectedSpecialitiesId,
+        selectedSubSpecialitiesId
+      )
+      .subscribe(({ data, error }: any) => {
+        if (data) {
+          console.log('data', data);
+          this.providers = data.listAllProviders.provider;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Provider data loaded successfully',
+            life: 1000,
+          });
+        } else {
+          console.log(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error loading Provider data',
+            life: 1000,
+          });
+        }
+      });
+  }
 
   openNew() {
     this.provider = {
       id: null,
+
+      insuranceCompanyId:
+        this.selectedInsuranceCompany?.insuranceCompanyId ?? null,
+      tierRank: this.selectedCategory?.tierRank ?? null,
+      areaId: null,
+      specialityId: null,
+      providerTypeId: null,
+      subSpecialityId: null,
       address: '',
       // areaId: this.selectedAreas?.areaId ?? null,
-      areaId: null,
-      categoryId: this.selectedCategory?.categoryId ?? null,
       email: '',
       hasChronicMedication: false,
       isOnline: false,
@@ -386,8 +557,6 @@ export class ProviderComponent {
       longitude: 0.0,
       name: '',
       phoneNumber: [''],
-      specialityId: null,
-
       // specialityId: this.selectedSpecialities?.specialityId ?? null,
       websiteUrl: '',
       language: this.selectedLanguage?.value ?? null,
@@ -409,9 +578,13 @@ export class ProviderComponent {
   editProvider(provider: any) {
     this.provider = {
       id: provider.id,
-      address: provider.address,
+      insuranceCompanyId: provider.insuranceCompanyId,
+      tierRank: provider.tierRank,
       areaId: provider.areaId,
-      categoryId: provider.categoryId,
+      specialityId: provider.specialityId,
+      providerTypeId: provider.providerTypeId,
+      subSpecialityId: provider.subSpecialityId,
+      address: provider.address,
       email: provider.email,
       hasChronicMedication: provider.hasChronicMedication,
       isOnline: provider.isOnline,
@@ -419,7 +592,6 @@ export class ProviderComponent {
       longitude: provider.longitude,
       name: provider.name,
       phoneNumber: [...provider.phoneNumber],
-      specialityId: provider.specialityId,
       websiteUrl: provider.websiteUrl,
       language: provider.language,
     };
@@ -431,9 +603,12 @@ export class ProviderComponent {
     this.providerService
       .updateProvider(
         this.editId,
-        provider.categoryId,
-        provider.specialityId,
+        provider.insuranceCompanyId,
+        provider.tierRank,
         provider.areaId,
+        provider.providerTypeId,
+        provider.specialityId,
+        provider.subSpecialityId,
         provider.address,
         provider.websiteUrl,
         provider.hasChronicMedication,
@@ -476,10 +651,12 @@ export class ProviderComponent {
         this.providerService
           .removeProvider(
             provider.id,
-            provider.categoryId,
-            provider.specialityId,
+            provider.insuranceCompanyId,
+            provider.tierRank,
             provider.areaId,
-            provider.language
+            provider.providerTypeId,
+            provider.specialityId,
+            provider.subSpecialityId
           )
           .subscribe(
             (data) => {
@@ -511,15 +688,22 @@ export class ProviderComponent {
 
   addProvider() {
     this.submitted = true;
+    console.log(
+      ' this.provider.subSpecialityId',
+      this.provider.subSpecialityId
+    );
     this.providerService
       .createProvider(
-        this.provider.categoryId,
-        this.provider.specialityId,
+        this.provider.insuranceCompanyId,
+        this.provider.tierRank,
         this.provider.areaId,
+        this.provider.providerTypeId,
+        this.provider.specialityId,
         this.provider.address,
         this.provider.name,
         this.provider.phoneNumber,
         this.provider.language,
+        this.provider.subSpecialityId,
         this.provider.websiteUrl,
         this.provider.hasChronicMedication,
         this.provider.email,
@@ -532,9 +716,13 @@ export class ProviderComponent {
           this.createDialog = false;
           this.provider = {
             id: null,
-            address: '',
+            insuranceCompanyId: null,
+            tierRank: null,
             areaId: null,
-            categoryId: null,
+            specialityId: null,
+            providerTypeId: null,
+            subSpecialityId: null,
+            address: '',
             email: '',
             hasChronicMedication: false,
             isOnline: false,
@@ -542,7 +730,6 @@ export class ProviderComponent {
             longitude: 0.0,
             name: '',
             phoneNumber: [],
-            specialityId: null,
             websiteUrl: '',
             language: '',
           };

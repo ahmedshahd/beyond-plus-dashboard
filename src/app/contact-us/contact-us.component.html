@@ -20,6 +20,16 @@
               <span> <strong> Website URL:</strong> </span>
               <a href="{{ contact.websiteUrl }}">{{ contact.websiteUrl }}</a>
             </p>
+            <p matLine>
+              <span> <strong>Email:</strong> </span>
+              {{ contact.telegramChannel }}
+            </p>
+
+            <p matLine>
+              <span> <strong>Email:</strong> </span>
+              {{ contact.whatsappNumber }}
+            </p>
+
             <button
               mat-icon-button
               color="warn"
@@ -69,6 +79,26 @@
               formControlName="websiteUrl"
               type="text"
               name="websiteUrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter Telegram Channel"
+              formControlName="telegramChannel"
+              type="text"
+              name="telegramChannel"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Enter Whatsapp Number"
+              formControlName="whatsappNumber"
+              type="text"
+              name="whatsappNumber"
               required
             />
           </mat-form-field>

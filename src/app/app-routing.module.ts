@@ -11,19 +11,21 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { UploaderComponent } from './uploader/uploader.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgModule } from '@angular/core';
-import { NavigationEnd, Router, RouterModule, Routes } from '@angular/router';
+import {  RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './login/login.component';
 import { FaqComponent } from './faq/faq.component';
 import { LabelComponent } from './label/label.component';
 import { LearnIconComponent } from './learn-icon/learn-icon.component';
 import { LineOfBusinessComponent } from './line-of-business/line-of-business.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
-import { AuthGuard } from './guards/authentication.guard';
-import { RouteSerializerService } from './services/router-serializer-service.service';
 import { CityClientComponent } from './client/city/city.client.component';
 import { AreaClientComponent } from './client/area/area.client.component';
+// import { UserComponent } from './client/user/user.component';
+import { AuthGuard } from '@auth0/auth0-angular';
+import { WellnesTipComponent } from './client/wellnes-tip/wellnes-tip.component';
+import { HealthCareComponent } from './client/health-care/health-care.component';
+import { NotificationsComponent } from './client/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -31,7 +33,6 @@ const routes: Routes = [
     component: UploaderComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'login', component: LoginComponent },
   {
     path: 'faq',
     component: FaqComponent,
@@ -125,6 +126,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'userWellnessTip',
+    component: WellnesTipComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'userHealthCare',
+    component: HealthCareComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'clientCity',
     component: CityClientComponent,
     canActivate: [AuthGuard],
@@ -134,6 +145,16 @@ const routes: Routes = [
     component: AreaClientComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'notifications',
+    component: NotificationsComponent,
+    canActivate: [AuthGuard],
+  },
+  // {
+  //   path: 'userInfo',
+  //   component: UserComponent,
+  //   canActivate: [AuthGuard],
+  // },
 
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
@@ -143,28 +164,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {
-  // constructor(
-  //   private router: Router,
-  //   private routeSerializer: RouteSerializerService
-  // ) {
-  //   // Listen for navigation events and save the current route to local storage
-  //   this.router.events.subscribe((event) => {
-  //     if (event instanceof NavigationEnd) {
-  //       const urlTree = this.router.createUrlTree(
-  //         this.router.parseUrl(this.router.url).root.children['primary']
-  //           .segments,
-  //         this.router.parseUrl(this.router.url).queryParams
-  //       );
-  //       this.routeSerializer.saveLastRoute(urlTree);
-  //     }
-  //   });
-  //   // Check if there is a last route stored in local storage
-  //   const lastRoute = this.routeSerializer.getLastRoute();
-  //   // Navigate to the last route or the default route
-  //   if (lastRoute) {
-  //     this.router.navigateByUrl(lastRoute);
-  //   } else {
-  //     this.router.navigate(['']);
-  //   }
-  // }
 }

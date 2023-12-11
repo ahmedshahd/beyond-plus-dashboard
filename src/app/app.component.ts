@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { shareReplay } from 'rxjs/operators';
-import { AuthService } from './services/auth-service.service';
+// import { AuthService } from './services/auth-service.service';
 import { RouteSerializerService } from './services/router-serializer-service.service';
+import { AuthService } from '@auth0/auth0-angular';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -13,22 +14,22 @@ export class AppComponent implements OnInit {
   title = 'Beyond Plus Admin Dashboard';
   isUser: Boolean = false;
   links = [
-    { path: '/faq', icon: 'view_list', title: 'FAQ' },
-    { path: '/label', icon: 'view_list', title: 'Label' },
+    { path: '/faq', icon: 'question_mark', title: 'FAQ' },
+    // { path: '/label', icon: 'view_list', title: 'Label' },
     {
       path: '/termsAndConditions',
-      icon: 'view_list',
+      icon: 'gavel',
       title: 'Terms And Conditions',
     },
     {
       path: '/privacyPolicy',
-      icon: 'view_list',
+      icon: 'security',
       title: 'Privacy Policy',
     },
-    { path: '/learnIcon', icon: 'view_list', title: 'Learn Icon' },
-    { path: '/lineOfBusiness', icon: 'view_list', title: 'Line Of Business' },
-    { path: '/welcomeScreen', icon: 'view_list', title: 'Welcome Screen' },
-    { path: '/contactUs', icon: 'view_list', title: 'Contact Us' },
+    { path: '/learnIcon', icon: 'school', title: 'Learn Icon' },
+    // { path: '/lineOfBusiness', icon: 'view_list', title: 'Line Of Business' },
+    { path: '/welcomeScreen', icon: 'smart_display', title: 'Welcome Screen' },
+    { path: '/contactUs', icon: 'contacts', title: 'Contact Us' },
   ];
 
   medicalNetworkLinks = [
@@ -77,21 +78,33 @@ export class AppComponent implements OnInit {
   ];
 
   clientLinks = [
-    { path: '/clientCity', icon: 'view_list', title: 'City' },
-    { path: '/clientArea', icon: 'view_list', title: 'Area' },
+    { path: '/notifications', icon: 'notifications', title: 'Notifications' },
+    { path: '/userWellnessTip', icon: 'spa', title: 'Wellness Tips' },
+    { path: '/userHealthCare', icon: 'health_and_safety', title: 'Health Care' },
+    { path: '/clientCity', icon: 'location_on', title: 'City' },
+    { path: '/clientArea', icon: 'location_on', title: 'Area' },
+    // { path: '/userInfo', icon: 'view_list', title: 'UsersInfo' },
   ];
 
   constructor(
     private authService: AuthService,
+    @Inject(DOCUMENT) public document: Document,
+
+    private auth: AuthService,
+
     private router: Router,
     private routeSerializer: RouteSerializerService
   ) {}
 
   logout() {
-    this.authService.SignOut();
+    this.auth.logout({
+      logoutParams: {
+        returnTo: this.document.location.origin,
+      },
+    });
   }
   ngOnInit(): void {
-    this.authService.user.subscribe((user) => {
+    this.authService.user$.subscribe((user) => {
       if (user) {
         this.router.navigateByUrl(lastRoute);
         return (this.isUser = true);

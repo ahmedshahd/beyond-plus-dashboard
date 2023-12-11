@@ -78,6 +78,23 @@
         placeholder="Select Speciality"
         [showClear]="true"
       ></p-multiSelect>
+      <p-multiSelect
+        [disabled]="!selectedSpecialities"
+        [options]="subSpecialityOptions"
+        [(ngModel)]="selectedSubSpecialities"
+        optionLabel="name"
+        (onChange)="onSubSpecialityChange()"
+        placeholder="Select SubSpeciality"
+        [showClear]="true"
+      ></p-multiSelect>
+      <p-button
+        label="Search"
+        styleClass="p-button-raised "
+        (click)="onSearchClick()"
+        [disabled]="
+          !provider.insuranceCompanyId || !provider.tierRank || !provider.areaId
+        "
+      ></p-button>
     </div>
   </div>
 
@@ -129,9 +146,12 @@
         <th>IsOnline</th>
         <th>Latitude</th>
         <th>Longitude</th>
-        <th>Speciality ID</th>
-        <th>Category ID</th>
+        <th>Tier Rank</th>
         <th>Area ID</th>
+        <th>Provider Type ID</th>
+
+        <th>Speciality ID</th>
+
         <th></th>
       </tr>
     </ng-template>
@@ -147,9 +167,12 @@
         <td>{{ provider.isOnline }}</td>
         <td>{{ provider.latitude }}</td>
         <td>{{ provider.longitude }}</td>
-        <td>{{ provider.specialityId }}</td>
-        <td>{{ provider.categoryId }}</td>
+        <td>{{ provider.tierRank }}</td>
         <td>{{ provider.areaId }}</td>
+        <td>{{ provider.providerTypeId }}</td>
+
+        <td>{{ provider.specialityId }}</td>
+
         <td>
           <button
             pButton
@@ -200,17 +223,32 @@
     </div>
 
     <div class="field">
-      <label for="categoryId">category Id</label>
+      <label for="insuranceCompanyId">Insurance Company Id</label>
       <p-inputNumber
-        id="categoryId"
-        [(ngModel)]="provider.categoryId"
+        id="insuranceCompanyId"
+        [(ngModel)]="provider.insuranceCompanyId"
         autofocus
         mode="decimal"
         inputId="withoutgrouping"
         [useGrouping]="false"
       ></p-inputNumber>
-      <small class="p-error" *ngIf="submitted && !provider.categoryId"
-        >Category Id is required.</small
+      <small class="p-error" *ngIf="submitted && !provider.insuranceCompanyId"
+        >Insurance CompanyId is required.</small
+      >
+    </div>
+
+    <div class="field">
+      <label for="tierRank">Tier Rank</label>
+      <p-inputNumber
+        id="tierRank"
+        [(ngModel)]="provider.tierRank"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="p-error" *ngIf="submitted && !provider.tierRank"
+        >Tier Rank Id is required.</small
       >
     </div>
     <div class="field">
@@ -227,6 +265,21 @@
         >Area Id is required.</small
       >
     </div>
+
+    <div class="field">
+      <label for="providerTypeId">Provider Type Id</label>
+      <p-inputNumber
+        id="providerTypeId"
+        [(ngModel)]="provider.providerTypeId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="p-error" *ngIf="submitted && !provider.providerTypeId"
+        >Provider Type Id is required.</small
+      >
+    </div>
     <div class="field">
       <label for="specialityId">Speciality Id</label>
       <p-inputNumber
@@ -241,6 +294,20 @@
         >Speciality Id is required.</small
       >
     </div>
+
+    <div class="field">
+      <label for="subSpecialityId">Sub Speciality Id</label>
+      <p-inputNumber
+        type="number"
+        id="subSpecialityId"
+        [(ngModel)]="provider.subSpecialityId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+
     <div
       class="col-12 md:col-4"
       class="field"
@@ -391,6 +458,15 @@
       icon="pi pi-check"
       class="p-button-text"
       (click)="addProvider()"
+      [disabled]="
+        !provider.address ||
+        !provider.name ||
+        !provider.specialityId ||
+        !provider.areaId ||
+        !provider.insuranceCompanyId ||
+        !provider.providerTypeId ||
+        !provider.tierRank
+      "
     ></button>
   </ng-template>
 </p-dialog>
@@ -413,12 +489,22 @@
         autofocus
       />
     </div>
-
     <div class="field">
-      <label for="categoryId">category Id</label>
+      <label for="insuranceCompanyId">Insurance Company Id</label>
       <p-inputNumber
-        id="categoryId"
-        [(ngModel)]="provider.categoryId"
+        id="insuranceCompanyId"
+        [(ngModel)]="provider.insuranceCompanyId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+    <div class="field">
+      <label for="tierRank">Tier Rank</label>
+      <p-inputNumber
+        id="tierRank"
+        [(ngModel)]="provider.tierRank"
         autofocus
         mode="decimal"
         inputId="withoutgrouping"
@@ -430,6 +516,18 @@
       <p-inputNumber
         id="areaId"
         [(ngModel)]="provider.areaId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
+
+    <div class="field">
+      <label for="providerTypeId">Provider Type Id</label>
+      <p-inputNumber
+        id="providerTypeId"
+        [(ngModel)]="provider.providerTypeId"
         autofocus
         mode="decimal"
         inputId="withoutgrouping"
@@ -448,7 +546,18 @@
         [useGrouping]="false"
       ></p-inputNumber>
     </div>
-
+    <div class="field">
+      <label for="subSpecialityId">Sub Speciality Id</label>
+      <p-inputNumber
+        type="number"
+        id="subSpecialityId"
+        [(ngModel)]="provider.subSpecialityId"
+        autofocus
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      ></p-inputNumber>
+    </div>
     <div class="field">
       <label for="address">Address </label>
       <input

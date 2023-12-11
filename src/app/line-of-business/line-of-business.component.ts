@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Apollo } from 'apollo-angular';
-import {
-  CREATE_LINE_OF_BUSINESS,
-  GET_LINE_OF_BUSINESS,
-  REMOVE_LINE_OF_BUSINESS,
-} from '../graphql/qraphql.queries';
+import { LineOfBusinessService } from './line-of-business.service';
 
 @Component({
   selector: 'app-line-of-business',
@@ -21,35 +16,40 @@ export class LineOfBusinessComponent implements OnInit {
     language: new FormControl('Select Language', Validators.required),
     description: new FormControl('', Validators.required),
     details: new FormControl('', Validators.required),
-    imageUrl: new FormControl('', Validators.required),
+    image: new FormControl(null, Validators.required),
     name: new FormControl('', Validators.required),
   });
+  constructor(private lineOfBusinessService: LineOfBusinessService) {}
+
+  ngOnInit(): void {
+    this.getLineOfBusiness();
+  }
+
+  onFileChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const { files } = target;
+    if (files && files.length) {
+      this.lineOfBusinessForm.get('image').setValue(files[0]);
+    }
+  }
 
   createLineOfBusiness() {
-    this.apollo
-      .mutate({
-        mutation: CREATE_LINE_OF_BUSINESS,
-        variables: {
-          createLineOfBusinessInput: {
-            description: this.lineOfBusinessForm.value.description,
-            imageUrl: this.lineOfBusinessForm.value.imageUrl,
-            name: this.lineOfBusinessForm.value.name,
-            details: this.lineOfBusinessForm.value.details,
-          },
-          language: this.lineOfBusinessForm.value.language,
-        },
-        refetchQueries: [
-          {
-            query: GET_LINE_OF_BUSINESS,
-            variables: {
-              language: this.refetchLanguage,
-            },
-          },
-        ],
-      })
+    const image = this.lineOfBusinessForm.value.image;
+    const createLineOfBusinessInput = {
+      name: this.lineOfBusinessForm.value.name,
+      description: this.lineOfBusinessForm.value.description,
+      imageUrl: this.lineOfBusinessForm.value.imageUrl,
+      details: this.lineOfBusinessForm.value.details,
+    };
+
+    this.lineOfBusinessService
+      .createLineOfBusiness(
+        createLineOfBusinessInput,
+        this.lineOfBusinessForm.value.language,
+        this.lineOfBusinessForm.value.image
+      )
       .subscribe(
         ({ data }: any) => {
-          this.lineOfBusinesses = data.lineOfBusiness;
           this.lineOfBusinessForm.reset();
         },
         (error) => {
@@ -59,21 +59,21 @@ export class LineOfBusinessComponent implements OnInit {
   }
 
   removeLineOfBusiness(id: number) {
-    this.apollo
-      .mutate({
-        mutation: REMOVE_LINE_OF_BUSINESS,
-        variables: {
-          removeLineOfBusinessId: id,
+    this.lineOfBusinessService
+      .removeLineOfBusiness(id, this.refetchLanguage)
+      .subscribe(
+        ({ data }: any) => {
+          // Handle success if needed...
         },
-        refetchQueries: [
-          {
-            query: GET_LINE_OF_BUSINESS,
-            variables: {
-              language: this.refetchLanguage,
-            },
-          },
-        ],
-      })
+        (error) => {
+          this.error = error;
+        }
+      );
+  }
+
+  getLineOfBusiness(): void {
+    this.lineOfBusinessService
+      .getLineOfBusiness(this.refetchLanguage)
       .subscribe(
         ({ data }: any) => {
           this.lineOfBusinesses = data.lineOfBusiness;
@@ -83,8 +83,6 @@ export class LineOfBusinessComponent implements OnInit {
         }
       );
   }
-
-  constructor(private apollo: Apollo) {}
   get selectedLanguage() {
     return this.lineOfBusinessForm.get('language');
   }
@@ -94,9 +92,7 @@ export class LineOfBusinessComponent implements OnInit {
   get name() {
     return this.lineOfBusinessForm.get('name');
   }
-  get imageUrl() {
-    return this.lineOfBusinessForm.get('imageUrl');
-  }
+
   get details() {
     return this.lineOfBusinessForm.get('details');
   }
@@ -108,45 +104,10 @@ export class LineOfBusinessComponent implements OnInit {
   }
   getEnglishLineOfBusiness() {
     this.refetchLanguage = 'ENGLISH';
-
-    this.apollo
-      .watchQuery({
-        query: GET_LINE_OF_BUSINESS,
-        variables: {
-          language: this.refetchLanguage,
-        },
-      })
-      .valueChanges.subscribe(({ data, error }: any) => {
-        this.lineOfBusinesses = data.lineOfBusiness;
-        this.error = error;
-      });
+    this.getLineOfBusiness();
   }
   getArabicLineOfBusiness() {
     this.refetchLanguage = 'ARABIC';
-    this.apollo
-      .watchQuery({
-        query: GET_LINE_OF_BUSINESS,
-        variables: {
-          language: this.refetchLanguage,
-        },
-      })
-      .valueChanges.subscribe(({ data, error }: any) => {
-        this.lineOfBusinesses = data.lineOfBusiness;
-        this.error = error;
-      });
-  }
-
-  ngOnInit(): void {
-    this.apollo
-      .watchQuery({
-        query: GET_LINE_OF_BUSINESS,
-        variables: {
-          language: this.refetchLanguage,
-        },
-      })
-      .valueChanges.subscribe(({ data, error }: any) => {
-        this.lineOfBusinesses = data.lineOfBusiness;
-        this.error = error;
-      });
+    this.getLineOfBusiness();
   }
 }

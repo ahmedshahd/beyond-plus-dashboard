@@ -72,7 +72,6 @@ export class LabelComponent implements OnInit {
       })
       .subscribe(
         ({ data }: any) => {
-          this.labels = data.removeLabel;
         },
         (error) => {
           this.error = error;

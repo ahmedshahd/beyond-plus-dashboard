@@ -139,10 +139,12 @@ const CREATE_LEARN_ICON = gql`
   mutation CreateLearnIcon(
     $createLearnIconInput: CreateLearnIconInput!
     $language: LanguageEnum!
+    $image: Upload
   ) {
     createLearnIcon(
       createLearnIconInput: $createLearnIconInput
       language: $language
+      image: $image
     ) {
       id
       name
@@ -175,7 +177,7 @@ const GET_WELCOME_SCREEN = gql`
       id
       text
       title
-      imageUrl
+      imageUrls
       language
     }
   }
@@ -185,15 +187,17 @@ const CREATE_WELCOME_SCREEN = gql`
   mutation CreateWelcomeScreen(
     $createWelcomeScreenInput: CreateWelcomeScreenInput!
     $language: LanguageEnum!
+    $images: [Upload!]!
   ) {
     createWelcomeScreen(
       createWelcomeScreenInput: $createWelcomeScreenInput
       language: $language
+      images: $images
     ) {
       id
-      text
       title
-      imageUrl
+      text
+      imageUrls
       language
     }
   }
@@ -205,7 +209,7 @@ const REMOVE_WELCOME_SCREEN = gql`
       id
       text
       title
-      imageUrl
+      imageUrls
       language
     }
   }
@@ -272,10 +276,12 @@ const CREATE_LINE_OF_BUSINESS = gql`
   mutation CreateLineOfBusiness(
     $createLineOfBusinessInput: CreateLineOfBusinessInput!
     $language: LanguageEnum!
+    $image: Upload!
   ) {
     createLineOfBusiness(
       createLineOfBusinessInput: $createLineOfBusinessInput
       language: $language
+      image: $image
     ) {
       id
       name
@@ -310,6 +316,8 @@ const GET_CONTACT_US = gql`
       id
       phoneNumber
       email
+      telegramChannel
+      whatsappNumber
       websiteUrl
     }
   }
@@ -322,6 +330,8 @@ const CREATE_CONTACT_US = gql`
       phoneNumber
       email
       websiteUrl
+      telegramChannel
+      whatsappNumber
     }
   }
 `;
@@ -333,6 +343,8 @@ const REMOVE_CONTACT_US = gql`
       phoneNumber
       email
       websiteUrl
+      telegramChannel
+      whatsappNumber
     }
   }
 `;
@@ -653,6 +665,10 @@ const GET_AREA = gql`
         name
         cityId
 
+        city {
+          id
+          name
+        }
         language
       }
     }
@@ -668,7 +684,10 @@ const CREATE_AREA = gql`
       id
       name
       cityId
-
+      city {
+        id
+        name
+      }
       language
     }
   }
@@ -680,7 +699,10 @@ const UPDATE_AREA = gql`
       id
       name
       cityId
-
+      city {
+        id
+        name
+      }
       language
     }
   }
@@ -692,6 +714,10 @@ const REMOVE_AREA = gql`
       id
       name
       cityId
+      city {
+        id
+        name
+      }
       language
     }
   }
@@ -912,18 +938,24 @@ const REMOVE_SUB_SPECIALITY = gql`
 /////********                                          *******//////////////
 
 const GET_PROVIDER = gql`
-  query ListAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
+  query ListAllProviders(
+    $insuranceCompanyId: Int!
+    $tierRank: Int!
+    $areaId: [Int!]!
     $specialityId: [Int]
-    $areaId: [Int]
-    $categoryId: [Int]
+    $providerTypeId: [Int]
+    $subSpecialityId: [Int]
     $search: String
     $page: Int
     $limit: Int
   ) {
-    listAllProvidersBySpecialityIdAndSubSpecialityIdAndAreaIdAndCategoryId(
-      specialityId: $specialityId
+    listAllProviders(
+      insuranceCompanyId: $insuranceCompanyId
+      tierRank: $tierRank
       areaId: $areaId
-      categoryId: $categoryId
+      specialityId: $specialityId
+      providerTypeId: $providerTypeId
+      subSpecialityId: $subSpecialityId
       search: $search
       page: $page
       limit: $limit
@@ -939,9 +971,12 @@ const GET_PROVIDER = gql`
         isOnline
         hasChronicMedication
         websiteUrl
-        categoryId
         areaId
         specialityId
+        subSpecialityId
+        tierRank
+        providerTypeId
+        insuranceCompanyId
         language
       }
     }
@@ -949,7 +984,7 @@ const GET_PROVIDER = gql`
 `;
 
 const CREATE_PROVIDER = gql`
-  mutation CreateProvider(
+  mutation Mutation(
     $createProviderInput: CreateProviderInput!
     $language: LanguageEnum!
   ) {
@@ -969,6 +1004,10 @@ const CREATE_PROVIDER = gql`
       websiteUrl
       areaId
       specialityId
+      subSpecialityId
+      tierRank
+      providerTypeId
+      insuranceCompanyId
       language
     }
   }
@@ -989,13 +1028,17 @@ const UPDATE_PROVIDER = gql`
       websiteUrl
       areaId
       specialityId
+      subSpecialityId
+      tierRank
+      providerTypeId
+      insuranceCompanyId
       language
     }
   }
 `;
 
 const REMOVE_PROVIDER = gql`
-  mutation RemoveProvider($removeProviderId: Int!) {
+  mutation UpdateProvider($removeProviderId: Int!) {
     removeProvider(id: $removeProviderId) {
       id
       name
@@ -1009,6 +1052,10 @@ const REMOVE_PROVIDER = gql`
       websiteUrl
       areaId
       specialityId
+      subSpecialityId
+      tierRank
+      providerTypeId
+      insuranceCompanyId
       language
     }
   }
@@ -1071,6 +1118,7 @@ const REMOVE_CLIENT_CITY = gql`
 /////********                                     *********//////////////
 /////****************** CLIENT AREA QUERIES AND MUTITION *********//////////////
 /////********                                          *******//////////////
+
 const GET_CLIENT_AREA = gql`
   query ListAllClientAreasByClientCityId($clientCityId: [Int!]!) {
     listAllClientAreasByClientCityId(clientCityId: $clientCityId) {
@@ -1122,6 +1170,204 @@ const REMOVE_CLIENT_AREA = gql`
     }
   }
 `;
+
+/////********                                     *********//////////////
+/////****************** User Profile Queries And Mutations*********//////////////
+/////********                                          *******//////////////
+
+const GET_USERS_PROFILES = gql`
+  query UsersProfiles($phoneNumber: String) {
+    usersProfiles(phoneNumber: $phoneNumber) {
+      uuid
+      name
+      phoneNumber
+      gender
+      email
+      dateOfbirth
+      profileImgUrl
+    }
+  }
+`;
+
+const GET_USER_PROFILE = gql`
+  query UserProfile($uuid: String!) {
+    userProfile(uuid: $uuid) {
+      uuid
+      name
+      email
+      phoneNumber
+      dateOfbirth
+      profileImgUrl
+      gender
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** Wellness tip Queries And Mutations*********//////////////
+/////********                                          *******//////////////
+
+const GET_WELLNESS_TIPS_OF_USER = gql`
+  query Query($userProfileUuid: String) {
+    wellnessTipsOfUser(userProfileUuid: $userProfileUuid) {
+      id
+      name
+      description
+      details
+      images
+      pdfs
+      thumbnails
+      userProfileUuid
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+const CREATE_WELLNESS_TIP = gql`
+  mutation CreateWellnessTip(
+    $createWellnessTipInput: CreateWellnessTipInput!
+    $attachments: [Upload]
+  ) {
+    createWellnessTip(
+      createWellnessTipInput: $createWellnessTipInput
+      attachments: $attachments
+    ) {
+      id
+      name
+    }
+  }
+`;
+
+const CREATE_GLOBAL_WELLNESS_TIP = gql`
+  mutation CreateGlobalWellnessTip(
+    $createGlobalWellnessTipInput: CreateGlobalWellnessTipCareInput!
+    $attachments: [Upload]
+  ) {
+    createGlobalWellnessTip(
+      createGlobalWellnessTipInput: $createGlobalWellnessTipInput
+      attachments: $attachments
+    ) {
+      name
+      description
+    }
+  }
+`;
+
+const UPDATE_WELLNESS_TIP = gql`
+  mutation UpdateWellnessTip($updateWellnessTipInput: UpdateWellnessTipInput!) {
+    updateWellnessTip(updateWellnessTipInput: $updateWellnessTipInput) {
+      id
+      name
+    }
+  }
+`;
+
+const REMOVE_WELLNESS_TIP = gql`
+  mutation RemoveWellnessTip($removeWellnessTipId: Int!) {
+    removeWellnessTip(id: $removeWellnessTipId) {
+      id
+      name
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** Health Care Queries And Mutations*********//////////////
+/////********                                          *******//////////////
+
+const GET_HEALTH_CARE_OF_USER = gql`
+  query HealthCareOfUser($userProfileUuid: String) {
+    healthCareOfUser(userProfileUuid: $userProfileUuid) {
+      id
+      name
+      description
+      details
+      images
+      pdfs
+      thumbnails
+      userProfileUuid
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+const CREATE_HEALTH_CARE = gql`
+  mutation Mutation(
+    $createHealthCareInput: CreateHealthCareInput!
+    $attachments: [Upload]
+  ) {
+    createHealthCare(
+      createHealthCareInput: $createHealthCareInput
+      attachments: $attachments
+    ) {
+      id
+      name
+    }
+  }
+`;
+
+const CREATE_GLOBAL_HEALTH_CARE = gql`
+  mutation Mutation(
+    $createGlobalHealthCareInput: CreateGlobalHealthCareInput!
+    $attachments: [Upload]
+  ) {
+    createGlobalHealthCare(
+      createGlobalHealthCareInput: $createGlobalHealthCareInput
+      attachments: $attachments
+    ) {
+      name
+      id
+    }
+  }
+`;
+
+const UPDATE_HEALTH_CARE = gql`
+  mutation UpdateHealthCare(
+    $updateHealthCareInput: UpdateHealthCareInput!
+    $attachments: [Upload]
+  ) {
+    updateHealthCare(
+      updateHealthCareInput: $updateHealthCareInput
+      attachments: $attachments
+    ) {
+      id
+      name
+    }
+  }
+`;
+
+const REMOVE_HEALTH_CARE = gql`
+  mutation RemoveHealthCare($removeHealthCareId: Int!) {
+    removeHealthCare(id: $removeHealthCareId) {
+      id
+      name
+    }
+  }
+`;
+
+/////********                                     *********//////////////
+/////****************** Notifications Queries And Mutations*********//////////////
+/////********                                          *******//////////////
+
+
+
+const SEND_NOTIFICATION_TO_DEVICE = gql`
+  mutation Mutation($sendNotificationToDeviceInput: SendNotificationToDeviceInput, $image: Upload) {
+  sendNotificationToDevice(sendNotificationToDeviceInput: $sendNotificationToDeviceInput, image: $image)
+}
+`;
+
+const SEND_NOTIFICATION_TO_MULTIPLE_DEVICES = gql`
+  mutation SendNotificationToMultipleDevices($sendNotificationToMultipleDevicesInput: SendNotificationToMultipleDevicesInput, $image: Upload) {
+  sendNotificationToMultipleDevices(sendNotificationToMultipleDevicesInput: $sendNotificationToMultipleDevicesInput, image: $image) {
+    failureCount
+    successCount
+  }
+}
+`;
+
 
 export {
   GET_FAQ,
@@ -1192,4 +1438,18 @@ export {
   CREATE_CLIENT_AREA,
   UPDATE_CLIENT_AREA,
   REMOVE_CLIENT_AREA,
+  GET_USER_PROFILE,
+  GET_USERS_PROFILES,
+  GET_WELLNESS_TIPS_OF_USER,
+  CREATE_WELLNESS_TIP,
+  CREATE_GLOBAL_WELLNESS_TIP,
+  UPDATE_WELLNESS_TIP,
+  REMOVE_WELLNESS_TIP,
+  GET_HEALTH_CARE_OF_USER,
+  CREATE_HEALTH_CARE,
+  CREATE_GLOBAL_HEALTH_CARE,
+  UPDATE_HEALTH_CARE,
+  REMOVE_HEALTH_CARE,
+  SEND_NOTIFICATION_TO_DEVICE,
+  SEND_NOTIFICATION_TO_MULTIPLE_DEVICES
 };
